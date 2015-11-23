@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 	before do 
-		
 		@valid_patient = {
 			first_name: "Tobey",
 			middle_name: "Snake-River",
 			last_name: "Torres",
 			phone: "0123456789",
-			#address_attributes: [@valid_address],
+			address: FactoryGirl.create(:address),
 			username: "ttorres",
 			email: "ttorres@snakeriverconspiracy.com",
-			crypted_password: "TheSmiths",
+			password: "TheSmiths",
+			password_confirmation: "TheSmiths",
 			patient: true,
 			doctor: false,
 			admin: false
@@ -146,10 +146,10 @@ RSpec.describe User, type: :model do
 				User.create(u)
 			}).to_not change(User, :count)
 		end
-					
-		it "must be a valid email address" do
-			valid_email_address = %w[user@example.com USER@foo.COM A_US-ER@Foo.bar.org first.last@foo.jp alice+bob@baz.cn user@an.example.com 12@example.com]
-			valid_email_address.each do |email_address|
+		
+		valid_email_address = %w(user@example.com USER@foo.COM A_US-ER@Foo.bar.org first.last@foo.jp alice+bob@baz.cn user@an.example.com 12@example.com)
+		valid_email_address.each do |email_address|
+			it "must be a valid email address" do
 				u = @valid_patient
 				u[:email] = email_address
 				expect(lambda{
@@ -158,9 +158,9 @@ RSpec.describe User, type: :model do
 			end
 		end
 
-		it "must not be an invalid email address" do
-			invalid_email_address = %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com .@example.com foo@bar..com]
-			invalid_email_address.each do |email_address|
+		invalid_email_address = %w(user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com .@example.com foo@bar..com)
+		invalid_email_address.each do |email_address|
+			it "must not be an invalid email address" do
 				u = @valid_patient
 				u[:email] = email_address
 				expect(lambda{
@@ -189,6 +189,33 @@ RSpec.describe User, type: :model do
 	end
 
 	context "Password" do
+		it "must be present" do
+			u = @valid_patient
+			u[:password] = ""
+			expect(lambda{
+				User.create(u)
+			}).to_not change(User, :count)
+		end
+
+		it "must produce an error if no password is given" do
+			u = User.new
+			expect(u.errors[:password]).to_not be_nil
+		end
+
+		it "must be at least six characters long" do
+			u = FactoryGirl.build(:user)
+			u.password = "five5"
+			u.password_confirmation = "five5"
+			expect(u).to_not be_valid
+		end
+		
+		it "must have a password confirmation that matches the password" do
+			u = FactoryGirl.build(:user)
+			u.password = "TrainsNsewing"
+			u.password_confirmation = "Machines"
+			expect(u).to_not be_valid
+		end
+
 	end
 
 	context "Phone" do
@@ -209,7 +236,7 @@ RSpec.describe User, type: :model do
 	context "Address" do
 		it "must be present" do
 			u = @valid_patient
-			u[:address] = ""
+			u[:address] = nil
 			expect(lambda{
 				User.create(u)
 			}).to_not change(User, :count)
@@ -233,9 +260,6 @@ RSpec.describe User, type: :model do
 	context "Admin" do
 		it "must be able to approve new users"
 		it "must be able to delete doctors"
-	end
-	context "Associations" do
-
 	end
 
 end

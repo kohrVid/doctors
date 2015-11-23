@@ -4,9 +4,11 @@ FactoryGirl.define do
 	middle_name "Snake-River"
 	last_name "Torres"
 	phone "0123456789"
+	address {create(:address)}
 	username "ttorres"
 	email "ttorres@snakeriverconspiracy.com"
-	crypted_password "TheSmiths"
+	password "TheSmiths"
+	password_confirmation "TheSmiths"
 	patient true
 	doctor false
 	admin false

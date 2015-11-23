@@ -26,6 +26,8 @@ group :development, :test do
   gem "factory_girl_rails"
   gem "rspec-html-matchers"
   gem "nokogiri"
+  #gem "capybara"
+  #gem "guard-rspec"
 end
 
 group :development do

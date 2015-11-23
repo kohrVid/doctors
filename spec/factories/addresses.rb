@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :address do
-    user ""
     street "33 Vulcan"
     address_line2 "Snake River"
     city "San Francisco"
