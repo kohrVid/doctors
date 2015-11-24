@@ -12,7 +12,9 @@ RSpec.describe User, type: :model do
 			email: "ttorres@snakeriverconspiracy.com",
 			password: "TheSmiths",
 			password_confirmation: "TheSmiths",
+			approved: true,
 			patient: true,
+			reception: false,
 			doctor: false,
 			admin: false
 		}
@@ -243,23 +245,24 @@ RSpec.describe User, type: :model do
 		end
 
 	end
+	context "Preferred Doctor" do
+		it "can exist" do
+			expect(User.new).to respond_to(:preferred_doctor)
+		end
 
-	context "Patient" do
-		it "must be unable to approve itself"
-		it "must be unable to approve other users"
+		it "must be a type of user" do
+			u = FactoryGirl.build(:user)
+			expect(u.preferred_doctor).to_not be_nil
+			expect(u.preferred_doctor).to be_kind_of(User)
+		end
 	end
 
-	context "Doctor" do
-		it "must be able to approve new users"
-		it "must be able to edit pages"
-		it "must be able to lock patient accounts"
-		it "must not be able to lockout other doctors"
-		it "must not be able to delete user accounts"
+
+	context "Appointments" do
+		it "can exist" do
+			expect(User.new).to respond_to(:appointments)
+		end
 	end
 
-	context "Admin" do
-		it "must be able to approve new users"
-		it "must be able to delete doctors"
-	end
 
 end

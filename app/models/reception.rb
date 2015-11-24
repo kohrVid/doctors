@@ -1,0 +1,2 @@
+class Reception < User
+end

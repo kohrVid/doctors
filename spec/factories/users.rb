@@ -9,8 +9,10 @@ FactoryGirl.define do
 	email "ttorres@snakeriverconspiracy.com"
 	password "TheSmiths"
 	password_confirmation "TheSmiths"
+	approved true
 	patient true
-	doctor false
+	reception false
+	doctor 	false
 	admin false
 
   end

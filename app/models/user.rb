@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
 	before_validation :downcase_username, :downcase_email
+	has_many :doctors, class_name: "User", foreign_key: "doctor_id"
+	has_many :patients, class_name: "User", foreign_key: "patient_id"
 	has_one :address, dependent: :destroy
 	accepts_nested_attributes_for :address
 
 	acts_as_authentic do |c|
 		c.login_field = :username
 		c.validate_email_field = false
+		c.crypto_provider = Authlogic::CryptoProviders::BCrypt
 	end
 	
 	VALID_EMAIL_REGEX = /\A[^\.]+[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i 
