@@ -12,6 +12,19 @@ RSpec.describe Appointment, type: :model do
 		}
 	end
 
+	it "must have required fields or be invalid" do
+		a = Appointment.new
+		expect(a).to_not be_valid
+	end
+
+	it "must create a new appointment with valid attributes" do
+		expect(lambda{
+			Appointment.create(@valid_appointment)
+		}).to change(Appointment, :count).by(1)
+	end
+
+
+
 	context "Associations" do
 		it "belongs to doctors" do
 			expect(Appointment.new).to respond_to(:doctor)

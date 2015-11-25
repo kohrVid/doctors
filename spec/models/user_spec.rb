@@ -62,6 +62,15 @@ RSpec.describe User, type: :model do
 				User.create(u)
 			}).to_not change(User, :count)
 		end
+
+		it "must be optional" do
+			u = @valid_patient
+			u[:middle_name] = ""
+			expect(lambda{
+				User.create(u)
+			}).to change(User, :count).by(1)
+		end
+
 	end
 
 	context "Last Name" do
@@ -127,6 +136,17 @@ RSpec.describe User, type: :model do
 			expect(lambda{
 				User.create(v)
 			}).to_not change(User, :count)
+		end
+
+		it "can't be in list of banned usernames" do
+			banned_usernames = %w(admin moderator webmaster webadmin administrator adm)
+			banned_usernames.each do |name|
+				u = @valid_patient
+				u[:username] = name
+				expect(lambda{
+					User.create(u)
+				}).to_not change(User, :count)
+			end
 		end
 	end
 
@@ -245,24 +265,11 @@ RSpec.describe User, type: :model do
 		end
 
 	end
-	context "Preferred Doctor" do
-		it "can exist" do
-			expect(User.new).to respond_to(:preferred_doctor)
-		end
-
-		it "must be a type of user" do
-			u = FactoryGirl.build(:user)
-			expect(u.preferred_doctor).to_not be_nil
-			expect(u.preferred_doctor).to be_kind_of(User)
-		end
-	end
-
-
+	
 	context "Appointments" do
 		it "can exist" do
 			expect(User.new).to respond_to(:appointments)
 		end
 	end
-
 
 end

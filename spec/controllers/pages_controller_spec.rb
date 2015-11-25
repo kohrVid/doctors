@@ -24,12 +24,11 @@ RSpec.describe PagesController, type: :controller do
 		end
 	end
 
-	context "Doctors and admins" do
-		it "must be able to edit pages"
+	context "Permissions" do
+		it "must be allow Doctors to edit pages"
+		it "must be allow Admins to edit pages"
+		it "must prevent Reception from edit pages"
+		it "must prevent patients from edit pages"
 	end
-	context "Patient" do
-		it "must be unable to edit pages"
-	end
-
 
  end

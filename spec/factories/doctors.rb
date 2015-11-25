@@ -10,9 +10,9 @@ FactoryGirl.define do
 	password "TheCure"
 	password_confirmation "TheCure"
 	approved true
-	patient true
+	patient false
 	reception false
-	doctor false
+	doctor true
 	admin false
   end
 
