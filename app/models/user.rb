@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 	has_many :appointments
 	has_one :address, dependent: :destroy
 	accepts_nested_attributes_for :address
+	scope :doctors, -> { where(doctor: true)}
+	scope :patients, -> { where(patient: true)}
 
 	acts_as_authentic do |c|
 		c.login_field = :username
@@ -14,13 +16,14 @@ class User < ActiveRecord::Base
 	
 	VALID_EMAIL_REGEX = /\A[^\.]+[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i 
 
-
-	validates :first_name, presence: true, length: {maximum: 50}
-	validates :middle_name, length: {maximum: 75}
-	validates :last_name, presence: true, length: {maximum: 50}
-	validates :username, presence: true, length: {maximum: 15}, uniqueness: true, exclusion: {in: %w(admin moderator webmaster webadmin administrator adm)}
-	validates :email, length: {maximum: 255}, allow_blank: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: true
-	validates :password, length: {minimum: 6}
+	validates :title, presence: true, length: { maximum: 5 }
+	validates :first_name, presence: true, length: { maximum: 50 }
+	validates :middle_name, length: { maximum: 75 }
+	validates :last_name, presence: true, length: { maximum: 50 }
+	validates :dob, presence: true
+	validates :username, presence: true, length: { maximum: 15 }, uniqueness: true, exclusion: { in: %w(admin moderator webmaster webadmin administrator adm) }
+	validates :email, length: { maximum: 255 }, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+	validates :password, length: { minimum: 6 }
 	validates :phone, presence: true
 	validates :address, presence: true
 

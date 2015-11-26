@@ -1,0 +1,7 @@
+	    t.integer :height
+	    t.integer :weight
+	    t.integer :bmi
+	    t. :blood_glucose
+	    t.integer :diastolic_blood_pressure
+	    t.integer :systolic_blood_pressure
+	    t.integer :distace

@@ -3,9 +3,11 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 	before do 
 		@valid_patient = {
+			title: "Ms",
 			first_name: "Tobey",
 			middle_name: "Snake-River",
 			last_name: "Torres",
+			dob:"1973-11-15",
 			phone: "0123456789",
 			address: FactoryGirl.create(:address),
 			username: "ttorres",
@@ -28,6 +30,30 @@ RSpec.describe User, type: :model do
 		expect(lambda{
 			User.create(@valid_patient)
 		}).to change(User, :count).by(1)
+	end
+
+	context "Title" do
+		it "must be present" do
+			u = @valid_patient
+			u[:title] = ""
+			expect(lambda{
+				User.create(u)
+			}).to_not change(User, :count)
+		end
+		
+		it "must produce an error if no title is given" do
+			u = User.new
+			expect(u.errors[:title]).to_not be_nil
+		end
+
+		it "must be no more than 5 characters long" do
+			u = @valid_patient
+			u[:title] = "t"*6
+			expect(lambda{
+				User.create(u)
+			}).to_not change(User, :count)
+
+		end
 	end
 
 	context "First Name" do
@@ -94,6 +120,21 @@ RSpec.describe User, type: :model do
 				User.create(u)
 			}).to_not change(User, :count)
 
+		end
+	end
+	
+	context "Date of Birth" do
+		it "must be present" do
+			u = @valid_patient
+			u[:dob] = ""
+			expect(lambda{
+				User.create(u)
+			}).to_not change(User, :count)
+		end
+		
+		it "must produce an error if no date is given" do
+			u = User.new
+			expect(u.errors[:dob]).to_not be_nil
 		end
 	end
 

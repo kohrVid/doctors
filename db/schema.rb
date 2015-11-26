@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125072305) do
+ActiveRecord::Schema.define(version: 20151126170429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20151125072305) do
   end
 
   add_index "addresses", ["user_id"], name: "index_addresses_on_user_id", using: :btree
+
+  create_table "allergies", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.string   "patient_type"
+    t.text     "name"
+    t.date     "date_of_diagnosis"
+    t.boolean  "medication"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
 
   create_table "appointments", force: :cascade do |t|
     t.integer  "doctor_id"
@@ -47,6 +57,47 @@ ActiveRecord::Schema.define(version: 20151125072305) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "personal_health_records", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.string   "patient_type"
+    t.date     "date"
+    t.text     "record_type"
+    t.integer  "value"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "prescriptions", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.string   "patient_type"
+    t.time     "date"
+    t.text     "drug"
+    t.text     "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
+  create_table "test_results", force: :cascade do |t|
+    t.integer  "patient_id"
+    t.string   "patient_type"
+    t.time     "date"
+    t.text     "name"
+    t.text     "results"
+    t.text     "diagnosis"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "user_sessions", force: :cascade do |t|
@@ -75,6 +126,11 @@ ActiveRecord::Schema.define(version: 20151125072305) do
     t.boolean  "approved",            default: false
     t.integer  "preferred_doctor_id"
     t.boolean  "locked",              default: false
+    t.integer  "nhs_number"
+    t.text     "title"
+    t.date     "dob"
+    t.text     "gender"
+    t.text     "biography"
   end
 
   add_foreign_key "addresses", "users"

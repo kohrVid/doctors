@@ -1,8 +1,10 @@
 FactoryGirl.define do
   factory :user do
+	title "Ms"
 	first_name "Tobey"
 	middle_name "Snake-River"
 	last_name "Torres"
+	dob "1973-11-15"
 	phone "0123456789"
 	address {create(:address)}
 	username "ttorres"
