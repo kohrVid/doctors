@@ -1,16 +1,17 @@
 <%= image_tag "slide2.jpg", width: "100%"%>
 <div class="contain-to-grid sticky">
 	<nav class="top-bar" data-topbar role="navigation">
+		<div class="top-bar-section">
 		<ul class="title-area">
 			<li class="name">
-				<h1><a href="#">The Doctor's</a></h1>
+				<h1><%= link_to "The Doctor's", "#" %></h1>
 			</li>
 			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 		</ul>
-		<section class="top-bar-section">
 		<!-- Right Nav Section -->
 			<ul class="right">
-				<li class="active"><a href="#">Right Button Active</a></li>
+				<li><input type="text" placeholder="Find Stuff" class = "active" /></li>
+				<li><%=link_to "", "#", class: "button active fi-magnifying-glass" %></li>
 				<li class="has-dropdown">
 					<a href="#">Right Button Dropdown</a>
 					<ul class="dropdown">
@@ -23,12 +24,12 @@
 			<ul class="left">
 				<li><a href="#">Left Nav Button</a></li>
 			</ul>
-		</section>
+		</div>
 	</nav>
 </div>
 <br>
  
-<div class="row columns">
+<div class="row">
 	<nav aria-label="You are here:" role="navigation">
 		<ul class="breadcrumbs">
 			<li><a href="#">Home</a></li>
@@ -40,4 +41,3 @@
 		</ul>
 	</nav>
 </div>
-

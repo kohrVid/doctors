@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="medium-6 columns">
+		<%= render 'layouts/messages' %>
+		<%= yield :top %>
+	</div>
+	<div class="medium-6 large-5 columns">
+		<h3>Quick Links</h3>
+		<label>Size
+			<select>
+				<option value="husker">Small</option>
+				<option value="starbuck">Medium</option>
+				<option value="hotdog">Large</option>
+				<option value="apollo">Yeti</option>
+			</select>
+		</label>
+		<h3>Have Your Say</h3>
+		<li class = "no-bullet">Surveys, &c.</li>
+		<%= link_to "Book an appointment", "#", class: "button large expand" %>
+		<div class="button-group even-3">
+			<li class="button secondary">Facebook</li>
+			<li class="button secondary">Twitter</li>
+			<li class="button secondary">Yo</li>
+		</div>
+		<h3>Further Information</h3>
+	</div>
+</div>
+

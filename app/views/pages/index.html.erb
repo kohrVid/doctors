@@ -1,0 +1,67 @@
+<% content_for :top do%>
+	<a class="th" href = "#"><img src="https://placehold.it/650x350"></a>
+	<div class="row small-up-4">
+		<div class="column">
+			<img class="th" src="https://placehold.it/250x200">
+		</div>
+		<div class="column">
+			<img class="th" src="https://placehold.it/250x200">
+		</div>
+		<div class="column">
+			<img class="th" src="https://placehold.it/250x200">
+		</div>
+		<div class="column">
+			<img class="th" src="https://placehold.it/250x200">
+		</div>
+	</div>
+<%end%>
+
+<% content_for :bottom do%>
+	<div class="row">
+		<hr>
+		<ul class="tabs" data-tab role="tablist">
+			<li class="tab-title active" role = "presentation"><a href="#panel1" aria-selected="true" role = "tab" tab-index = "0" aria-controls="panel1">Get In Touch</a></li>
+			<li class="tab-title" role = "presentation"><a href="#panel2" role = "tab" tab-index = "0" aria-selected = "false" aria-controls = "panel2">Your Doctors</a></li>
+		</ul>
+		<div class="tabs-content">
+			<section role="tabpanel" id="panel1" aria-hidden="false" class = "content active">
+				<h4>Get in Touch</h4>
+				<label>
+					Message
+					<textarea placeholder="None"></textarea>
+				</label>
+				<button class="button">Submit</button>
+				<div class="media-object">
+					<div class="media-object-section">
+						<img class="th" src="http://placehold.it/200x200">
+					</div>
+					<div class="media-object-section">
+						<h5>Testimonials</h5>
+						<p> Dr. Hammer was really quick to diagnose my testicular torsion and got it fixed in a jiffy. Thanks a million!</p>
+						<p><b>--Dean x</b></p>
+					</div>
+				</div>
+			</section>
+			<section role ="tabpanel" id="panel2" aria-hidden = "true" class = "content">
+				<div class="media-object">
+					<div class="media-object-section">
+						<img class="th" src="http://placehold.it/200x200">
+					</div>
+					<div class="media-object-section">
+						<h5>Dr E. Hammer</h5>
+						<p> Eric is one of the doctors here. He knows the Sovereign.</p>
+					</div>
+				</div>
+				<div class="media-object">
+					<div class="media-object-section">
+						<img class="th" src="http://placehold.it/200x200">
+					</div>
+					<div class="media-object-section">
+						<h5>Dr Girlfriend</h5>
+						<p>She also works here and is an excellent driver. She also sings.</p>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+<%end%>

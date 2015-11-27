@@ -21,7 +21,7 @@ gem "mail_form", "~> 1.5.1"
 gem "simple_calendar", "~> 2.0"
 gem 'ckeditor', '~> 4.1', '>= 4.1.4'
 gem "google-translate", "~> 1.1.2"
-gem "friendly_id", "~> 5.1"
+gem "friendly_id", "~> 5.1", :require => "friendly_id"
 
 gem 'rack-attack', '~> 4.3'
 gem 'rubocop', '~> 0.35.1' #run "rubocop --rails" to use
@@ -41,6 +41,6 @@ end
 
 group :development do
   gem 'web-console', '~> 2.0'
-
+  gem 'rails_layout'
   gem 'spring'
 end

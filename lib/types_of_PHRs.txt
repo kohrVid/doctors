@@ -5,3 +5,5 @@
 	    t.integer :diastolic_blood_pressure
 	    t.integer :systolic_blood_pressure
 	    t.integer :distace
+
+more details at --> http://jenpersson.com/record-case-study-patient-data-access/
