@@ -9,29 +9,35 @@ RSpec.describe PatientsController, type: :controller do
 	
 	context "'GET' index" do
 		it "should be successful" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get "index"
-			expect(response).to be_success
+			expect(get :index).to be_success
 		end
 
 		it "should render the 'index' template" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get :index
-			expect(response).to render_template("index")
+			expect(get :index).to render_template("index")
 		end
 	end
 
 	context "'GET' new" do
 		it "should be successful" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get "new"
-			expect(response).to be_success
+			expect(get :new).to be_success
 		end
 
 		it "should render the 'new' template" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get :new
-			expect(response).to render_template("new")
+			expect(get :new).to render_template("new")
+		end
+	end
+
+	context "Non-Users" do
+		it "should be unable to view patients" do
+			expect { get :show, id: patient.id }.to raise_error(CanCan::AccessDenied)
+		end
+		
+		it "should be unable to edit patients" do
+			expect { get :edit, id: patient.id }.to raise_error(CanCan::AccessDenied)
+		end
+		
+		it "should be unable to delete patients" do
+			expect { delete :destroy, id: patient.id }.to raise_error(CanCan::AccessDenied)
 		end
 	end
 

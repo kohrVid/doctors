@@ -10,29 +10,35 @@ RSpec.describe UsersController, type: :controller do
 	
 	context "'GET' index" do
 		it "should be successful" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get "index"
-			expect(response).to be_success
+			expect(get :index).to be_success
 		end
 
 		it "should render the 'index' template" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get :index
-			expect(response).to render_template("index")
+			expect(get :index).to render_template("index")
 		end
 	end
 
 	context "'GET' new" do
 		it "should be successful" do
-#			allow(controller).to receive(:current_user).and_return(admin)
-			get "new"
-			expect(response).to be_success
+			expect(get :new).to be_success
 		end
 
 		it "should render the 'new' template" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get :new
-			expect(response).to render_template("new")
+			expect(get :new).to render_template("new")
+		end
+	end
+
+	context "Non-Users" do
+		it "should be unable to view patients" do
+			expect { get :show, id: patient.id }.to raise_error(CanCan::AccessDenied)
+		end
+		
+		it "should be unable to edit users" do
+			expect { get :edit, id: patient.id }.to raise_error(CanCan::AccessDenied)
+		end
+		
+		it "should be unable to delete users" do
+			expect { delete :destroy, id: patient.id }.to raise_error(CanCan::AccessDenied)
 		end
 	end
 
@@ -147,7 +153,7 @@ RSpec.describe UsersController, type: :controller do
 		it "must be able to create new users" do
 			allow(controller).to receive(:current_user).and_return(admin)
 			ability = Ability.new(admin)
-			expect(ability).to be_able_to(:new, User.new(@valid_user))
+			expect(ability).to be_able_to(:create, User.new(@valid_user))
 		end
 
 		it "must be able to approve new users" do

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 	
 	root 		 	   "pages#index"
+	resources :password_resets,  only: [:new, :create, :edit, :update] 
 	resources :appointments
 	resources :pages
 	resources :users

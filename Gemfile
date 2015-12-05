@@ -15,6 +15,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 gem "rspec-rails", "3.4.0" 
+gem "webrat", ">= 0.7.2.beta.2"
 gem "foundation-rails", "~> 5.5.3.2"
 gem 'authlogic', '~> 3.4', '>= 3.4.6'
 gem 'cancancan', '~> 1.10'
@@ -38,7 +39,7 @@ group :development, :test do
   gem "nokogiri", "~> 1.6.6.4"
   gem "simplecov", :require => false, :group => :test
 
-  #gem "capybara"
+  gem "capybara"
   #gem "guard-rspec"
 end
 

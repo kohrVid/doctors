@@ -48,8 +48,4 @@ class UsersController < ApplicationController
 		def user_params
 			params.require(:user).permit(:title, :first_name, :middle_name, :last_name, :dob, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
 		end
-
-	#	def authorised_user
-	#		if @user == @
-	#	end
 end

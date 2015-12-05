@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :page do
-    title "MyText"
-description "MyText"
+    title "Medical Info"
+description "This valuable medical infor for NHS patients"
   end
 
 end

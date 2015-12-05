@@ -18,16 +18,19 @@ class Ability
 	 can :manage, User, id: user.id
 	 cannot :destroy, User
 	 can :read, Admin
+         can :read, Page
+#	 cannot :manage, Page
        elsif user.patient?
          can :manage, Patient, id: user.id
          can :manage, User, id: user.id
 	 cannot :destroy, User, id: user.id
 	 cannot :destroy, Patient, id: user.id
+         can :read, Page
        else
          can :read, Page
 	 can :read, Doctor
        end
-    
+   
     # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions
