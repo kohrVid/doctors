@@ -1,2 +1,0 @@
-class Reception < User
-end

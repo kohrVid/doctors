@@ -6,12 +6,12 @@
   config.x_download_options = 'noopen'
   config.x_permitted_cross_domain_policies = 'none'
   config.csp = {
-    :default_src => "https: self",
+    :default_src => "'self'",
     :script_src => "https: self",
     :img_src => "self",
     :tag_report_uri => true,
     :enforce => true,
-    :app_name => 'secure_headers_test',
+    :app_name => 'doctors',#'secure_headers_test',
     :report_uri => '/csp_reports'
   }
   config.hpkp = {

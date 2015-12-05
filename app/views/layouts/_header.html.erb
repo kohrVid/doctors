@@ -1,43 +1,50 @@
-<%= image_tag "slide2.jpg", width: "100%"%>
-<div class="contain-to-grid sticky">
-	<nav class="top-bar" data-topbar role="navigation">
-		<div class="top-bar-section">
-		<ul class="title-area">
-			<li class="name">
-				<h1><%= link_to "The Doctor's", "#" %></h1>
-			</li>
-			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-		</ul>
-		<!-- Right Nav Section -->
-			<ul class="right">
-				<li><input type="text" placeholder="Find Stuff" class = "active" /></li>
-				<li><%=link_to "", "#", class: "button active fi-magnifying-glass" %></li>
-				<li class="has-dropdown">
-					<a href="#">Right Button Dropdown</a>
-					<ul class="dropdown">
-						<li><a href="#">First link in dropdown</a></li>
-						<li class="active"><a href="#">Active link in dropdown</a></li>
-					</ul>
+<header>
+	<div>
+		<div class = "header_text">
+			The Doctor will see you now!
+		</div>
+		<%= image_tag "slide2.jpg", width: "100%"%>
+	</div>
+	<div class="contain-to-grid sticky">
+		<nav class="top-bar" data-topbar role="navigation">
+			<div class="top-bar-section">
+			<ul class="title-area">
+				<li class="name">
+					<h1><%= link_to "The Doctor's", "#" %></h1>
+				</li>
+				<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+			</ul>
+			<!-- Right Nav Section -->
+				<ul class="right">
+					<li><input type="text" placeholder="Find Stuff" class = "active" /></li>
+					<li><%=link_to "", "#", class: "button active fi-magnifying-glass" %></li>
+					<li class="has-dropdown">
+						<a href="#">Right Button Dropdown</a>
+						<ul class="dropdown">
+							<li><a href="#">First link in dropdown</a></li>
+							<li class="active"><a href="#">Active link in dropdown</a></li>
+						</ul>
+					</li>
+				</ul>
+				<!-- Left Nav Section -->
+				<ul class="left">
+					<li><a href="#">Left Nav Button</a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<br>
+	 
+	<div class="row">
+		<nav aria-label="You are here:" role="navigation">
+			<ul class="breadcrumbs">
+				<li><a href="#">Home</a></li>
+				<li><a href="#">Features</a></li>
+				<li class="disabled">Gene Splicing</li>
+				<li>
+					<span class="show-for-sr">Current: </span> Cloning
 				</li>
 			</ul>
-			<!-- Left Nav Section -->
-			<ul class="left">
-				<li><a href="#">Left Nav Button</a></li>
-			</ul>
-		</div>
-	</nav>
-</div>
-<br>
- 
-<div class="row">
-	<nav aria-label="You are here:" role="navigation">
-		<ul class="breadcrumbs">
-			<li><a href="#">Home</a></li>
-			<li><a href="#">Features</a></li>
-			<li class="disabled">Gene Splicing</li>
-			<li>
-				<span class="show-for-sr">Current: </span> Cloning
-			</li>
-		</ul>
-	</nav>
-</div>
+		</nav>
+	</div>
+</header>

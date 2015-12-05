@@ -14,7 +14,27 @@ FactoryGirl.define do
 	password_confirmation "TheCure"
 	approved true
 	patient false
-	reception false
+	receptionist false
+	doctor true
+	admin false
+  end
+  
+  factory :doctor2 do
+	title "Dr"
+	first_name "Mrs"
+	middle_name "TheMonarch"
+	last_name "Girlfriend"
+	dob "1969-07-28"
+	phone "0123456789"
+	address {create(:address)}
+	biography "She also works here and is an excellent driver. She also sings."
+	username "drgirlfriend"
+	email "drgirlfriend@hospital.com"
+	password "DepecheMode"
+	password_confirmation "DepecheMode"
+	approved true
+	patient false
+	receptionist false
 	doctor true
 	admin false
   end

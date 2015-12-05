@@ -16,7 +16,7 @@ FactoryGirl.define do
 	password_confirmation "RobertSmith"
 	approved true
 	patient true
-	reception false
+	receptionist false
 	doctor 	false
 	admin false
 

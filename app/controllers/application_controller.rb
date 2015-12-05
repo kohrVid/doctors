@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  include CanCan::ControllerAdditions
   protect_from_forgery with: :exception
   ensure_security_headers
 
@@ -15,6 +16,4 @@ class ApplicationController < ActionController::Base
 	def current_user
 		@current_user ||= current_user_session && current_user_session.user
 	end
-
-
 end

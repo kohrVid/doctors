@@ -6,9 +6,8 @@ Rails.application.routes.draw do
 	resources :users
 	resource :user_sessions, 	   only: [:new, :create, :destroy]
 	resources :doctors do
-		resources :patients do
-			resources :appontments
-		end
+		resources :patients
+		resources :appontments
 	end
 	resources :patients do
 		resources :appontments
@@ -16,5 +15,6 @@ Rails.application.routes.draw do
 	get    "login"  		=> "user_sessions#new"
 	post   "login"  		=> "user_sessions#create"
         delete "logout"  		=> "user_sessions#destroy"
+	get    "signup"  		=> "users#new"
 
 end

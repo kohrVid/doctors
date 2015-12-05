@@ -17,6 +17,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "rspec-rails", "3.4.0" 
 gem "foundation-rails", "~> 5.5.3.2"
 gem 'authlogic', '~> 3.4', '>= 3.4.6'
+gem 'cancancan', '~> 1.10'
 gem "mail_form", "~> 1.5.1"
 gem "simple_calendar", "~> 2.0"
 gem 'ckeditor', '~> 4.1', '>= 4.1.4'
@@ -35,6 +36,8 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.5.0"
   gem "rspec-html-matchers", "0.7.0"
   gem "nokogiri", "~> 1.6.6.4"
+  gem "simplecov", :require => false, :group => :test
+
   #gem "capybara"
   #gem "guard-rspec"
 end

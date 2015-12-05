@@ -17,7 +17,7 @@ RSpec.describe Doctor, type: :model do
 			password_confirmation: "TheCure",
 			approved: true,
 			patient: false,
-			reception: false,
+			receptionist: false,
 			doctor: true,
 			admin: false
 		}
@@ -35,6 +35,23 @@ RSpec.describe Doctor, type: :model do
 			d = Doctor.new
 			expect(d.errors[:biography]).to_not be_nil
 		end
+
+		it "must be at least 10 characters long" do
+			d = @valid_doctor
+			d[:biography] = "b"*9
+			expect(lambda{
+				Doctor.create(d)
+			}).to_not change(Doctor, :count)
+		end
+		
+		it "must be no longer than 750 characters" do
+			d = @valid_doctor
+			d[:biography] = "b"*751
+			expect(lambda{
+				Doctor.create(d)
+			}).to_not change(Doctor, :count)
+		end
+			
 	end
 =begin
 	context "Gender" do

@@ -1,66 +1,174 @@
 require 'rails_helper'
+require 'cancan/matchers'
 
 RSpec.describe UsersController, type: :controller do
+	let(:patient) { FactoryGirl.create(:patient) }
+	let(:patient2) { FactoryGirl.create(:user) }
+	let(:doctor) { FactoryGirl.create(:doctor) }
+	let(:receptionist) { FactoryGirl.create(:receptionist) }
+	let(:admin) { FactoryGirl.create(:admin) }
+	
 	context "'GET' index" do
 		it "should be successful" do
+			allow(controller).to receive(:current_user).and_return(admin)
 			get "index"
 			expect(response).to be_success
 		end
 
 		it "should render the 'index' template" do
+			allow(controller).to receive(:current_user).and_return(admin)
 			get :index
 			expect(response).to render_template("index")
 		end
 	end
+
 	context "'GET' new" do
 		it "should be successful" do
+#			allow(controller).to receive(:current_user).and_return(admin)
 			get "new"
 			expect(response).to be_success
 		end
 
 		it "should render the 'new' template" do
+			allow(controller).to receive(:current_user).and_return(admin)
 			get :new
 			expect(response).to render_template("new")
 		end
 	end
 
 	context "Patient" do
-		
-		it "must be unable to edit other users" do
-			u = FactoryGirl.create(:user)
-			v = FactoryGirl.create(:doctor)
-			UserSession.create(u)
-			get "edit", id: v.id
-			expect(respond).to_not be_success
-			expect(flash).to_not be_empty
-
-		end
-		
-		it "must be able to edit its attributes" do
-		end
-		
-		it "must be unable to see other non-medical staff's attributes" do
-		end
-
 		it "must be able to see its attributes" do
+			allow(controller).to receive(:current_user).and_return(patient)
+			ability = Ability.new(patient)
+			expect(ability).to be_able_to(:read, User.find(patient.id))
+		end
+		
+		it "must be able edit itself" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(patient)
+			expect(ability).to be_able_to(:update, User.find(patient.id))
+		end
+		
+		it "must be unable delete itself" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(patient)
+			expect(ability).to_not be_able_to(:destroy, User.find(patient.id))
 		end
 	end
 
 	context "Doctor" do
-		it "must be able to approve new users"
-		it "must be able to lock patient accounts"
-		it "must not be able to lockout other doctors"
-		it "must not be able to delete user accounts"
+		let(:doctor2) { FactoryGirl.create(:doctor, username: "drgirlfriend", email: "drgirlfriend@thehospital.com") }
+
+		it "must be able to see its attributes" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(doctor)
+			expect(ability).to be_able_to(:read, User.find(doctor.id))
+		end
+
+		it "must be able edit itself" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(doctor)
+			expect(ability).to be_able_to(:update, User.find(doctor.id))
+		end
+		
+		it "must be unable delete itself" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(doctor)
+			expect(ability).to_not be_able_to(:destroy, User.find(doctor.id))
+		end
+		
+		it "must not be able to lockout other doctors" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(doctor)
+			expect(ability).to_not be_able_to(:update, User.find(doctor2.id))
+		end
+
+		it "must not be able to delete user accounts" do
+			allow(controller).to receive(:current_user).and_return(doctor)
+			ability = Ability.new(doctor)
+			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
+		end
 	end
 
-	context "Reception" do	it "must be able to create new users"
-		it "must be able to create new users"
-		it "must be able to reset user passwords"
+	context "Receptionist" do	
+		let(:receptionist2) { FactoryGirl.create(:receptionist, username: "number24", email: "number24@thehospital.com") }
+		it "must be able to see its attributes" do
+			allow(controller).to receive(:current_user).and_return(receptionist)
+			ability = Ability.new(receptionist)
+			expect(ability).to be_able_to(:read, User.find(receptionist.id))
+		end
+
+		it "must be able edit itself" do
+			allow(controller).to receive(:current_user).and_return(receptionist)
+			ability = Ability.new(receptionist)
+			expect(ability).to be_able_to(:update, User.find(receptionist.id))
+		end
+		
+		it "must be unable delete itself" do
+			allow(controller).to receive(:current_user).and_return(receptionist)
+			ability = Ability.new(receptionist)
+			expect(ability).to_not be_able_to(:destroy, User.find(receptionist.id))
+		end
+		
+		it "must not be able to lockout other receptionists" do
+			allow(controller).to receive(:current_user).and_return(receptionist)
+			ability = Ability.new(receptionist)
+			expect(ability).to_not be_able_to(:update, User.find(receptionist2.id))
+		end
+
+		it "must not be able to delete user accounts" do
+			allow(controller).to receive(:current_user).and_return(receptionist)
+			ability = Ability.new(receptionist)
+			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
+		end
+
 	end
 
 	context "Admin" do
-		it "must be able to approve new users"
-		it "must be able to delete doctors"
+		let(:admin2) { FactoryGirl.create(:admin, username: "jurbaniak", email: "jurbaniak@thehospital.com") }
+		it "must be able to see its attributes" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:read, User.find(admin.id))
+		end
+
+		it "must be able edit itself" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:update, User.find(admin.id))
+		end
+		
+		it "must be unable delete itself" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			ability = Ability.new(admin)
+			expect(ability).to_not be_able_to(:destroy, User.find(admin.id))
+		end
+		
+		it "must be able to create new users" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:new, User.new(@valid_user))
+		end
+
+		it "must be able to approve new users" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			get "edit", id: patient.id
+			expect(response).to render_template("edit")
+			##################################
+		end
+		
+		it "must be able to delete user accounts" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:destroy, User.new)
+		end
+
+		it "should be able to delete other admin accounts" do
+			allow(controller).to receive(:current_user).and_return(admin)
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:destroy, User.find(admin2.id))
+		end
+	
 =begin
 		it "should not allow the admin attribute to be edited via the web" do
 			log_in_as(@other_user)

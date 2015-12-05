@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 	accepts_nested_attributes_for :address
 	scope :doctors, -> { where(doctor: true)}
 	scope :patients, -> { where(patient: true)}
+	scope :receptionists, -> { where(receptionist: true)}
 
 	acts_as_authentic do |c|
 		c.login_field = :username
