@@ -4,6 +4,11 @@ class ApplicationController < ActionController::Base
   include CanCan::ControllerAdditions
   protect_from_forgery with: :exception
   ensure_security_headers
+  
+  include Mercury::Authentication
+  
+  layout :layout_with_mercury
+  helper_method :is_editing?
 
 #  self.responder = ApplicationResponder
   helper_method :current_user_session, :current_user
@@ -15,5 +20,14 @@ class ApplicationController < ActionController::Base
 
 	def current_user
 		@current_user ||= current_user_session && current_user_session.user
+	end
+
+
+	def layout_with_mercury
+		!params[:mercury_frame] && is_editing? ? 'mercury' : 'application'
+	end
+
+	def is_editing?
+		cookies[:editing] == 'true' && can_edit?
 	end
 end

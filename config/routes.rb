@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 	
+    namespace :mercury do
+      resources :images
+    end
+  Mercury::Engine.routes
 	root 		 	   "pages#index"
 	resources :password_resets,  only: [:new, :create, :edit, :update] 
 	resources :appointments

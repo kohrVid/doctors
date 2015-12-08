@@ -26,5 +26,7 @@ RSpec.describe "user_sessions/new.html.erb", type: :view do
 	it "should display a submit button" do
 		expect(rendered).to have_selector("input[name*=commit]")
 	end
+
+
 end
 

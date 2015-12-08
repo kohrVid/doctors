@@ -13,7 +13,46 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require wysihtml
+//= require wysihtml-toolbar
+//= require parser_rules/advanced_unwrap
 //= require_tree .
 $(function() {
   $(document).foundation();
 });
+/*
+var wysihtml5ParserRules = {
+  "type_definitions": {
+      "text_color_object": {
+        "styles": {
+          "color": true
+        }
+      },
+  },
+  
+  tags: {
+    "span": {
+        "one_of_type": {
+            "text_color_object": 1
+        },
+        "keep_styles": {
+            "color": 1
+        },
+        "remove_action": "unwrap"
+    }
+  }
+};
+*/
+   var editor = new wysihtml5.Editor("wysihtml5-textarea", { // id of textarea element
+      toolbar:      "wysihtml5-toolbar", // id of toolbar element
+      stylesheets:  "<%= stylesheet_path('wysihtml') %>", // optional, css to style the editor's content
+      parserRules:  wysihtml5ParserRules, // defined in parser rules set
+      //showToolbarAfterInit: false
+	"events": {
+	      "color": function() { 
+	         $('wysihtml5-textarea').trigger('change');
+      		}
+   	}
+   });
+
+

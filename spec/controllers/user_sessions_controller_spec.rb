@@ -16,7 +16,7 @@ RSpec.describe UserSessionsController, type: :controller do
 	
 	context "'POST' login" do
 		it "should be successful" do
-			post "create", user: { username: "ttorres", password: "TheSmiths" }
+			post "create", user_session: { username: "ttorres", password: "TheSmiths" }
 			expect(response).to be_success
 		end
 	end
@@ -25,7 +25,7 @@ RSpec.describe UserSessionsController, type: :controller do
 		it "must stop unapproved users logging in" do 
 			u = FactoryGirl.create(:user)
 			u[:approved] = false
-			post "create", user: { username: "ttorres", password: "TheSmiths"}
+			post "create", user_session: { username: "ttorres", password: "TheSmiths"}
 			expect(response).to_not be_success
 		end
 	end
@@ -34,7 +34,7 @@ RSpec.describe UserSessionsController, type: :controller do
 		it "must stop locked users logging in" do 
 			u = FactoryGirl.create(:user)
 			u[:locked] = true
-			post "create", user: { username: "ttorres", password: "TheSmiths"}
+			post "create", user_session: { username: "ttorres", password: "TheSmiths"}
 			expect(response).to_not be_success
 		end
 	end

@@ -1,0 +1,17 @@
+<%= form_for @page do |f| %>
+	<p>
+		<%= f.label :title %><br />
+		<%= f.text_field :title %>
+	</p>
+	<p>
+		<%= f.label :description %>
+		<div id = "wysihtml5-toolbar">
+			<%= render "wysihtml_toolbar" %>
+		</div>
+		<%= f.text_area :description, id: "wysihtml5-textarea", rows: "20" %>
+	</p>
+	<p>
+	<%= f.submit "Submit", class: "button" %>
+	</p>
+<%end%>
+
