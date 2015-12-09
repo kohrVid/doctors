@@ -1,4 +1,37 @@
 <% provide(:title, "Users") %> 
 <% content_for :main do%>
+	<h4>Users</h4>
+	<table>
+		<tr>
+			<th></th>
+			<th>Name<th>
+			<th>Username<th>
+			<th>Category<th>
+			<th colspan="3"> </th>
+		</tr>
+		<% @users.each do |u| %>
+			<tr>
+				<td><%= u.id %></td>
+				<td><%= u.first_name %> <%= u.middle_name %> <%= u.last_name %></td>
+				<td><%= u.username %></td>
+				<td>
+					<% if u.admin? %>
+						Admin
+					<% elsif u.doctor? %>
+						Doctor
+					<% elsif u.receptionist? %>
+						Receptionist
+					<% elsif u.patient? %>
+						Patient
+					<%else%>
+						<span class = "pending">Pending Approval</span>
+					<%end%>
+				</td>
+				<td><%= u.first_name %></td>
+				<td><%= u.first_name %></td>
+				<td><%= u.first_name %></td>
+			</tr>
+		<%end%>
+	</table>
 
 <%end%>

@@ -15,11 +15,11 @@ RSpec.describe "pages/new.html.erb", type: :view do
 		expect(rendered).to have_selector("form")
 	end
 
-	it "has an input for title" do
+	it "has an input for Title" do
 		expect(rendered).to have_selector("input[name*=title]")
 	end
 
-	it "has an input for description" do
+	it "has an input for Description" do
 		expect(rendered).to have_selector("textarea[name*=description]")
 	end
 

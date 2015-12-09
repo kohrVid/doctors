@@ -5,10 +5,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   ensure_security_headers
   
-  include Mercury::Authentication
-  
-  layout :layout_with_mercury
-  helper_method :is_editing?
 
 #  self.responder = ApplicationResponder
   helper_method :current_user_session, :current_user

@@ -28,6 +28,7 @@ class PagesController < ApplicationController
 	end
 
 	def update
+		@page = Page.find(params[:id])
 		if @page.update_attributes(page_params)
 			flash[:success] = "Page updated"
 			redirect_to @page

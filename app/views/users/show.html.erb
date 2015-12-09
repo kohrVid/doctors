@@ -1,4 +1,60 @@
 <% provide(:title, @user.first_name + " " + @user.last_name) %> 
 <% content_for :main do%>
+	<h4><%= @user.title + " " + @user.first_name + " " + @user.last_name %></h4>
+	<p>
+		<strong>Title:</strong> <%= @user.title %>
+	</p>
+	<p>
+		<strong>First Name:</strong> <%= @user.first_name %>
+	</p>
+	<p>
+		<strong>Middle Name:</strong> <%= @user.middle_name %>
+	</p>
+	<p>
+		<strong>Last Name:</strong> <%= @user.last_name %>
+	</p>
+	<p>
+		<strong>Date of Birth:</strong> <%= @user.dob.year %>
+		(<strong>Age:</strong> <%= DateTime.now.year - @user.dob.year %>)
+	
+	</p>
+	<p>
+		<strong>Username:</strong> <%= @user.username %>
+	</p>
+	<p>
+		<strong>Email Address:</strong> <%= @user.email %>
+	</p>
+	<p>
+		<strong>Phone:</strong> <%= @user.phone %>
+	</p>
+	<h5>Address:</h5>
+	<table>
+		<tr>
+			<td><strong>Street:</strong></td>
+			<td><%= @user.address.street %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><%= @user.address.address_line2 %></td>
+		</tr>
+		<tr>
+			<td><strong>City:</strong></td>
+			<td><%= @user.address.city %></td>
+		</tr>
+		<tr>
+			<td><strong>County:</strong></td>
+			<td><%= @user.address.county %></td>
+		</tr>
+		<tr>
+			<td><strong>Post Code:</strong></td>
+			<td><%= @user.address.post_code %></td>
+		</tr>
+	</table>
 
+	<p>
+		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>
+			<%= link_to "<< Back to Users", users_path %> | 
+		<%end%>
+		<%= link_to "Edit", edit_user_path(@user) %>
+	</p>
 <%end%>

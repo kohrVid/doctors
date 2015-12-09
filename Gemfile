@@ -55,4 +55,4 @@ group :development do
   gem 'rails_layout'
 #  gem 'spring'
 end
-gem 'paperclip'
+
