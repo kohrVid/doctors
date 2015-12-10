@@ -1,23 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe "users/edit.html.erb", type: :view do
+RSpec.describe "patients/new.html.erb", type: :view do
 	context "attributes" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
 		it "must display the full title of page" do
-			expect(response).to have_title("The Doctor's | Edit User")
+			expect(rendered).to have_title("The Doctor's | Register")
 		end
 		
 		it "has a form posting to /users" do
-			expect(response).to have_selector("form")
+			expect(rendered).to have_selector("form")
 		end
 
 		it "has an input for Title" do
-			expect(response).to have_selector("input[name*=title]")
+			expect(rendered).to have_selector("input[name*=title]")
 		end
 
 		it "has an input for First Name" do
@@ -35,7 +33,15 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		it "has an input for Date of Birth" do
 			expect(rendered).to have_selector("select[name*=dob]")
 		end
+		
+		it "has an input for Gender" do
+			expect(rendered).to have_selector("input[name*=gender]")
+		end
 
+		it "has an input for NHS Number" do
+			expect(rendered).to have_selector("input[name*=nhs_number]")
+		end
+		
 		it "has an input for Username" do
 			expect(rendered).to have_selector("input[name*=username]")
 		end
@@ -76,18 +82,6 @@ RSpec.describe "users/edit.html.erb", type: :view do
 			expect(rendered).to have_selector("input[name*=phone]")
 		end
 
-		it "should display a submit button" do
-			expect(rendered).to have_selector("input[name*=commit]")
-		end
-	end
-		
-	context "Patient" do
-		before(:each) do
-			@current_user = FactoryGirl.create(:user)
-			assign(:user, @current_user)
-			render :template => "users/edit", :layout => "layouts/application"
-		end
-
 		it "should not have an Approval boolean" do
 			expect(rendered).to_not have_selector("input[name*=approved]")
 		end
@@ -104,25 +98,15 @@ RSpec.describe "users/edit.html.erb", type: :view do
 			expect(rendered).to_not have_selector("input[name*=admin]")
 		end
 		
-		it "should not have a Locked boolean" do
-			expect(rendered).to_not have_selector("input[name*=locked]")
-		end
-		
-		it "should not have a Destroy button" do
-			expect(rendered).to_not have_link("Destroy")
-		end
-		
-		it "shouldn't have a Back to Users button" do
-			expect(rendered).to_not have_link("a", text: "<< Back to Users", href: users_path)
+		it "should display a submit button" do
+			expect(rendered).to have_selector("input[name*=commit]")
 		end
 	end
-	
+
 	context "Receptionist" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
 			@current_user = FactoryGirl.create(:receptionist)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
 		it "should have an Approval boolean" do
@@ -141,50 +125,42 @@ RSpec.describe "users/edit.html.erb", type: :view do
 			expect(rendered).to_not have_selector("input[name*=admin]")
 		end
 		
-		it "should have a Locked boolean" do
-			expect(rendered).to have_selector("input[name*=locked]")
-		end
-		
-		it "should not have a Destroy button" do
-			expect(rendered).to_not have_link("Destroy")
-		end
-		
-		it "should have a Back to Users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+		it "should have a back to users button" do
+			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 	end
 	
 	context "Doctor" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
 			@current_user = FactoryGirl.create(:doctor)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
 		it "should have an Approval boolean" do
 			expect(rendered).to have_selector("input[name*=approved]")
 		end
 		
+		it "should not have a Receptionist boolean" do
+			expect(rendered).to_not have_selector("input[name*=receptionist]")
+		end
+		
+		it "should not have a Doctor boolean" do
+			expect(rendered).to_not have_selector("input[name*=doctor]")
+		end
+		
+		it "should not have an Admin boolean" do
+			expect(rendered).to_not have_selector("input[name*=admin]")
+		end
+		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
-		end
-		
-		it "should have a Locked boolean" do
-			expect(rendered).to have_selector("input[name*=locked]")
-		end
-		
-		it "should not have a Destroy button" do
-			expect(rendered).to_not have_link("Destroy")
+			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 	end
 
 	context "Admin" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
 			@current_user = FactoryGirl.create(:admin)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
 		it "should have an Approval boolean" do
@@ -204,15 +180,8 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
-		end
-		
-		it "should have a Locked boolean" do
-			expect(rendered).to have_selector("input[name*=locked]")
-		end
-		
-		it "should have a Destroy button" do
-			expect(rendered).to have_link("Destroy")
+			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 	end
+
 end

@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "users/index.html.erb", type: :view do
-	let(:user) { FactoryGirl.create(:user) }
+RSpec.describe "patients/index.html.erb", type: :view do
+	let(:patient) { FactoryGirl.create(:patient) }
 	let(:patient) { FactoryGirl.create(:patient) }
 	context "Admin" do	
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
+			assign(:patient, patient)
+			@patients = Patient.all.where(patient: true)
 			@current_user = FactoryGirl.create(:admin)
-			render :template => "users/index", :layout => "layouts/application"
+			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
 		it "must display the full title of page" do
-			expect(rendered).to have_title("The Doctor's | Users")
+			expect(rendered).to have_title("The Doctor's | Patients")
 		end
 		
 		it "has a Name" do
@@ -24,11 +24,11 @@ RSpec.describe "users/index.html.erb", type: :view do
 		end
 		
 		it "has a show button" do
-			expect(rendered).to have_link("Show", href: user_path(user))
+			expect(rendered).to have_link("Show", href: patient_path(patient))
 		end
 
 		it "has an edit button" do
-			expect(rendered).to have_link("Edit", href: edit_user_path(user))
+			expect(rendered).to have_link("Edit", href: edit_patient_path(patient))
 		end
 
 		it "has a destroy button" do
@@ -38,18 +38,18 @@ RSpec.describe "users/index.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
+			assign(:patient, patient)
+			@patients = Patient.all.where(patient: true)
 			@current_user = FactoryGirl.create(:doctor)
-			render :template => "users/index", :layout => "layouts/application"
+			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
 		it "has a show button" do
-			expect(rendered).to have_link("Show", href: user_path(user))
+			expect(rendered).to have_link("Show", href: patient_path(patient))
 		end
 
 		it "has an edit button" do
-			expect(rendered).to have_link("Edit", href: edit_user_path(user))
+			expect(rendered).to have_link("Edit", href: edit_patient_path(patient))
 		end
 		
 		it "has no a destroy button" do
@@ -59,18 +59,18 @@ RSpec.describe "users/index.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
+			assign(:patient, patient)
+			@patients = Patient.all.where(patient: true)
 			@current_user = FactoryGirl.create(:receptionist)
-			render :template => "users/index", :layout => "layouts/application"
+			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
 		it "has a show button" do
-			expect(rendered).to have_link("Show", href: user_path(user))
+			expect(rendered).to have_link("Show", href: patient_path(patient))
 		end
 
 		it "has an edit button" do
-			expect(rendered).to have_link("Edit", href: edit_user_path(user))
+			expect(rendered).to have_link("Edit", href: edit_patient_path(patient))
 		end
 		
 		it "has no a destroy button" do

@@ -13,22 +13,40 @@ class Ability
 	 can :manage, User, id: user.id
 	 can :read, Admin
 	 cannot :destroy, User
+	 cannot :destroy, Patient
        elsif user.receptionist?
          can :manage, Patient
 	 can :manage, User, id: user.id
 	 cannot :destroy, User
 	 can :read, Admin
          can :read, Page
-#	 cannot :manage, Page
+	 cannot :manage, Page
+	 cannot :destroy, User
+	 cannot :destroy, Patient
        elsif user.patient?
          can :manage, Patient, id: user.id
          can :manage, User, id: user.id
+	 can :create, Patient
 	 cannot :destroy, User, id: user.id
 	 cannot :destroy, Patient, id: user.id
          can :read, Page
+	 [:index, :show, :edit, :destroy].each do |action|
+		 cannot action, User
+	 end
+#	 [:index, :show, :edit, :destroy].each do |action|
+#		 cannot action, Patient
+#	 end
        else
          can :read, Page
 	 can :read, Doctor
+	 can :create, Patient
+	 cannot :read, Patient
+	 [:index, :show, :edit, :destroy].each do |action|
+		 cannot action, User
+	 end
+#	 [:index, :show, :edit, :destroy].each do |action|
+#		 cannot action, Patient
+#	 end
        end
    
     # The first argument to `can` is the action you are giving the user

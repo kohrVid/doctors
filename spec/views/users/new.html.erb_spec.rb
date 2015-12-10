@@ -7,7 +7,7 @@ RSpec.describe "users/new.html.erb", type: :view do
 		end
 		
 		it "must display the full title of page" do
-			expect(rendered).to have_title("The Doctor's | Register")
+			expect(rendered).to have_title("The Doctor's | New User")
 		end
 		
 		it "has a form posting to /users" do

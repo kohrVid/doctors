@@ -25,7 +25,7 @@
 		<strong>Email Address:</strong> <%= @user.email %>
 	</p>
 	<p>
-		<strong>Phone:</strong> <%= @user.phone %>
+		<strong>Phone:</strong> <%= number_to_phone(@user.phone, area_code: true) %>
 	</p>
 	<h5>Address:</h5>
 	<table>

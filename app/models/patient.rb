@@ -3,4 +3,5 @@ class Patient < User
 	
 	validates :nhs_number, presence: true, length: { is: 10 }
 	validates :gender, presence: true, length: { maximum: 5 }
+
 end

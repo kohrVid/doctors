@@ -1,4 +1,39 @@
 <% provide(:title, "Patients") %> 
 <% content_for :main do%>
+	<h4>Patients</h4>
+	<table>
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Username</th>
+			<th>Category</th>
+			<th colspan="3"> </th>
+		</tr>
+		<% @patients.each do |patient| %>
+			<tr>
+				<td><%= patient.id %></td>
+				<td><%= patient.first_name %> <%= patient.middle_name %> <%= patient.last_name %></td>
+				<td><%= patient.username %></td>
+				<td>
+					<% if patient.admin? %>
+						Admin
+					<% elsif patient.doctor? %>
+						Doctor
+					<% elsif patient.receptionist? %>
+						Receptionist
+					<% elsif patient.patient? %>
+						Patient
+					<%else%>
+						<span class = "pending">Pending Approval</span>
+					<%end%>
+				</td>
+				<td><%= link_to "Show", patient_path(patient) %></td>
+				<td><%= link_to "Edit", edit_patient_path(patient) %></td>
+				<% unless !(@current_user && @current_user.admin?) %>
+					<td><%= link_to "Destroy", method: :delete, data: { confirm: "Are you sure?" } %></td>
+				<%end%>
+			</tr>
+		<%end%>
+	</table>
 
 <%end%>

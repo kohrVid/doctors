@@ -1,4 +1,67 @@
 <% provide(:title, @patient.first_name + " " + @patient.last_name) %> 
 <% content_for :main do%>
+	<h4><%= @patient.title + " " + @patient.first_name + " " + @patient.last_name %></h4>
+	<p>
+		<strong>Title:</strong> <%= @patient.title %>
+	</p>
+	<p>
+		<strong>First Name:</strong> <%= @patient.first_name %>
+	</p>
+	<p>
+		<strong>Middle Name:</strong> <%= @patient.middle_name %>
+	</p>
+	<p>
+		<strong>Last Name:</strong> <%= @patient.last_name %>
+	</p>
+	<p>
+		<strong>Date of Birth:</strong> <%= @patient.dob.year %>
+		(<strong>Age:</strong> <%= DateTime.now.year - @patient.dob.year %>)
+	
+	</p>
+	<p>
+		<strong>Gender:</strong> <%= @patient.gender %>
+	</p>
+	<p>
+	<strong>NHS Number:</strong> <%= @patient.nhs_number.to_s.scan(/^(.{3})(.{3})(.{4})$/).join("-") %>
+	</p>
+	<p>
+		<strong>Username:</strong> <%= @patient.username %>
+	</p>
+	<p>
+		<strong>Email Address:</strong> <%= @patient.email %>
+	</p>
+	<p>
+		<strong>Phone:</strong> <%= number_to_phone(@patient.phone, area_code: true) %>
+	</p>
+	<h5>Address:</h5>
+	<table>
+		<tr>
+			<td><strong>Street:</strong></td>
+			<td><%= @patient.address.street %></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><%= @patient.address.address_line2 %></td>
+		</tr>
+		<tr>
+			<td><strong>City:</strong></td>
+			<td><%= @patient.address.city %></td>
+		</tr>
+		<tr>
+			<td><strong>County:</strong></td>
+			<td><%= @patient.address.county %></td>
+		</tr>
+		<tr>
+			<td><strong>Post Code:</strong></td>
+			<td><%= @patient.address.post_code %></td>
+		</tr>
+	</table>
+
+	<p>
+		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>
+			<%= link_to "<< Back to Patients", patients_path %> | 
+		<%end%>
+		<%= link_to "Edit", edit_patient_path(@patient) %>
+	</p>
 
 <%end%>

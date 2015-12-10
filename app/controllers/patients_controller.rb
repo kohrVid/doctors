@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
 	load_and_authorize_resource
 	def index
-		@patients = Patient.all
+		@patients = Patient.all.where(patient: true)
 	end
 
 	def new
@@ -20,11 +20,11 @@ class PatientsController < ApplicationController
 	end
 
 	def show
-		@patient = Patient.find(params[:id])
+		@patient = Patient.where(patient: true).find(params[:id])
 	end
 
 	def edit
-		@patient = Patient.find(params[:id])
+		@patient = Patient.where(patient: true).find(params[:id])
 	end
 
 	def update
@@ -38,7 +38,7 @@ class PatientsController < ApplicationController
 	end
 
 	def destroy
-		Patient.find(params[:id]).destroy
+		Patient.where(patient: true).find(params[:id]).destroy
 		flash[:success] = "Patient deleted"
 		redirect_to patients_url
 	end

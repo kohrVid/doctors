@@ -8,27 +8,12 @@ RSpec.describe UsersController, type: :controller do
 	let(:receptionist) { FactoryGirl.create(:receptionist) }
 	let(:admin) { FactoryGirl.create(:admin) }
 	
-	context "'GET' index" do
-		it "should be successful" do
-			expect(get :index).to be_success
-		end
-
-		it "should render the 'index' template" do
-			expect(get :index).to render_template("index")
-		end
-	end
-
-	context "'GET' new" do
-		it "should be successful" do
-			expect(get :new).to be_success
-		end
-
-		it "should render the 'new' template" do
-			expect(get :new).to render_template("new")
-		end
-	end
 
 	context "Non-Users" do
+		it "should be unable to view all users" do
+			expect { get :index }.to raise_error(CanCan::AccessDenied)
+		end
+		
 		it "should be unable to view patients" do
 			expect { get :show, id: patient.id }.to raise_error(CanCan::AccessDenied)
 		end
@@ -43,20 +28,25 @@ RSpec.describe UsersController, type: :controller do
 	end
 
 	context "Patient" do
-		it "must be able to see its attributes" do
+		before(:each) do
 			allow(controller).to receive(:current_user).and_return(patient)
+		end
+
+		it "should be unable to view all users" do
+			expect { get :index }.to raise_error(CanCan::AccessDenied)
+		end
+
+		it "must be able to see its attributes" do
 			ability = Ability.new(patient)
 			expect(ability).to be_able_to(:read, User.find(patient.id))
 		end
 		
 		it "must be able edit itself" do
-			allow(controller).to receive(:current_user).and_return(doctor)
 			ability = Ability.new(patient)
 			expect(ability).to be_able_to(:update, User.find(patient.id))
 		end
 		
 		it "must be unable delete itself" do
-			allow(controller).to receive(:current_user).and_return(doctor)
 			ability = Ability.new(patient)
 			expect(ability).to_not be_able_to(:destroy, User.find(patient.id))
 		end
@@ -64,33 +54,47 @@ RSpec.describe UsersController, type: :controller do
 
 	context "Doctor" do
 		let(:doctor2) { FactoryGirl.create(:doctor, username: "drgirlfriend", email: "drgirlfriend@thehospital.com") }
-
-		it "must be able to see its attributes" do
+		before(:each) do
 			allow(controller).to receive(:current_user).and_return(doctor)
+		end
+
+		it "should successfully get 'index'" do
+			expect(get :index).to be_success
+		end
+
+		it "should render the 'index' template" do
+			expect(get :index).to render_template("index")
+		end
+
+		it "should successfully get 'new'" do
+			expect(get :new).to be_success
+		end
+
+		it "should render the 'new' template" do
+			expect(get :new).to render_template("new")
+		end
+	
+		it "must be able to see its attributes" do
 			ability = Ability.new(doctor)
 			expect(ability).to be_able_to(:read, User.find(doctor.id))
 		end
 
 		it "must be able edit itself" do
-			allow(controller).to receive(:current_user).and_return(doctor)
 			ability = Ability.new(doctor)
 			expect(ability).to be_able_to(:update, User.find(doctor.id))
 		end
 		
 		it "must be unable delete itself" do
-			allow(controller).to receive(:current_user).and_return(doctor)
 			ability = Ability.new(doctor)
 			expect(ability).to_not be_able_to(:destroy, User.find(doctor.id))
 		end
 		
-		it "must not be able to lockout other doctors" do
-			allow(controller).to receive(:current_user).and_return(doctor)
+		it "must not be able to update other doctors" do
 			ability = Ability.new(doctor)
 			expect(ability).to_not be_able_to(:update, User.find(doctor2.id))
 		end
 
 		it "must not be able to delete user accounts" do
-			allow(controller).to receive(:current_user).and_return(doctor)
 			ability = Ability.new(doctor)
 			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
 		end
@@ -98,32 +102,47 @@ RSpec.describe UsersController, type: :controller do
 
 	context "Receptionist" do	
 		let(:receptionist2) { FactoryGirl.create(:receptionist, username: "number24", email: "number24@thehospital.com") }
-		it "must be able to see its attributes" do
+		before(:each) do
 			allow(controller).to receive(:current_user).and_return(receptionist)
+		end
+	
+		it "should successfully get 'index'" do
+			expect(get :index).to be_success
+		end
+
+		it "should render the 'index' template" do
+			expect(get :index).to render_template("index")
+		end
+
+		it "should successfully get 'new'" do
+			expect(get :new).to be_success
+		end
+
+		it "should render the 'new' template" do
+			expect(get :new).to render_template("new")
+		end
+		
+		it "must be able to see its attributes" do
 			ability = Ability.new(receptionist)
 			expect(ability).to be_able_to(:read, User.find(receptionist.id))
 		end
 
 		it "must be able edit itself" do
-			allow(controller).to receive(:current_user).and_return(receptionist)
 			ability = Ability.new(receptionist)
 			expect(ability).to be_able_to(:update, User.find(receptionist.id))
 		end
 		
 		it "must be unable delete itself" do
-			allow(controller).to receive(:current_user).and_return(receptionist)
 			ability = Ability.new(receptionist)
 			expect(ability).to_not be_able_to(:destroy, User.find(receptionist.id))
 		end
 		
-		it "must not be able to lockout other receptionists" do
-			allow(controller).to receive(:current_user).and_return(receptionist)
+		it "must not be able to update other receptionists" do
 			ability = Ability.new(receptionist)
 			expect(ability).to_not be_able_to(:update, User.find(receptionist2.id))
 		end
 
 		it "must not be able to delete user accounts" do
-			allow(controller).to receive(:current_user).and_return(receptionist)
 			ability = Ability.new(receptionist)
 			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
 		end
@@ -132,39 +151,52 @@ RSpec.describe UsersController, type: :controller do
 
 	context "Admin" do
 		let(:admin2) { FactoryGirl.create(:admin, username: "jurbaniak", email: "jurbaniak@thehospital.com") }
-		it "must be able to see its attributes" do
+		before(:each) do
 			allow(controller).to receive(:current_user).and_return(admin)
+		end
+		
+		it "should successfully get 'index'" do
+			expect(get :index).to be_success
+		end
+
+		it "should render the 'index' template" do
+			expect(get :index).to render_template("index")
+		end
+
+		it "should successfully get 'new'" do
+			expect(get :new).to be_success
+		end
+
+		it "should render the 'new' template" do
+			expect(get :new).to render_template("new")
+		end
+		
+		it "must be able to see its attributes" do
 			ability = Ability.new(admin)
 			expect(ability).to be_able_to(:read, User.find(admin.id))
 		end
 
 		it "must be able edit itself" do
-			allow(controller).to receive(:current_user).and_return(admin)
 			ability = Ability.new(admin)
 			expect(ability).to be_able_to(:update, User.find(admin.id))
 		end
 		
 		it "must be unable delete itself" do
-			allow(controller).to receive(:current_user).and_return(admin)
 			ability = Ability.new(admin)
 			expect(ability).to_not be_able_to(:destroy, User.find(admin.id))
 		end
 		
 		it "must be able to create new users" do
-			allow(controller).to receive(:current_user).and_return(admin)
 			ability = Ability.new(admin)
 			expect(ability).to be_able_to(:create, User.new(@valid_user))
 		end
 
 		it "must be able to approve new users" do
-			allow(controller).to receive(:current_user).and_return(admin)
-			get "edit", id: patient.id
-			expect(response).to render_template("edit")
-			##################################
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:approve, User.new)
 		end
 		
 		it "must be able to delete user accounts" do
-			allow(controller).to receive(:current_user).and_return(admin)
 			ability = Ability.new(admin)
 			expect(ability).to be_able_to(:destroy, User.new)
 		end

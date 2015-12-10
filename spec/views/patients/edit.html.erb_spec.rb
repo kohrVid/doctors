@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "users/edit.html.erb", type: :view do
+RSpec.describe "patients/edit.html.erb", type: :view do
 	context "attributes" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
-			render :template => "users/edit", :layout => "layouts/application"
+			patient = FactoryGirl.create(:patient)
+			assign(:patient, patient)
+			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		
 		it "must display the full title of page" do
-			expect(response).to have_title("The Doctor's | Edit User")
+			expect(response).to have_title("The Doctor's | Edit Patient")
 		end
 		
-		it "has a form posting to /users" do
+		it "has a form posting to /patients" do
 			expect(response).to have_selector("form")
 		end
 
@@ -34,6 +34,14 @@ RSpec.describe "users/edit.html.erb", type: :view do
 
 		it "has an input for Date of Birth" do
 			expect(rendered).to have_selector("select[name*=dob]")
+		end
+
+		it "has an input for Gender" do
+			expect(rendered).to have_selector("input[name*=gender]")
+		end
+
+		it "has an input for NHS Number" do
+			expect(rendered).to have_selector("input[name*=nhs_number]")
 		end
 
 		it "has an input for Username" do
@@ -83,9 +91,9 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		
 	context "Patient" do
 		before(:each) do
-			@current_user = FactoryGirl.create(:user)
-			assign(:user, @current_user)
-			render :template => "users/edit", :layout => "layouts/application"
+			@current_user = FactoryGirl.create(:patient)
+			assign(:patient, @current_user)
+			render :template => "patients/edit", :layout => "layouts/application"
 		end
 
 		it "should not have an Approval boolean" do
@@ -112,17 +120,17 @@ RSpec.describe "users/edit.html.erb", type: :view do
 			expect(rendered).to_not have_link("Destroy")
 		end
 		
-		it "shouldn't have a Back to Users button" do
-			expect(rendered).to_not have_link("a", text: "<< Back to Users", href: users_path)
+		it "shouldn't have a Back to Patients button" do
+			expect(rendered).to_not have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 	end
 	
 	context "Receptionist" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
+			patient = FactoryGirl.create(:patient)
+			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:receptionist)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		
 		it "should have an Approval boolean" do
@@ -149,25 +157,25 @@ RSpec.describe "users/edit.html.erb", type: :view do
 			expect(rendered).to_not have_link("Destroy")
 		end
 		
-		it "should have a Back to Users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+		it "should have a Back to Patients button" do
+			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 	end
 	
 	context "Doctor" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
+			patient = FactoryGirl.create(:patient)
+			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:doctor)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		
 		it "should have an Approval boolean" do
 			expect(rendered).to have_selector("input[name*=approved]")
 		end
 		
-		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+		it "should have a back to Patients button" do
+			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 		
 		it "should have a Locked boolean" do
@@ -181,10 +189,10 @@ RSpec.describe "users/edit.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
-			user = FactoryGirl.create(:user)
-			assign(:user, user)
+			patient = FactoryGirl.create(:patient)
+			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:admin)
-			render :template => "users/edit", :layout => "layouts/application"
+			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		
 		it "should have an Approval boolean" do
@@ -203,8 +211,8 @@ RSpec.describe "users/edit.html.erb", type: :view do
 			expect(rendered).to have_selector("input[name*=admin]")
 		end
 		
-		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+		it "should have a Back to Patients button" do
+			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 		
 		it "should have a Locked boolean" do

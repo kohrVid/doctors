@@ -21,6 +21,7 @@ RSpec.describe Patient, type: :model do
 			admin: false
 		}
 	end
+
 	context "NHS number" do
 		it "must be present" do
 			p = @valid_patient

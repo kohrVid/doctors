@@ -136,7 +136,5 @@ RSpec.describe "users/show.html.erb", type: :view do
 			expect(rendered).to have_link("Edit", href: edit_user_path(@user))
 		end
 	end
-	
-#show nhs number in 3-3-4 format
 
 end

@@ -1,7 +1,7 @@
-<% provide(:title, "Register") %> 
+<% provide(:title, "New User") %> 
 <% content_for :main do%>
 	<h4>Register</h4>
-	<%= form_for(:user, url: register_url) do |f| %>
+	<%= form_for(:user, url: users_url) do |f| %>
 		<p>
 			<%= f.label :title %><br />
 			<%= f.text_field :title %>
