@@ -10,10 +10,6 @@ RSpec.describe UsersController, type: :controller do
 	
 
 	context "Non-Users" do
-		it "should be unable to view all users" do
-			expect { get :index }.to raise_error(CanCan::AccessDenied)
-		end
-		
 		it "should be unable to view patients" do
 			expect { get :show, id: patient.id }.to raise_error(CanCan::AccessDenied)
 		end
@@ -32,10 +28,6 @@ RSpec.describe UsersController, type: :controller do
 			allow(controller).to receive(:current_user).and_return(patient)
 		end
 
-		it "should be unable to view all users" do
-			expect { get :index }.to raise_error(CanCan::AccessDenied)
-		end
-
 		it "must be able to see its attributes" do
 			ability = Ability.new(patient)
 			expect(ability).to be_able_to(:read, User.find(patient.id))
@@ -49,54 +41,6 @@ RSpec.describe UsersController, type: :controller do
 		it "must be unable delete itself" do
 			ability = Ability.new(patient)
 			expect(ability).to_not be_able_to(:destroy, User.find(patient.id))
-		end
-	end
-
-	context "Doctor" do
-		let(:doctor2) { FactoryGirl.create(:doctor, username: "drgirlfriend", email: "drgirlfriend@thehospital.com") }
-		before(:each) do
-			allow(controller).to receive(:current_user).and_return(doctor)
-		end
-
-		it "should successfully get 'index'" do
-			expect(get :index).to be_success
-		end
-
-		it "should render the 'index' template" do
-			expect(get :index).to render_template("index")
-		end
-
-		it "should successfully get 'new'" do
-			expect(get :new).to be_success
-		end
-
-		it "should render the 'new' template" do
-			expect(get :new).to render_template("new")
-		end
-	
-		it "must be able to see its attributes" do
-			ability = Ability.new(doctor)
-			expect(ability).to be_able_to(:read, User.find(doctor.id))
-		end
-
-		it "must be able edit itself" do
-			ability = Ability.new(doctor)
-			expect(ability).to be_able_to(:update, User.find(doctor.id))
-		end
-		
-		it "must be unable delete itself" do
-			ability = Ability.new(doctor)
-			expect(ability).to_not be_able_to(:destroy, User.find(doctor.id))
-		end
-		
-		it "must not be able to update other doctors" do
-			ability = Ability.new(doctor)
-			expect(ability).to_not be_able_to(:update, User.find(doctor2.id))
-		end
-
-		it "must not be able to delete user accounts" do
-			ability = Ability.new(doctor)
-			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
 		end
 	end
 
@@ -114,14 +58,6 @@ RSpec.describe UsersController, type: :controller do
 			expect(get :index).to render_template("index")
 		end
 
-		it "should successfully get 'new'" do
-			expect(get :new).to be_success
-		end
-
-		it "should render the 'new' template" do
-			expect(get :new).to render_template("new")
-		end
-		
 		it "must be able to see its attributes" do
 			ability = Ability.new(receptionist)
 			expect(ability).to be_able_to(:read, User.find(receptionist.id))
@@ -147,6 +83,50 @@ RSpec.describe UsersController, type: :controller do
 			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
 		end
 
+	end
+	
+	context "Doctor" do
+		let(:doctor2) { FactoryGirl.create(:doctor, username: "drgirlfriend", email: "drgirlfriend@thehospital.com") }
+		before(:each) do
+			allow(controller).to receive(:current_user).and_return(doctor)
+		end
+
+		it "should successfully get 'index'" do
+			expect(get :index).to be_success
+		end
+
+		it "should render the 'index' template" do
+			expect(get :index).to render_template("index")
+		end
+
+		it "should not successfully get 'new'" do
+			expect{ get :new }.to raise_error(CanCan::AccessDenied)
+		end
+
+		it "must be able to see its attributes" do
+			ability = Ability.new(doctor)
+			expect(ability).to be_able_to(:read, User.find(doctor.id))
+		end
+
+		it "must be able edit itself" do
+			ability = Ability.new(doctor)
+			expect(ability).to be_able_to(:update, User.find(doctor.id))
+		end
+		
+		it "must be unable delete itself" do
+			ability = Ability.new(doctor)
+			expect(ability).to_not be_able_to(:destroy, User.find(doctor.id))
+		end
+		
+		it "must not be able to update other doctors" do
+			ability = Ability.new(doctor)
+			expect(ability).to_not be_able_to(:update, User.find(doctor2.id))
+		end
+
+		it "must not be able to delete user accounts" do
+			ability = Ability.new(doctor)
+			expect(ability).to_not be_able_to(:destroy, User.find(patient2.id))
+		end
 	end
 
 	context "Admin" do

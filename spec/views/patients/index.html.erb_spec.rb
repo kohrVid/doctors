@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "patients/index.html.erb", type: :view do
-	let(:patient) { FactoryGirl.create(:patient) }
+	let(:user) { FactoryGirl.create(:user) }
 	let(:patient) { FactoryGirl.create(:patient) }
 	context "Admin" do	
 		before(:each) do
@@ -74,6 +74,35 @@ RSpec.describe "patients/index.html.erb", type: :view do
 		end
 		
 		it "has no a destroy button" do
+			expect(rendered).to_not have_link("Destroy")
+		end
+	end
+	
+	context "Patient" do	
+		before(:each) do
+			assign(:patient, patient)
+			@patients = Patient.all
+			@current_user = patient
+			render :template => "patients/index", :layout => "layouts/application"
+		end
+		
+		it "must not see Name" do
+			expect(rendered).to_not have_content("Name")
+		end
+
+		it "must not see Username" do
+			expect(rendered).to_not have_content("Username")
+		end
+		
+		it "must not have a show button" do
+			expect(rendered).to_not have_link("Show", href: patient_path(patient))
+		end
+
+		it "must not have an edit button" do
+			expect(rendered).to_not have_link("Edit", href: edit_patient_path(patient))
+		end
+
+		it "must not have a destroy button" do
 			expect(rendered).to_not have_link("Destroy")
 		end
 	end

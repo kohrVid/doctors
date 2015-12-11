@@ -1,7 +1,7 @@
-<% provide(:title, "Register") %> 
+<% provide(:title, "New Doctor") %> 
 <% content_for :main do%>
-	<h4>Register</h4>
-	<%= form_for(:patient, url: register_url) do |f| %>
+	<h4>New Doctor</h4>
+	<%= form_for(:doctor, url: doctors_url) do |f| %>
 		<p>
 			<%= f.label :title %><br />
 			<%= f.text_field :title %>
@@ -23,12 +23,8 @@
 			<%= f.date_select(:dob, method: :post, start_year: 1899, end_year: DateTime.now.year) %>
 		</p>
 		<p>
-			<%= f.label :gender %><br />
-			<%= f.text_field :gender %>
-		</p>
-		<p>
-			<%= f.label :nhs_number, "NHS Number" %><br />
-			<%= f.text_field number_with_delimiter(:nhs_number, :groupings => [3, 3, 4]) %>
+			<%= f.label :biography %><br />
+			<%= f.text_area :biography, rows: 10 %>
 		</p>
 		<p>
 			<%= f.label :username %><br />
@@ -51,21 +47,17 @@
 				<%= address.label :street %><br />
 				<%= address.text_field :street %>
 			</p>
-
 			<p>
 				<%= address.text_field :address_line2 %>
 			</p>
-
 			<p>
 				<%= address.label :city %><br />
 				<%= address.text_field :city %>
 			</p>
-
 			<p>
 				<%= address.label :county %><br />
 				<%= address.text_field :county %>
 			</p>
-
 			<p>
 				<%= address.label :post_code %><br />
 				<%= address.text_field :post_code %>
@@ -75,35 +67,29 @@
 			<%= f.label :phone %><br />
 			<%= f.text_field ActiveSupport::NumberHelper.number_to_phone(:phone) %>
 		</p>
-		<% unless !(@current_user && (@current_user.receptionist? || @current_user.doctor? || @current_user.admin?)) %>
-			<p>
-				<%= f.label :approved %>
-				<%= f.check_box :approved %>
-			</p>
-		<%end%>
-		
-		<% unless !(@current_user && @current_user.admin?) %>
-			<p>
-				<%= f.label :receptionist %>
-				<%= f.check_box :receptionist %>
-			</p>
-			<p>
-				<%= f.label :doctor %>
-				<%= f.check_box :doctor %>
-			</p>
-			<p>
-				<%= f.label :admin %>
-				<%= f.check_box :admin %>
-			</p>
-		<%end%>
+		<p>
+			<%= f.label :approved %>
+			<%= f.check_box :approved %>
+		</p>
+		<p>
+			<%= f.label :receptionist %>
+			<%= f.check_box :receptionist %>
+		</p>
+		<p>
+			<%= f.label :doctor %>
+			<%= f.check_box :doctor %>
+		</p>
+		<p>
+			<%= f.label :admin %>
+			<%= f.check_box :admin %>
+		</p>
 		<p>
 			<%= f.submit %>
 		</p>
+
 	<%end%>
 	<p>
-		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>
-			<%= link_to "<< Back to Patients", patients_path %>  
-		<%end%>
+		<%= link_to "<< Back to Doctors", doctors_path %>  
 	</p>
 
 <%end%>

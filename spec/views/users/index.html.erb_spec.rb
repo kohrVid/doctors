@@ -77,4 +77,34 @@ RSpec.describe "users/index.html.erb", type: :view do
 			expect(rendered).to_not have_link("Destroy")
 		end
 	end
+	
+	context "Patient" do	
+		before(:each) do
+			assign(:user, user)
+			@users = User.all
+			@current_user = FactoryGirl.create(:patient)
+			render :template => "users/index", :layout => "layouts/application"
+		end
+		
+		it "must not see Name" do
+			expect(rendered).to_not have_content("Name")
+		end
+
+		it "must not see Username" do
+			expect(rendered).to_not have_content("Username")
+		end
+		
+		it "must not have a show button" do
+			expect(rendered).to_not have_link("Show", href: user_path(user))
+		end
+
+		it "must not have an edit button" do
+			expect(rendered).to_not have_link("Edit", href: edit_user_path(user))
+		end
+
+		it "must not have a destroy button" do
+			expect(rendered).to_not have_link("Destroy")
+		end
+	end
+
 end

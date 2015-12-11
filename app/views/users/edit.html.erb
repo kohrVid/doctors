@@ -20,7 +20,7 @@
 		</p>
 		<p>
 			<%= f.label :dob, "Date of Birth" %><br />
-			<%= f.date_select(:dob, method: :post, start_year: 1899) %>
+			<%= f.date_select(:dob, method: :post, start_year: 1899, end_year: DateTime.now.year) %>
 		</p>
 		<p>
 			<%= f.label :username %><br />

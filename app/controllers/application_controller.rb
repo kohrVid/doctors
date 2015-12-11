@@ -18,12 +18,4 @@ class ApplicationController < ActionController::Base
 		@current_user ||= current_user_session && current_user_session.user
 	end
 
-
-	def layout_with_mercury
-		!params[:mercury_frame] && is_editing? ? 'mercury' : 'application'
-	end
-
-	def is_editing?
-		cookies[:editing] == 'true' && can_edit?
-	end
 end

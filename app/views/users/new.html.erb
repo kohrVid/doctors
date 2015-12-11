@@ -20,7 +20,7 @@
 		</p>
 		<p>
 			<%= f.label :dob, "Date of Birth" %><br />
-			<%= f.date_select(:dob, method: :post, start_year: 1899) %>
+			<%= f.date_select(:dob, method: :post, start_year: 1899, end_year: DateTime.now.year) %>
 		</p>
 		<p>
 			<%= f.label :username %><br />
@@ -68,9 +68,6 @@
 			<%= f.label :phone %><br />
 			<%= f.text_field :phone %>
 		</p>
-		<p>
-			<%= f.submit %>
-		</p>
 		<% unless !(@current_user && (@current_user.receptionist? || @current_user.doctor? || @current_user.admin?)) %>
 			<p>
 				<%= f.label :approved %>
@@ -92,7 +89,9 @@
 				<%= f.check_box :admin %>
 			</p>
 		<%end%>
-
+		<p>
+			<%= f.submit %>
+		</p>
 	<%end%>
 	<p>
 		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>

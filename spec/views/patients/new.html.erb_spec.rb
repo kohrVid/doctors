@@ -10,7 +10,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 			expect(rendered).to have_title("The Doctor's | Register")
 		end
 		
-		it "has a form posting to /users" do
+		it "has a form posting to /patients" do
 			expect(rendered).to have_selector("form")
 		end
 

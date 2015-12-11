@@ -6,47 +6,66 @@ class Ability
          can :manage, :all
 	 cannot :destroy, User, id: user.id
        elsif user.doctor?
-         can :manage, Patient
+         [:create, :read, :update].each do |action|
+		 can action, Patient
+	 end
+	 [:read, :update].each do |action|
+		 can action, Doctor, id: user.id
+		 can action, User, id: user.id
+	 end
+	 can :read, User
 	 can :manage, Page
-	 can :read, Doctor
-	 can :manage, Doctor, id: user.id
-	 can :manage, User, id: user.id
-	 can :read, Admin
+	 cannot :create, Doctor
 	 cannot :destroy, User
-	 cannot :destroy, Patient
        elsif user.receptionist?
-         can :manage, Patient
-	 can :manage, User, id: user.id
-	 cannot :destroy, User
-	 can :read, Admin
-         can :read, Page
-	 cannot :manage, Page
-	 cannot :destroy, User
-	 cannot :destroy, Patient
-       elsif user.patient?
-         can :manage, Patient, id: user.id
-         can :manage, User, id: user.id
-	 can :create, Patient
-	 cannot :destroy, User, id: user.id
-	 cannot :destroy, Patient, id: user.id
-         can :read, Page
-	 [:index, :show, :edit, :destroy].each do |action|
-		 cannot action, User
+	 [:read, :update].each do |action|
+		 can action, Patient
+		 can action, User, id: user.id
 	 end
-#	 [:index, :show, :edit, :destroy].each do |action|
-#		 cannot action, Patient
-#	 end
-       else
+	 can :create, Patient
+	 can :read, User
+         can :read, Page
+	 [:update, :destroy].each do |action|
+	 	cannot action, Doctor
+	 	cannot action, Page
+	 end
+	 cannot :destroy, User
+       elsif user.patient?
+	 [:update, :read].each do |action|
+		 can action, Patient, id: user.id
+		 can action, User, id: user.id
+	 end
+	 can :create, Patient
          can :read, Page
 	 can :read, Doctor
-	 can :create, Patient
-	 cannot :read, Patient
-	 [:index, :show, :edit, :destroy].each do |action|
-		 cannot action, User
+	 [:create, :update, :destroy].each do |action|
+		 cannot action, Doctor
 	 end
-#	 [:index, :show, :edit, :destroy].each do |action|
-#		 cannot action, Patient
-#	 end
+	 [:index, :destroy].each do |action|
+		 cannot action, User.all.where(doctor: false)
+		 cannot action, Patient
+	 end
+	 [:read, :update].each do |action|
+		 cannot action, User, id: !user.id
+		 cannot action, Patient, id: !user.id
+	 end
+       else
+	 [:read, :index, :show].each do |action|
+		can action, Doctor
+	 end
+	 [:index, :show, :read].each do |action|
+		 can action, Page
+	 end
+	 can :create, Patient
+	 [:index, :read, :destroy].each do |action|
+		 cannot action, Patient
+	 end
+	 [:create, :update, :destroy].each do |action|
+		 cannot action, Doctor
+	 end
+	 [:index, :update, :destroy].each do |action|
+		 cannot action, User.all.where(doctor: false)
+	 end
        end
    
     # The first argument to `can` is the action you are giving the user
