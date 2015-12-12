@@ -1,0 +1,25 @@
+<% provide(:title, "Testimonials") %> 
+<% content_for :main do%>
+	<h4>Testimonials</h4>
+	<%= link_to "Add Testimonial", new_testimonial_path, class: "right" %>
+	<table>
+		<tr>
+			<th></th>
+			<th>Date</th>
+			<th>Body</th>
+			<th>Author</th>
+			<th colspan="3"> </th>
+		</tr>
+		<% @testimonials.each do |testimonial| %>
+			<tr>
+				<td><%= testimonial.id %></td>
+				<td><%= testimonial.date.strftime("%v") %></td>
+				<td><%= testimonial.body %></td>
+				<td><%= testimonial.author %></td>
+				<td><%= link_to "Show", testimonial_path(testimonial) %></td>
+				<td><%= link_to "Edit", edit_testimonial_path(testimonial) %></td>
+				<td><%= link_to "Destroy", @testimonial, method: :delete, data: { confirm: "Are you sure? Deleted testimonials cannot be recovered." } %></td>
+			</tr>
+		<%end%>
+	</table>
+<%end%>

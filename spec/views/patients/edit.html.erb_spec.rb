@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "patients/edit.html.erb", type: :view do
+	let(:patient) { FactoryGirl.create(:patient) }
 	context "attributes" do
 		before(:each) do
-			patient = FactoryGirl.create(:patient)
 			assign(:patient, patient)
 			render :template => "patients/edit", :layout => "layouts/application"
 		end
@@ -83,15 +83,20 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		it "has an input for Phone" do
 			expect(rendered).to have_selector("input[name*=phone]")
 		end
-
+		
 		it "should display a submit button" do
 			expect(rendered).to have_selector("input[name*=commit]")
 		end
+		
+		it "should have a link to the patient's show page" do
+			expect(rendered).to have_link("a", text: (patient.full_name), href: patient_path(patient))
+		end
+
 	end
 		
 	context "Patient" do
 		before(:each) do
-			@current_user = FactoryGirl.create(:patient)
+			@current_user = patient
 			assign(:patient, @current_user)
 			render :template => "patients/edit", :layout => "layouts/application"
 		end
@@ -127,7 +132,6 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			patient = FactoryGirl.create(:patient)
 			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:receptionist)
 			render :template => "patients/edit", :layout => "layouts/application"
@@ -164,7 +168,6 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 	
 	context "Doctor" do
 		before(:each) do
-			patient = FactoryGirl.create(:patient)
 			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:doctor)
 			render :template => "patients/edit", :layout => "layouts/application"
@@ -189,7 +192,6 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
-			patient = FactoryGirl.create(:patient)
 			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:admin)
 			render :template => "patients/edit", :layout => "layouts/application"

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "pages/new.html.erb", type: :view do
 	before(:each) do
+		@page = Page.new
 		@current_user = FactoryGirl.create(:doctor)
 		assign(:doctor, @current_user)
 		render :template => "pages/new", :layout => "layouts/application"

@@ -1,5 +1,5 @@
-/*#wysihtml5-toolbar{
-	height: 75px;
+/**#wysihtml5-toolbar{
+*	height: 75px;
 }
 .edy-tb-cmd, .ed-tb-g {
 	font-size: 0.7rem !important;
@@ -10,6 +10,8 @@
  .edy-tb-menucontainer{
 	 width: 50%;
  }*/
+
+/*WYSIHTML*/
 .hidden{
 	display: none;
 }
@@ -34,3 +36,13 @@
   
   a[data-wysihtml5-command-value="blue"] {
     color: blue;
+
+/*OwlCarousel*/
+
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+

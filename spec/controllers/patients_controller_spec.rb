@@ -62,6 +62,10 @@ RSpec.describe PatientsController, type: :controller do
 			ability = Ability.new(patient)
 			expect(ability).to_not be_able_to(:read, Patient.find(patient2.id))
 		end
+		
+		it "should be unable to view other patients" do
+			expect { get :show, id: patient2.id }.to raise_error(CanCan::AccessDenied)
+		end
 	end
 
 	context "Receptionist" do	
@@ -141,17 +145,6 @@ RSpec.describe PatientsController, type: :controller do
 			ability = Ability.new(admin)
 			expect(ability).to be_able_to(:destroy, Patient.find(patient.id))
 		end
-=begin
-		it "should not allow the admin attribute to be edited via the web" do
-			log_in_as(@other_user)
-			assert_not @other_user.admin?
-			patch :update, id: @other_user, user: { password: "password",
-								 password_confirmation: "password",
-								 admin: true
-			}
-			assert_not @other_user.reload.admin?  
-		end
-=end
 	end
 
 end

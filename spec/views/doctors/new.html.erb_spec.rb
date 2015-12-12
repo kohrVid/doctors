@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "doctors/new.html.erb", type: :view do
+	let(:doctor) { FactoryGirl.create(:doctor) }
 	before(:each) do
+		@doctor = Doctor.new
+		@address = @doctor.build_address
 		@current_user = FactoryGirl.create(:admin)
 		render :template => "doctors/new", :layout => "layouts/application"
 	end

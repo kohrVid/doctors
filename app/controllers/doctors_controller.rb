@@ -6,6 +6,7 @@ class DoctorsController < ApplicationController
 
 	def new
 		@doctor = Doctor.new
+		@doctor.build_address
 	end
 
 	def create
@@ -28,6 +29,7 @@ class DoctorsController < ApplicationController
 	end
 
 	def update
+		@doctor = Doctor.where(doctor: true).find(params[:id])
 		if @doctor.update_attributes(doctor_params)
 			flash[:success] = "Profile updated"
 			redirect_to @doctor

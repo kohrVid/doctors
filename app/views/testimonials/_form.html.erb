@@ -1,0 +1,18 @@
+<%= form_for @testimonial do |f| %>
+	<p>
+		<%= f.label :body %><br />
+		<%= f.text_area :body%>
+	</p>
+	<p>
+		<%= f.label :author %><br />
+		<%= f.text_field :author %>
+	</p>
+	<p>
+		<%= f.label :date %><br />
+		<%= f.date_select(:date, method: :post, start_year: 2014, end_year: DateTime.now.year) %>
+	</p>
+	<p>
+		<%= f.submit "Submit", class: "button"%>
+	</p>
+<%end%>
+

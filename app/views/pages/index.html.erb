@@ -36,11 +36,22 @@
 					<div class="media-object-section">
 						<img class="th" src="http://placehold.it/200x200">
 					</div>
-					<div class="media-object-section">
-						<h5>Testimonials</h5>
-						<p> Dr. Hammer was really quick to diagnose my testicular torsion and got it fixed in a jiffy. Thanks a million!</p>
-						<p><b>--Dean x</b></p>
+					<div id="owl-demo" class="owl-carousel owl-theme">
+							<% Testimonial.all.each do |testimonial| %>
+								<div class = "item">
+									<center>
+										<h2><%= testimonial.body%></h2>
+										<h3><%= testimonial.author %></h3>
+									</center>
+								</div>
+							<%end%>
 					</div>
+					<% unless !(@current_user && (@current_user.admin? || @current_user.doctor?)) %>
+						<div class = "right">
+						<%= link_to "Add Testimonial", new_testimonial_path %> | 
+						<%= link_to "Manage Testimonials", testimonials_path %>
+						</div>
+					<%end%>
 				</div>
 			</section>
 			<section role ="tabpanel" id="panel2" aria-hidden = "true" class = "content">

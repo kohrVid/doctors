@@ -1,6 +1,9 @@
 <% provide(:title, "Your Doctors") %> 
 <% content_for :main do%>
 	<h4>Your Doctors</h4>
+	<% unless !(@current_user && @current_user.admin?) %>
+		<%= link_to "Add New Doctor", new_doctor_path, class: "right" %>
+	<%end%>
 	<table>
 		<tr>
 			<th></th>
@@ -12,7 +15,7 @@
 		<% @doctors.each do |doctor| %>
 			<tr>
 				<td><%= doctor.id %></td>
-				<td><%= doctor.first_name %> <%= doctor.middle_name %> <%= doctor.last_name %></td>
+				<td><%= doctor.title %> <%= doctor.full_name %></td>
 				<td><%= doctor.username %></td>
 				<td>
 					<% if doctor.admin? %>

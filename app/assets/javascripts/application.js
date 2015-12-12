@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require owl.carousel
 //= require wysihtml
 //= require wysihtml-toolbar
 //= require parser_rules/advanced_unwrap
@@ -20,6 +21,8 @@
 $(function() {
   $(document).foundation();
 });
+
+
 /*
 var wysihtml5ParserRules = {
   "type_definitions": {

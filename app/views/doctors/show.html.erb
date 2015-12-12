@@ -1,6 +1,6 @@
-<% provide(:title, @doctor.title + " " + @doctor.first_name + " " + @doctor.last_name) %> 
+<% provide(:title, @doctor.title + " " + @doctor.first_name_last_name) %> 
 <% content_for :main do%>
-	<h4><%= @doctor.title + " " + @doctor.first_name + " " + @doctor.last_name %></h4>
+	<h4><%= @doctor.title %>  <%= @doctor.first_name_last_name %></h4>
 	<p>
 		<%= @doctor.biography%>
 	</p>
@@ -19,7 +19,7 @@
 			<strong>Last Name:</strong> <%= @doctor.last_name %>
 		</p>
 		<p>
-			<strong>Date of Birth:</strong> <%= @doctor.dob.year %>
+			<strong>Date of Birth:</strong> <%= @doctor.dob.strftime("%v") %>
 			(<strong>Age:</strong> <%= DateTime.now.year - @doctor.dob.year %>)
 		
 		</p>

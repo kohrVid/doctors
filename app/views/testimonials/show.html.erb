@@ -1,0 +1,26 @@
+<% provide(:title, "Show Testimonial") %> 
+<% content_for :main do%>
+	<h4><%= Testimonial %></h4>
+	<p>
+		<strong>Body:</strong> <%= @testimonial.body %>
+	</p>
+	<p>
+		<strong>Author:</strong> <%= @testimonial.author %>
+	</p>
+	<p>
+		<strong>Date:</strong> <%= @testimonial.date %>
+	</p>
+	<p>
+		<strong>Date Created:</strong> <%= @testimonial.created_at.strftime("%v %H:%M:%S") %>
+	</p>
+	<p>
+		<strong>Date Last Modified:</strong> <%= @testimonial.updated_at.strftime("%v %H:%M:%S") %>
+	</p>
+
+	<p>
+		<%= link_to "<< Back to Testimonials", testimonials_path %> | 
+		<%= link_to "Edit", edit_testimonial_path(@testimonial) %>
+	</p>
+
+<%end%>
+

@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "patients/new.html.erb", type: :view do
-	context "attributes" do
+	context "Non-Users" do
 		before(:each) do
+			@patient = Patient.new
+			@address = @patient.build_address
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
@@ -105,6 +107,8 @@ RSpec.describe "patients/new.html.erb", type: :view do
 
 	context "Receptionist" do
 		before(:each) do
+			@patient = Patient.new
+			@address = @patient.build_address
 			@current_user = FactoryGirl.create(:receptionist)
 			render :template => "patients/new", :layout => "layouts/application"
 		end
@@ -132,6 +136,8 @@ RSpec.describe "patients/new.html.erb", type: :view do
 	
 	context "Doctor" do
 		before(:each) do
+			@patient = Patient.new
+			@address = @patient.build_address
 			@current_user = FactoryGirl.create(:doctor)
 			render :template => "patients/new", :layout => "layouts/application"
 		end
@@ -159,6 +165,8 @@ RSpec.describe "patients/new.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
+			@patient = Patient.new
+			@address = @patient.build_address
 			@current_user = FactoryGirl.create(:admin)
 			render :template => "patients/new", :layout => "layouts/application"
 		end
@@ -183,5 +191,4 @@ RSpec.describe "patients/new.html.erb", type: :view do
 			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
 		end
 	end
-
 end

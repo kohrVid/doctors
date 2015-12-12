@@ -22,6 +22,7 @@ gem 'authlogic', '~> 3.4', '>= 3.4.6'
 gem 'cancancan', '~> 1.10'
 gem "mail_form", "~> 1.5.1"
 gem "simple_calendar", "~> 2.0"
+gem "owlcarousel-rails"
 gem 'wysihtml-rails', :git => 'https://github.com/Voog/wysihtml-rails.git'
 gem "mercury-rails", :git => 'git://github.com/jejacks0n/mercury.git'
 gem "railties" #needed for mercury

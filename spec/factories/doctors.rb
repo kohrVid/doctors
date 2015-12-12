@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :doctor do
 	title "Dr"
 	first_name "Eric"
-	middle_name "A"
+	middle_name "A."
 	last_name "Hammer"
 	dob "1967-02-02"
 	phone "0123456789"

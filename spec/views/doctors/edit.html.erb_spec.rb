@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "doctors/edit.html.erb", type: :view do
+	let(:doctor) { FactoryGirl.create(:doctor) }
 	context "attributes" do
 		before(:each) do
-			doctor = FactoryGirl.create(:doctor)
 			assign(:doctor, doctor)
 			render :template => "doctors/edit", :layout => "layouts/application"
 		end
@@ -83,11 +83,15 @@ RSpec.describe "doctors/edit.html.erb", type: :view do
 		it "should display a submit button" do
 			expect(rendered).to have_selector("input[name*=commit]")
 		end
+		
+		it "should have a link to the doctor's show page" do
+			expect(rendered).to have_link("a", text: (doctor.title + " " + doctor.first_name_last_name), href: doctor_path(doctor))
+		end
+
 	end
 	
 	context "Doctor" do
 		before(:each) do
-			doctor = FactoryGirl.create(:doctor)
 			assign(:doctor, doctor)
 			@current_user = doctor
 			render :template => "doctors/edit", :layout => "layouts/application"
@@ -112,7 +116,7 @@ RSpec.describe "doctors/edit.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
-			doctor = FactoryGirl.create(:doctor)
+			@doctor = doctor
 			assign(:doctor, doctor)
 			@current_user = FactoryGirl.create(:admin)
 			render :template => "doctors/edit", :layout => "layouts/application"

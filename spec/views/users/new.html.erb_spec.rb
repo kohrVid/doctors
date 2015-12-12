@@ -1,8 +1,69 @@
 require 'rails_helper'
 
 RSpec.describe "users/new.html.erb", type: :view do
-	context "attributes" do
+	context "Receptionist" do
 		before(:each) do
+			@user = User.new
+			@address = @user.build_address
+			@current_user = FactoryGirl.create(:receptionist)
+			render :template => "users/new", :layout => "layouts/application"
+		end
+		
+		it "should have an Approval boolean" do
+			expect(rendered).to have_selector("input[name*=approved]")
+		end
+		
+		it "should not have a Receptionist boolean" do
+			expect(rendered).to_not have_selector("input[name*=receptionist]")
+		end
+		
+		it "should not have a Doctor boolean" do
+			expect(rendered).to_not have_selector("input[name*=doctor]")
+		end
+		
+		it "should not have an Admin boolean" do
+			expect(rendered).to_not have_selector("input[name*=admin]")
+		end
+		
+		it "should have a back to users button" do
+			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+		end
+	end
+	
+	context "Doctor" do
+		before(:each) do
+			@user = User.new
+			@address = @user.build_address
+			@current_user = FactoryGirl.create(:doctor)
+			render :template => "users/new", :layout => "layouts/application"
+		end
+		
+		it "should have an Approval boolean" do
+			expect(rendered).to have_selector("input[name*=approved]")
+		end
+		
+		it "should not have a Receptionist boolean" do
+			expect(rendered).to_not have_selector("input[name*=receptionist]")
+		end
+		
+		it "should not have a Doctor boolean" do
+			expect(rendered).to_not have_selector("input[name*=doctor]")
+		end
+		
+		it "should not have an Admin boolean" do
+			expect(rendered).to_not have_selector("input[name*=admin]")
+		end
+		
+		it "should have a back to users button" do
+			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+		end
+	end
+
+	context "Admin" do
+		before(:each) do
+			@user = User.new
+			@address = @user.build_address
+			@current_user = FactoryGirl.create(:admin)
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		
@@ -75,105 +136,27 @@ RSpec.describe "users/new.html.erb", type: :view do
 		end
 
 		it "should not have an Approval boolean" do
-			expect(rendered).to_not have_selector("input[name*=approved]")
+			expect(rendered).to have_selector("input[name*=approved]")
 		end
 
 		it "should not have a Receptionist boolean" do
-			expect(rendered).to_not have_selector("input[name*=receptionist]")
+			expect(rendered).to have_selector("input[name*=receptionist]")
 		end
 		
 		it "should not have a Doctor boolean" do
-			expect(rendered).to_not have_selector("input[name*=doctor]")
+			expect(rendered).to have_selector("input[name*=doctor]")
 		end
 		
 		it "should not have an Admin boolean" do
-			expect(rendered).to_not have_selector("input[name*=admin]")
+			expect(rendered).to have_selector("input[name*=admin]")
 		end
 		
 		it "should display a submit button" do
 			expect(rendered).to have_selector("input[name*=commit]")
 		end
-	end
-
-	context "Receptionist" do
-		before(:each) do
-			@current_user = FactoryGirl.create(:receptionist)
-			render :template => "users/new", :layout => "layouts/application"
-		end
-		
-		it "should have an Approval boolean" do
-			expect(rendered).to have_selector("input[name*=approved]")
-		end
-		
-		it "should not have a Receptionist boolean" do
-			expect(rendered).to_not have_selector("input[name*=receptionist]")
-		end
-		
-		it "should not have a Doctor boolean" do
-			expect(rendered).to_not have_selector("input[name*=doctor]")
-		end
-		
-		it "should not have an Admin boolean" do
-			expect(rendered).to_not have_selector("input[name*=admin]")
-		end
 		
 		it "should have a back to users button" do
 			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
 		end
 	end
-	
-	context "Doctor" do
-		before(:each) do
-			@current_user = FactoryGirl.create(:doctor)
-			render :template => "users/new", :layout => "layouts/application"
-		end
-		
-		it "should have an Approval boolean" do
-			expect(rendered).to have_selector("input[name*=approved]")
-		end
-		
-		it "should not have a Receptionist boolean" do
-			expect(rendered).to_not have_selector("input[name*=receptionist]")
-		end
-		
-		it "should not have a Doctor boolean" do
-			expect(rendered).to_not have_selector("input[name*=doctor]")
-		end
-		
-		it "should not have an Admin boolean" do
-			expect(rendered).to_not have_selector("input[name*=admin]")
-		end
-		
-		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
-		end
-	end
-
-	context "Admin" do
-		before(:each) do
-			@current_user = FactoryGirl.create(:admin)
-			render :template => "users/new", :layout => "layouts/application"
-		end
-		
-		it "should have an Approval boolean" do
-			expect(rendered).to have_selector("input[name*=approved]")
-		end
-
-		it "should have a Receptionist boolean" do
-			expect(rendered).to have_selector("input[name*=receptionist]")
-		end
-		
-		it "should have a Doctor boolean" do
-			expect(rendered).to have_selector("input[name*=doctor]")
-		end
-		
-		it "should have an Admin boolean" do
-			expect(rendered).to have_selector("input[name*=admin]")
-		end
-		
-		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
-		end
-	end
-
 end

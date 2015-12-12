@@ -2,6 +2,9 @@
 <% content_for :main do%>
 	<% unless !@current_user.present? || (@current_user && @current_user.patient?) %>
 		<h4>Users</h4>
+		<% unless !(@current_user && @current_user.admin?) %>
+			<%= link_to "Add New User", new_user_path, class: "right" %>
+		<%end%>
 		<table>
 			<tr>
 				<th></th>
@@ -13,7 +16,7 @@
 			<% @users.each do |user| %>
 				<tr>
 					<td><%= user.id %></td>
-					<td><%= user.first_name %> <%= user.middle_name %> <%= user.last_name %></td>
+					<td><%= user.full_name %></td>
 					<td><%= user.username %></td>
 					<td>
 						<% if user.admin? %>

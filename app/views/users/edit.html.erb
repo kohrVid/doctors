@@ -1,111 +1,15 @@
 <% provide(:title, "Edit User") %> 
 <% content_for :main do%>
 	<h4>Edit User</h4>
-	<%= form_for(@user) do |f| %>
-		<p>
-			<%= f.label :title %><br />
-			<%= f.text_field :title %>
-		</p>
-		<p>
-			<%= f.label :first_name, "First Name" %><br />
-			<%= f.text_field :first_name %>
-		</p>
-		<p>
-			<%= f.label :middle_name, "Middle Name" %><br />
-			<%= f.text_field :middle_name %>
-		</p>
-		<p>
-			<%= f.label :last_name, "Last Name" %><br />
-			<%= f.text_field :last_name %>
-		</p>
-		<p>
-			<%= f.label :dob, "Date of Birth" %><br />
-			<%= f.date_select(:dob, method: :post, start_year: 1899, end_year: DateTime.now.year) %>
-		</p>
-		<p>
-			<%= f.label :username %><br />
-			<%= f.text_field :username %>
-		</p>
-		<p>
-			<%= f.label :email %><br />
-			<%= f.text_field :email %>
-		</p>
-		<p>
-			<%= f.label :password, "New Password" %><br />
-			<%= f.password_field :password %>
-		</p>
-		<p>
-			<%= f.label :password_confirmation, "Password Confirmation" %><br />
-			<%= f.password_field :password_confirmation %>
-		</p>
-		<%= f.fields_for :address do |address| %>
-			<p>
-				Address:<br />
-				<%= address.label :street %><br />
-				<%= address.text_field :street %>
-			</p>
-
-			<p>
-				<%= address.text_field :address_line2 %>
-			</p>
-
-			<p>
-				<%= address.label :city %><br />
-				<%= address.text_field :city %>
-			</p>
-
-			<p>
-				<%= address.label :county %><br />
-				<%= address.text_field :county %>
-			</p>
-
-			<p>
-				<%= address.label :post_code, "Post Code" %><br />
-				<%= address.text_field :post_code %>
-			</p>
-		<%end%>
-		<p>
-			<%= f.label :phone %><br />
-			<%= f.text_field :phone %>
-		</p>
-		
-		<% unless !(@current_user && (@current_user.receptionist? || @current_user.doctor? || @current_user.admin?)) %>
-			<p>
-				<%= f.label :approved %>
-				<%= f.check_box :approved %>
-			</p>
-			<p>
-				<%= f.label :locked %>
-				<%= f.check_box :locked %>
-			</p>
-		<%end%>
-		
-		<% unless !(@current_user && @current_user.admin?) %>
-			<p>
-				<%= f.label :receptionist %>
-				<%= f.check_box :receptionist %>
-			</p>
-			<p>
-				<%= f.label :doctor %>
-				<%= f.check_box :doctor %>
-			</p>
-			<p>
-				<%= f.label :admin %>
-				<%= f.check_box :admin %>
-			</p>
-			<p>
-			<%= link_to "Destroy", @user, method: :delete, data: { confirm: "Are you sure?" } %>
-			</p>
-		<%end%>
-		<p>
-			<%= f.submit %>
-		</p>
-	<%end%>
-	
+	<%= render "form" %>	
 	<p>
 		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>
-			<%= link_to "<< Back to Users", users_path %> 
+			<%= link_to "<< Back to Users", users_path %> |
 		<%end%>
+		<% unless !(@current_user && @current_user.admin?) %>
+			<%= link_to "Destroy", @user, method: :delete, data: { confirm: "Are you sure?" } %> | 
+		<%end%>
+		<%= link_to (@user.full_name), user_path(@user) %>
 	</p>
 
 <%end%>

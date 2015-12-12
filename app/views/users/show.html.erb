@@ -1,6 +1,6 @@
-<% provide(:title, @user.first_name + " " + @user.last_name) %> 
+<% provide(:title, @user.first_name_last_name) %> 
 <% content_for :main do%>
-	<h4><%= @user.title + " " + @user.first_name + " " + @user.last_name %></h4>
+	<h4><%= @user.title %> <%= @user.first_name_last_name %></h4>
 	<p>
 		<strong>Title:</strong> <%= @user.title %>
 	</p>
@@ -14,7 +14,7 @@
 		<strong>Last Name:</strong> <%= @user.last_name %>
 	</p>
 	<p>
-		<strong>Date of Birth:</strong> <%= @user.dob.year %>
+		<strong>Date of Birth:</strong> <%= @user.dob.strftime("%v") %>
 		(<strong>Age:</strong> <%= DateTime.now.year - @user.dob.year %>)
 	
 	</p>

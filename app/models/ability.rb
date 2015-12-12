@@ -15,6 +15,7 @@ class Ability
 	 end
 	 can :read, User
 	 can :manage, Page
+	 can :manage, Testimonial
 	 cannot :create, Doctor
 	 cannot :destroy, User
        elsif user.receptionist?
@@ -25,11 +26,16 @@ class Ability
 	 can :create, Patient
 	 can :read, User
          can :read, Page
+	 can :read, Testimonial
 	 [:update, :destroy].each do |action|
 	 	cannot action, Doctor
 	 	cannot action, Page
+		cannot action, Testimonial
 	 end
 	 cannot :destroy, User
+	 [:index, :update, :destroy].each do |action|
+		 cannot action, Testimonial
+	 end
        elsif user.patient?
 	 [:update, :read].each do |action|
 		 can action, Patient, id: user.id
@@ -38,6 +44,7 @@ class Ability
 	 can :create, Patient
          can :read, Page
 	 can :read, Doctor
+	 can :read, Testimonial
 	 [:create, :update, :destroy].each do |action|
 		 cannot action, Doctor
 	 end
@@ -49,6 +56,9 @@ class Ability
 		 cannot action, User, id: !user.id
 		 cannot action, Patient, id: !user.id
 	 end
+	 [:index, :update, :destroy].each do |action|
+		 cannot action, Testimonial
+	 end
        else
 	 [:read, :index, :show].each do |action|
 		can action, Doctor
@@ -57,6 +67,7 @@ class Ability
 		 can action, Page
 	 end
 	 can :create, Patient
+	 can :read, Testimonial
 	 [:index, :read, :destroy].each do |action|
 		 cannot action, Patient
 	 end
@@ -65,6 +76,9 @@ class Ability
 	 end
 	 [:index, :update, :destroy].each do |action|
 		 cannot action, User.all.where(doctor: false)
+	 end
+	 [:index, :update, :destroy].each do |action|
+		 cannot action, Testimonial
 	 end
        end
    
