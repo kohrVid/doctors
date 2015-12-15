@@ -24,8 +24,8 @@ gem "mail_form", "~> 1.5.1"
 gem "simple_calendar", "~> 2.0"
 gem "owlcarousel-rails"
 gem 'wysihtml-rails', :git => 'https://github.com/Voog/wysihtml-rails.git'
-gem "mercury-rails", :git => 'git://github.com/jejacks0n/mercury.git'
-gem "railties" #needed for mercury
+gem "elasticsearch", git: "https://github.com/elasticsearch/elasticsearch-ruby.git"
+gem "railties"
 gem 'carrierwave', '0.10.0'
 gem 'remotipart'
 gem 'mini_magick', '~> 3.8.0'

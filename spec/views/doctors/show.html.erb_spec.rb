@@ -38,7 +38,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "shouldn't show Date of Birth" do
-			expect(rendered).to_not have_content(doctor.dob.strftime("%v"))
+			expect(rendered).to_not have_content(doctor.dob.strftime("%d %B %Y"))
 		end
 
 		it "shouldn't show Age" do
@@ -95,7 +95,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "shouldn't show Date of Birth" do
-			expect(rendered).to_not have_content(doctor.dob.strftime("%v"))
+			expect(rendered).to_not have_content(doctor.dob.strftime("%d %B %Y"))
 		end
 
 		it "shouldn't show Age" do
@@ -148,7 +148,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "shouldn't show Date of Birth" do
-			expect(rendered).to_not have_content(doctor.dob.strftime("%v"))
+			expect(rendered).to_not have_content(doctor.dob.strftime("%d %B %Y"))
 		end
 
 		it "shouldn't show Age" do
@@ -217,7 +217,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			expect(rendered).to have_content(@current_user.last_name)
 		end
 		it "should show Date of Birth" do
-			expect(rendered).to have_content(@current_user.dob.strftime("%v"))
+			expect(rendered).to have_content(@current_user.dob.strftime("%d %B %Y"))
 		end
 
 		it "should show Age" do
@@ -251,6 +251,15 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		it "should show Phone number" do
 			expect(rendered).to have_content("(012) 345-6789")
 		end
+		
+		it "should show Date Created" do
+			expect(rendered).to have_content(doctor.created_at.strftime("%d %B %Y %H:%M:%S"))
+		end
+
+		it "should show Date Last Modified" do
+			expect(rendered).to have_content(doctor.updated_at.strftime("%d %B %Y %H:%M:%S"))
+		end
+
 
 		it "should show edit button" do
 			expect(rendered).to have_link("Edit", href: edit_doctor_path(@current_user))
@@ -270,7 +279,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "shouldn't show Date of Birth" do
-			expect(rendered).to_not have_content(doctor.dob.strftime("%v"))
+			expect(rendered).to_not have_content(doctor.dob.strftime("%d %B %Y"))
 		end
 
 		it "shouldn't show Age" do
@@ -339,7 +348,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			expect(rendered).to have_content(doctor.last_name)
 		end
 		it "should show Date of Birth" do
-			expect(rendered).to have_content(doctor.dob.strftime("%v"))
+			expect(rendered).to have_content(doctor.dob.strftime("%d %B %Y"))
 		end
 
 		it "should show Age" do
@@ -374,12 +383,24 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			expect(rendered).to have_content("(012) 345-6789")
 		end
 
+		it "should show Date Created" do
+			expect(rendered).to have_content(doctor.created_at.strftime("%d %B %Y %H:%M:%S"))
+		end
+
+		it "should show Date Last Modified" do
+			expect(rendered).to have_content(doctor.updated_at.strftime("%d %B %Y %H:%M:%S"))
+		end
+
 		it "should show edit button" do
 			expect(rendered).to have_link("Edit", href: edit_doctor_path(doctor))
 		end
 		
 		it "should have a back to doctors button" do
 			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+		end
+		
+		it "has a destroy button" do
+			expect(rendered).to have_link("Destroy")
 		end
 	end
 end

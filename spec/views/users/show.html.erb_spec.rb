@@ -29,7 +29,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 		end
 
 		it "shows Date of Birth" do
-			expect(rendered).to have_content(user.dob.strftime("%v"))
+			expect(rendered).to have_content(user.dob.strftime("%d %B %Y"))
 		end
 
 		it "shows Age" do
@@ -68,6 +68,13 @@ RSpec.describe "users/show.html.erb", type: :view do
 			expect(rendered).to have_content("(012) 345-6789")
 		end
 
+		it "should show Date Created" do
+			expect(rendered).to have_content(user.created_at.strftime("%d %B %Y %H:%M:%S"))
+		end
+
+		it "should show Date Last Modified" do
+			expect(rendered).to have_content(user.updated_at.strftime("%d %B %Y %H:%M:%S"))
+		end
 	end
 
 	context "Patient" do
@@ -130,6 +137,10 @@ RSpec.describe "users/show.html.erb", type: :view do
 		
 		it "shows edit button" do
 			expect(rendered).to have_link("Edit", href: edit_user_path(user))
+		end
+		
+		it "has a destroy button" do
+			expect(rendered).to have_link("Destroy")
 		end
 	end
 end

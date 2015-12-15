@@ -56,23 +56,21 @@
 			</section>
 			<section role ="tabpanel" id="panel2" aria-hidden = "true" class = "content">
 				<div class="media-object">
-					<div class="media-object-section">
-						<img class="th" src="http://placehold.it/200x200">
-					</div>
-					<div class="media-object-section">
-						<h5>Dr E. Hammer</h5>
-						<p> Eric is one of the doctors here. He knows the Sovereign.</p>
-					</div>
-				</div>
-				<div class="media-object">
-					<div class="media-object-section">
-						<img class="th" src="http://placehold.it/200x200">
-					</div>
-					<div class="media-object-section">
-						<h5>Dr Girlfriend</h5>
-						<p>She also works here and is an excellent driver. She also sings.</p>
-					</div>
-				</div>
+					<% Doctor.where(doctor: true).each do |doc|%>
+						<div class="medium-6 large-3 columns">
+							<div class="callout-card success radius">
+								<div class="card-label success">
+									<div class="label-text">
+									
+									</div>
+								</div>
+								<div class="callout-card-content">
+									<h3 class="lead"><%= doc.title%> <%= doc.first_name_last_name %></h3>
+									<p><%= doc.biography %></p><%= Dir.pwd %>
+								</div>
+							</div>
+						</div>
+					<%end%>
 			</section>
 		</div>
 	</div>

@@ -19,7 +19,7 @@
 			<strong>Last Name:</strong> <%= @doctor.last_name %>
 		</p>
 		<p>
-			<strong>Date of Birth:</strong> <%= @doctor.dob.strftime("%v") %>
+			<strong>Date of Birth:</strong> <%= @doctor.dob.strftime("%d %B %Y") %>
 			(<strong>Age:</strong> <%= DateTime.now.year - @doctor.dob.year %>)
 		
 		</p>
@@ -56,11 +56,19 @@
 			</tr>
 		<%end%>
 	</table>
+	
+	<p>
+		<strong>Date Created:</strong> <%= @doctor.created_at.strftime("%d %B %Y %H:%M:%S") %><br />
+		<strong>Date Last Modified:</strong> <%= @doctor.updated_at.strftime("%d %B %Y %H:%M:%S") %>
+	</p>
 
 	<p>
 		<%= link_to "<< Back to Doctors", doctors_path %> | 
 		<% unless !((@current_user && @current_user.admin?) || (@current_user && (@current_user.id == @doctor.id))) %>
 			<%= link_to "Edit", edit_doctor_path(@doctor) %>
+		<%end%>
+		<% unless !(@current_user && @current_user.admin?)%>
+			 | <%= link_to "Destroy", @doctor, method: :delete %>
 		<%end%>
 	</p>
 

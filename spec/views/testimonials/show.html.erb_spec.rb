@@ -21,20 +21,20 @@ RSpec.describe "testimonials/show.html.erb", type: :view do
 	end
 	
 	it "should show Date" do
-		expect(rendered).to have_content(testimonial.date.strftime("%v"))
+		expect(rendered).to have_content(testimonial.date.strftime("%d %B %Y"))
 	end
 
 	it "should show Date Created" do
-		expect(rendered).to have_content(testimonial.created_at.strftime("%v %H:%M:%S"))
+		expect(rendered).to have_content(testimonial.created_at.strftime("%d %B %Y %H:%M:%S"))
 	end
 
 	it "should show Date Last Modified" do
-		expect(rendered).to have_content(testimonial.updated_at.strftime("%v %H:%M:%S"))
+		expect(rendered).to have_content(testimonial.updated_at.strftime("%d %B %Y %H:%M:%S"))
 	end
 
 
 	it "should show edit button" do
-		expect(rendered).to have_link("Edit", href: edit_testimonial_path(@testimonial))
+		expect(rendered).to have_link("Edit", href: edit_testimonial_path(testimonial))
 	end
 	
 	it "should have a back to testimonials button" do

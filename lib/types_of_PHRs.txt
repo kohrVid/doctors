@@ -7,3 +7,6 @@
 	    t.integer :distace
 
 more details at --> http://jenpersson.com/record-case-study-patient-data-access/
+
+
+class = "panel callout radius"

@@ -1,5 +1,5 @@
 <header>
-	<div>
+	<div class = "header_image">
 		<div class = "header_text">
 			The Doctor will see you now!
 		</div>
@@ -10,7 +10,7 @@
 			<div class="top-bar-section">
 			<ul class="title-area">
 				<li class="name">
-					<h1><%= link_to "The Doctor's", "#" %></h1>
+					<h1><%= link_to "The Doctor's", root_path %></h1>
 				</li>
 				<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 			</ul>
@@ -19,9 +19,25 @@
 					<li><input type="text" placeholder="Find Stuff" class = "active" /></li>
 					<li><%=link_to "", "#", class: "button active fi-magnifying-glass" %></li>
 					<li class="has-dropdown">
-						<a href="#">Right Button Dropdown</a>
+						<% if @current_user.present?%>
+							<% if @current_user.patient? %>
+								<%= link_to "Account Settings", patient_path(@current_user) %>
+							<% elsif @current_user.doctor? %>
+								<%= link_to "Account Settings", doctor_path(@current_user) %>
+							<%else%>
+								<%= link_to "Account Settings", user_path(@current_user) %>
+							<%end%>
+						<%else%>
+							<%= link_to "Register", register_path %>
+						<%end%>
 						<ul class="dropdown">
-							<li><a href="#">First link in dropdown</a></li>
+							<li>
+								<% if @current_user.present? %>
+									<%= link_to "Log Out", logout_path, method: :delete %>
+								<%else%>
+									<%= link_to "Log In", login_path%>
+								<%end%>
+							</li>
 							<li class="active"><a href="#">Active link in dropdown</a></li>
 						</ul>
 					</li>

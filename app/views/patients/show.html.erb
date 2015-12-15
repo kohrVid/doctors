@@ -14,7 +14,7 @@
 		<strong>Last Name:</strong> <%= @patient.last_name %>
 	</p>
 	<p>
-		<strong>Date of Birth:</strong> <%= @patient.dob.strftime("%v") %>
+		<strong>Date of Birth:</strong> <%= @patient.dob.strftime("%d %B %Y") %>
 		(<strong>Age:</strong> <%= DateTime.now.year - @patient.dob.year %>)
 	
 	</p>
@@ -56,12 +56,19 @@
 			<td><%= @patient.address.post_code %></td>
 		</tr>
 	</table>
+	<p>
+		<strong>Date Created:</strong> <%= @patient.created_at.strftime("%d %B %Y %H:%M:%S") %><br />
+		<strong>Date Last Modified:</strong> <%= @patient.updated_at.strftime("%d %B %Y %H:%M:%S") %>
+	</p>
 
 	<p>
 		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>
 			<%= link_to "<< Back to Patients", patients_path %> | 
 		<%end%>
 		<%= link_to "Edit", edit_patient_path(@patient) %>
+		<% unless !(@current_user && @current_user.admin?)%>
+			 | <%= link_to "Destroy", @patient, method: :delete %>
+		<%end%>
 	</p>
 
 <%end%>

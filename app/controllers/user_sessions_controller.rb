@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
 	end
 
 	def destroy
-		current_session.destroy
+		current_user_session.destroy
 		redirect_to root_path
 	end
 

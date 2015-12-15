@@ -8,13 +8,11 @@
 		<strong>Author:</strong> <%= @testimonial.author %>
 	</p>
 	<p>
-		<strong>Date:</strong> <%= @testimonial.date %>
+		<strong>Date:</strong> <%= @testimonial.date.strftime("%d %B %Y") %>
 	</p>
 	<p>
-		<strong>Date Created:</strong> <%= @testimonial.created_at.strftime("%v %H:%M:%S") %>
-	</p>
-	<p>
-		<strong>Date Last Modified:</strong> <%= @testimonial.updated_at.strftime("%v %H:%M:%S") %>
+		<strong>Date Created:</strong> <%= @testimonial.created_at.strftime("%d %B %Y %H:%M:%S") %><br />
+		<strong>Date Last Modified:</strong> <%= @testimonial.updated_at.strftime("%d %B %Y %H:%M:%S") %>
 	</p>
 
 	<p>
