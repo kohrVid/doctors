@@ -2,6 +2,7 @@ class PagesController < ApplicationController
 	load_and_authorize_resource
 	def index
 		@pages = Page.all
+		@contact = Contact.new
 	end
 
 	def new
@@ -10,6 +11,7 @@ class PagesController < ApplicationController
 
 	def create
 		@page = Page.new(page_params)
+		@object = @page
 		if @page.save
 		#	@page.send_activation_email
 		#	flash[:notice] = "Please check your email to activate your account"
@@ -29,6 +31,7 @@ class PagesController < ApplicationController
 
 	def update
 		@page = Page.find(params[:id])
+		@object = @page
 		if @page.update_attributes(page_params)
 			flash[:success] = "Page updated"
 			redirect_to @page

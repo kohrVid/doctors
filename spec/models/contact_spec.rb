@@ -1,18 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
+=begin
 	before do
 		@valid_contact = {
 			name: "Tobey Torres",
 			email: "ttorres@snakeriverconspiracy.com",
-			message: "I have a suggestion: prescribe more vicodin!"
+			message: "I have a suggestion: prescribe more vicodin!",
+			nickname: nil
 		}
+	end
+	
+	it "must have required fields or be invalid" do
+		c = Contact.new
+		expect(c).to_not be_valid
+	end
+
+	it "must create a new contact with valid attributes" do
+		expect(lambda{
+			Contact.create(@valid_contact)
+		}).to change(Contact, :count).by(1)
 	end
 	
 	context "Name" do
 		it "must be present" do
 			c = @valid_contact
-			c[name] = ""
+			c[:name] = ""
 			expect(lambda{
 				Contact.create(c)
 			}).to_not change(Contact, :count)
@@ -84,5 +97,5 @@ RSpec.describe Contact, type: :model do
 			end
 		end
 	end
-
+=end
 end

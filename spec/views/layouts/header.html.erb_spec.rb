@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "layouts/header.html.erb", type: :view do
 	context "Non-User" do
 		before(:each) do
-		      render :template => "pages/index", :layout => "layouts/application"
+			@contact = Contact.new
+			render :template => "pages/index", :layout => "layouts/application"
 		end
 		
 		it "shows app name" do
@@ -26,6 +27,7 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 
 	context "Patient" do
 		before(:each) do
+			@contact = Contact.new
 			@current_user = FactoryGirl.create(:patient)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
@@ -41,6 +43,7 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
+			@contact = Contact.new
 			@current_user = FactoryGirl.create(:receptionist)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
@@ -70,6 +73,7 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 	
 	context "Admin" do
 		before(:each) do
+			@contact = Contact.new
 			@current_user = FactoryGirl.create(:admin)
 			render :template => "pages/index", :layout => "layouts/application"
 		end

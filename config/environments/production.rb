@@ -41,4 +41,23 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.active_record.dump_schema_after_migration = false
+    config.action_mailer.default_url_options = { 
+	    :host => 'kohrvid-env.elasticbeanstalk.com', 
+	    :from => 'notifications@thedoctors.com'
+    }
+    #add Heroku url
+   # Rails.application.routes.default_url_options[:host] = ''
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = false
+
+    config.action_mailer.smtp_settings = {
+	    address: "smtp.gmail.com",
+	    port: 587,
+	    domain: ENV["GMAIL_DOMAIN"],
+	    authentication: "plain",
+	    enable_starttls_auto: true,
+	    user_name: ENV["GMAIL_USERNAME"],
+	    password: ENV["GMAIL_PASSWORD"]
+    }
 end

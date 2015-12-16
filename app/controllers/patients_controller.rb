@@ -11,6 +11,7 @@ class PatientsController < ApplicationController
 
 	def create
 		@patient = Patient.new(patient_params)
+		@object = @patient
 		if @patient.save
 		#	@patient.send_activation_email
 		#	flash[:notice] = "Please check your email to activate your account"
@@ -30,6 +31,7 @@ class PatientsController < ApplicationController
 
 	def update
 		@patient = Patient.where(patient: true).find(params[:id])
+		@object = @patient
 		if @patient.update_attributes(patient_params)
 			flash[:success] = "Profile updated"
 			redirect_to @patient

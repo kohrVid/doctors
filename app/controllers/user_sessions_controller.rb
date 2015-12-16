@@ -5,6 +5,7 @@ class UserSessionsController < ApplicationController
 
 	def create
 		@user_session = UserSession.new(user_session_params)
+		@object = @user_session
 		if @user_session.save
 			redirect_to root_path
 		else

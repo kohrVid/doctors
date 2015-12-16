@@ -11,6 +11,7 @@ class DoctorsController < ApplicationController
 
 	def create
 		@doctor = Doctor.new(doctor_params)
+		@object = @doctor
 		if @doctor.save
 		#	@doctor.send_activation_email
 		#	flash[:notice] = "Please check your email to activate your account"
@@ -30,6 +31,7 @@ class DoctorsController < ApplicationController
 
 	def update
 		@doctor = Doctor.where(doctor: true).find(params[:id])
+		@object = @doctor
 		if @doctor.update_attributes(doctor_params)
 			flash[:success] = "Profile updated"
 			redirect_to @doctor

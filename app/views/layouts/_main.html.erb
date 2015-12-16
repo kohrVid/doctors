@@ -5,15 +5,11 @@
 	</div>
 	<div class="medium-6 large-5 columns">
 		<h3>Quick Links</h3>
-		<label>Size
-			<select>
-				<option value="husker">Small</option>
-				<option value="starbuck">Medium</option>
-				<option value="hotdog">Large</option>
-				<option value="apollo">Yeti</option>
-			</select>
+		<label>Users Awaiting Approval
+			<%= select("unapproved", "user", User.where(approved: false).collect {|u| [ u.full_name, u.id ] }) %>
 		</label>
 		<h3>Have Your Say</h3>
+		<li class = "no-bullet"><%= link_to "Get in touch", new_contact_path %></li>
 		<li class = "no-bullet">Surveys, &c.</li>
 		<%= link_to "Book an appointment", "#", class: "button large expand" %>
 		<div class="button-group even-3">
