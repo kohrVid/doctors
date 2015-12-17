@@ -21,8 +21,17 @@
 $(function() {
   $(document).foundation();
 });
-
-
+/*
+$(function(){
+	$('#unapproved').bind('change', function () {
+		var url = "/users/" + $(this).val()
+		if (url) {
+			window.location.replace(url);
+		}
+		return false;
+	});
+});
+*/
 /*
 var wysihtml5ParserRules = {
   "type_definitions": {

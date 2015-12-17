@@ -1,0 +1,35 @@
+<% provide(:title, "Bulk Patient Approval") %> 
+<% content_for :main do%>
+	<% unless !@current_user.present? || (@current_user && @current_user.patient?) %>
+		<h4>Bulk Patient Approval</h4>
+		<%= form_for :bulk_patient_approval, url: bulk_patient_approved_url, method: :put, html: { method: :put } do %>
+			<table>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Username</th>
+					<th>
+						Approved?<br />
+						<input id="approve_all" type="checkbox" class= "hide">
+					</th>
+					<th>
+						Locked?<br />
+						<input id="lock_all" type="checkbox" class = "hide">
+					</th>
+				</tr>
+				<% Patient.where(patient: true, approved: false).order(:id).each do |patient| %>
+					<tr>
+						<td><%= patient.id %></td>
+						<td><%= link_to patient.full_name, patient_path(patient) %></td>
+						<td><%= patient.username %></td>
+						<%= fields_for "patient[]", patient do |patient_field| %>
+							<td><%= patient_field.check_box :approved %></td>
+							<td><%= patient_field.check_box :locked %></td>
+						<%end%>
+					</tr>
+				<%end%>
+			</table>
+			<%= submit_tag "Submit", class: "button" %>
+		<%end%>
+	<%end%>
+<%end%>

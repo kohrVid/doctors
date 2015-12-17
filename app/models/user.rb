@@ -24,7 +24,8 @@ class User < ActiveRecord::Base
 	validates :dob, presence: true
 	validates :username, presence: true, length: { maximum: 15 }, uniqueness: true, exclusion: { in: %w(admin moderator webmaster webadmin administrator adm) }
 	validates :email, length: { maximum: 255 }, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
-	validates :password, length: { minimum: 6 }
+	validates :password, length: { minimum: 6 }, on: :update, allow_blank: true
+	validates :password, length: { minimum: 6 }, on: :create
 	validates :phone, presence: true
 	validates :address, presence: true
 

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	load_and_authorize_resource
 	def index
-		@users = User.all
+		@users = User.all.order(:id)
 	end
 
 	def new
@@ -47,9 +47,24 @@ class UsersController < ApplicationController
 		redirect_to users_url
 	end
 
+	def bulk_user_approval
+	end
+	
+	def bulk_user_approved
+		params["user"].keys.each do |id|
+			@user = User.find(id.to_i)
+			@user.update_attributes(bulk_approval_params(id)) 
+		end
+		redirect_to(bulk_user_approval_url)
+	end
 
 	private
 		def user_params
-			params.require(:user).permit(:title, :first_name, :middle_name, :last_name, :dob, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
+			params.require(:user).permit(:title, :first_name, :middle_name, :last_name, :dob, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist, :approved, :locked)
 		end
+
+		def bulk_approval_params(id)
+			params.require(:user).fetch(id).permit(:approved, :locked, :title, :first_name, :middle_name, :last_name, :dob, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
+		end
+		
 end

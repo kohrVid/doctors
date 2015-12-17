@@ -5,9 +5,15 @@
 	</div>
 	<div class="medium-6 large-5 columns">
 		<h3>Quick Links</h3>
-		<label>Users Awaiting Approval
-			<%= select("unapproved", "user", User.where(approved: false).collect {|u| [ u.full_name, u.id ] }) %>
-		</label>
+		<% if @current_user && (@current_user.doctor? || @current_user.receptionist?) %>
+			<strong>Users Awaiting Approval</strong>
+			<%= select("unapproved", "patients", Patient.where(approved: false).collect {|p| [ p.full_name, "/patients/#{p.id}" ] })%>
+			<%= link_to "Bulk Approval", bulk_patient_approval_path %>
+		<% elsif @current_user && @current_user.admin? %>
+			<strong>Users Awaiting Approval</strong>
+			<%= select("unapproved", "users", User.where(approved: false).collect {|u| [ u.full_name, "/users/#{u.id}" ] })%>
+			<%= link_to "Bulk Approval", bulk_user_approval_path %>
+		<%end%>
 		<h3>Have Your Say</h3>
 		<li class = "no-bullet"><%= link_to "Get in touch", new_contact_path %></li>
 		<li class = "no-bullet">Surveys, &c.</li>

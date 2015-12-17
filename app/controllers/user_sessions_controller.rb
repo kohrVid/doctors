@@ -9,7 +9,8 @@ class UserSessionsController < ApplicationController
 		if @user_session.save
 			redirect_to root_path
 		else
-			render "new"
+			flash.now[:error] = "Failed login"
+			render :new
 		end
 	end
 

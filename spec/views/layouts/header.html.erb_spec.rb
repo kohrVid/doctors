@@ -58,6 +58,7 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
+			@contact = Contact.new
 			@current_user = FactoryGirl.create(:doctor)
 			render :template => "pages/index", :layout => "layouts/application"
 		end

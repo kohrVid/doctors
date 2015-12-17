@@ -19,5 +19,9 @@ Rails.application.routes.draw do
 	post   "login"  		=> "user_sessions#create"
         delete "logout"  		=> "user_sessions#destroy"
 	get    "register"  		=> "patients#new"
+	get    "bulk_user_approval"	=> "users#bulk_approval"
+	get    "bulk_patient_approval"	=> "patients#bulk_approval"
+	put   "bulk_user_approved"	=> "users#bulk_user_approved"
+	put   "bulk_patient_approved"	=> "patients#bulk_patient_approved"
 
 end

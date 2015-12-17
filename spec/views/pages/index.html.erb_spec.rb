@@ -20,7 +20,14 @@ RSpec.describe "pages/index.html.erb", type: :view do
 			@current_user = FactoryGirl.create(:patient)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
+		
+		it "should not show a list of patients awaiting approval" do
+			expect(rendered).to_not have_selector("select[name='unapproved[patients]']")
+		end
 
+		it "should not show link to bulk_approval page" do
+			expect(rendered).to_not have_link("Bulk Approval", bulk_patient_approval_path)
+		end
 	end
 
 	context "Receptionists" do
@@ -30,9 +37,13 @@ RSpec.describe "pages/index.html.erb", type: :view do
 			@current_user = FactoryGirl.create(:receptionist)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
-
+	
 		it "should show a list of patients awaiting approval" do
-			expect(rendered).to have_selector("input[name*=approval]")
+			expect(rendered).to have_selector("select[name='unapproved[patients]']")
+		end
+
+		it "should show link to bulk_approval page" do
+			expect(rendered).to have_link("Bulk Approval", bulk_patient_approval_path)
 		end
 	end
 
@@ -52,7 +63,13 @@ RSpec.describe "pages/index.html.erb", type: :view do
 			expect(rendered).to have_link("Manage Testimonials", href: testimonials_path)
 		end
 		
-		it "must present an alert to doctors/admins when there are users awaiting approval"
+		it "should show a list of patients awaiting approval" do
+			expect(rendered).to have_selector("select[name='unapproved[patients]']")
+		end
+
+		it "should show link to bulk_approval page" do
+			expect(rendered).to have_link("Bulk Approval", bulk_patient_approval_path)
+		end
 	end
 
 	context "Admin" do
@@ -69,6 +86,14 @@ RSpec.describe "pages/index.html.erb", type: :view do
 		
 		it "has a Manage Testimonials button" do
 			expect(rendered).to have_link("Manage Testimonials", href: testimonials_path)
+		end
+		
+		it "should show a list of users awaiting approval" do
+			expect(rendered).to have_selector("select[name='unapproved[users]']")
+		end
+
+		it "should show link to bulk_approval page" do
+			expect(rendered).to have_link("Bulk Approval", bulk_user_approval_path)
 		end
 	end
 end

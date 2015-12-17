@@ -1,7 +1,7 @@
 class PatientsController < ApplicationController
 	load_and_authorize_resource
 	def index
-		@patients = Patient.all.where(patient: true)
+		@patients = Patient.where(patient: true).order(:id)
 	end
 
 	def new
@@ -47,10 +47,25 @@ class PatientsController < ApplicationController
 		redirect_to patients_url
 	end
 
+	def bulk_patient_approval
+	end
+	
+	def bulk_patient_approved
+		params["patient"].keys.each do |id|
+			@patient = Patient.find(id.to_i)
+			@patient.update_attributes(bulk_approval_params(id)) 
+		end
+		redirect_to(bulk_patient_approval_url)
+	end
+
 
 	private
 		def patient_params
-			params.require(:patient).permit(:title, :first_name, :middle_name, :last_name, :dob, :gender, :nhs_number, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
+			params.require(:patient).permit(:title, :first_name, :middle_name, :last_name, :dob, :gender, :nhs_number, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist, :approved, :locked)
+		end
+		
+		def bulk_approval_params(id)
+			params.require(:patient).fetch(id).permit(:approved, :locked, :title, :first_name, :middle_name, :last_name, :dob, :gender, :nhs_number, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
 		end
 
 end

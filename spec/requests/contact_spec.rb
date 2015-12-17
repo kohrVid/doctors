@@ -8,7 +8,7 @@ RSpec.describe "Contact", :type => :request do
 		fill_in "Message", with: "I have a suggestion: prescribe more vicodin!"
 		fill_in "Nickname", with: ""
 		click_button "Send"
-		expect(page.body).to have_content("Thank you for your message! I try to respond within 24hrs so you should hear from me soon.")
+		expect(page).to have_content("Thank you for your message! I try to respond within 24hrs so you should hear from me soon.")
 		expect(last_email.to).to include("no-reply@thedoctors.com")
 		expect(last_email.from).to include("kohrVid@gmail.com")
 	end
@@ -20,8 +20,8 @@ RSpec.describe "Contact", :type => :request do
 		fill_in "Message", with: "I have a suggestion: prescribe more vicodin!"
 		fill_in "Nickname", with: ""
 		click_button "Send"
-		expect(page.body).to have_content("Unable to send message.")
-		expect(page.body).to have_content("Name can't be blank")
+		expect(page).to have_content("Unable to send message")
+		expect(page).to have_content("Name can't be blank")
 		expect(last_email).to be_nil
 	end
 
@@ -32,8 +32,8 @@ RSpec.describe "Contact", :type => :request do
 		fill_in "Message", with: "I have a suggestion: prescribe more vicodin!"
 		fill_in "Nickname", with: ""
 		click_button "Send"
-		expect(page.body).to have_content("Unable to send message.")
-		expect(page.body).to have_content("Email can't be blank")
+		expect(page).to have_content("Unable to send message")
+		expect(page).to have_content("Email can't be blank")
 		expect(last_email).to be_nil
 	end
 	
@@ -44,8 +44,8 @@ RSpec.describe "Contact", :type => :request do
 		fill_in "Message", with: ""
 		fill_in "Nickname", with: ""
 		click_button "Send"
-		expect(page.body).to have_content("Unable to send message.")
-		expect(page.body).to have_content("Message can't be blank")
+		expect(page).to have_content("Unable to send message")
+		expect(page).to have_content("Message can't be blank")
 		expect(last_email).to be_nil
 	end
 
@@ -57,7 +57,7 @@ RSpec.describe "Contact", :type => :request do
 		fill_in "Nickname", with: "RickRollz"
 		click_button "Send"
 		click_button "Send"
-		expect(page.body).to have_content("Unable to send message.")
+		expect(page).to have_content("Unable to send message")
 		expect(last_email).to be_nil
 	end
 end

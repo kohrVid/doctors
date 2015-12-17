@@ -1,0 +1,49 @@
+<% provide(:title, "Bulk User Approval") %> 
+<% content_for :main do%>
+	<% unless !(@current_user && @current_user.admin?) %>
+		<h4>Bulk User Approval</h4>
+		<%= form_for :bulk_user_approval, url: bulk_user_approved_url, method: :put, html: { method: :put } do %>
+			<table>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Username</th>
+					<th>Category</th>
+					<th>
+						Approved?<br />
+						<input id="approve_all" type="checkbox" class= "hide">
+					</th>
+					<th>
+						Locked?<br />
+						<input id="lock_all" type="checkbox" class = "hide">
+					</th>
+				</tr>
+				<% User.where(approved: false).order(:id).each do |user| %>
+					<tr>
+						<td><%= user.id %></td>
+						<td><%= link_to user.full_name, user_path(user) %></td>
+						<td><%= user.username %></td>
+						<td>
+							<% if user.admin? %>
+								Admin
+							<% elsif user.doctor? %>
+								Doctor
+							<% elsif user.receptionist? %>
+								Receptionist
+							<% elsif user.patient? %>
+								Patient
+							<%else%>
+								<span class = "pending">Pending Approval</span>
+							<%end%>
+						</td>
+						<%= fields_for "user[]", user do |user_field| %>
+							<td><%= user_field.check_box :approved %></td>
+							<td><%= user_field.check_box :locked %></td>
+						<%end%>
+					</tr>
+				<%end%>
+			</table>
+			<%= submit_tag "Submit", class: "button" %>
+		<%end%>
+	<%end%>
+<%end%>
