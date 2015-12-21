@@ -130,7 +130,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 	end
 	
@@ -159,7 +159,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 	end
 
@@ -188,7 +188,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 	end
 end

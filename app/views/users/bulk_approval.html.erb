@@ -1,6 +1,6 @@
 <% provide(:title, "Bulk User Approval") %> 
 <% content_for :main do%>
-	<% unless !(@current_user && @current_user.admin?) %>
+	<% unless !(@admin_is_logged_in) %>
 		<h4>Bulk User Approval</h4>
 		<%= form_for :bulk_user_approval, url: bulk_user_approved_url, method: :put, html: { method: :put } do %>
 			<table>

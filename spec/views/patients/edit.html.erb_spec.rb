@@ -89,7 +89,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		end
 		
 		it "should have a link to the patient's show page" do
-			expect(rendered).to have_link("a", text: (patient.full_name), href: patient_path(patient))
+			expect(rendered).to have_link(patient.full_name, href: patient_path(patient))
 		end
 
 	end
@@ -126,7 +126,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		end
 		
 		it "shouldn't have a Back to Patients button" do
-			expect(rendered).to_not have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to_not have_link("<< Back to Patients", href: patients_path)
 		end
 	end
 	
@@ -162,7 +162,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		end
 		
 		it "should have a Back to Patients button" do
-			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 	end
 	
@@ -178,7 +178,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		end
 		
 		it "should have a back to Patients button" do
-			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 		
 		it "should have a Locked boolean" do
@@ -214,7 +214,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		end
 		
 		it "should have a Back to Patients button" do
-			expect(rendered).to have_link("a", text: "<< Back to Patients", href: patients_path)
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 		
 		it "should have a Locked boolean" do

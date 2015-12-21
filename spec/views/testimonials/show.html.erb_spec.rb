@@ -38,6 +38,6 @@ RSpec.describe "testimonials/show.html.erb", type: :view do
 	end
 	
 	it "should have a back to testimonials button" do
-		expect(rendered).to have_link("a", href: testimonials_path, text: "<< Back to Testimonials")
+		expect(rendered).to have_link("<< Back to Testimonials", href: testimonials_path)
 	end
 end

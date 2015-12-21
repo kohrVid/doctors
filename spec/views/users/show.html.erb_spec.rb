@@ -85,7 +85,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 		end
 
 		it "shouldn't have a back to users button" do
-			expect(rendered).to_not have_link("a", href: users_path, text: "<< Back to Users")
+			expect(rendered).to_not have_link("<< Back to Users", href: users_path)
 		end
 		it "shows edit button" do
 			expect(rendered).to have_link("Edit", href: edit_user_path(@current_user))
@@ -100,7 +100,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 		end
 
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", href: users_path, text: "<< Back to Users")
+			expect(rendered).to have_link("<< Back to Users", href: users_path)
 		end
 		
 		it "shows edit button" do
@@ -116,7 +116,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", href: users_path, text: "<< Back to Users")
+			expect(rendered).to have_link("<< Back to Users", href: users_path)
 		end
 		
 		it "shows edit button" do
@@ -132,7 +132,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", href: users_path, text: "<< Back to Users")
+			expect(rendered).to have_link("<< Back to Users", href: users_path)
 		end
 		
 		it "shows edit button" do

@@ -16,7 +16,7 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 		end
 
 		it "must not see Username" do
-			expect(rendered).to_not have_link(patient.fullname, href: patient_path(patient))
+			expect(rendered).to_not have_link(patient.full_name, href: patient_path(patient))
 		end
 		
 		it "must not have an Approval boolean" do
@@ -41,7 +41,7 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 		end
 
 		it "must see Username" do
-			expect(rendered).to have_link(patient.fullname, href: patient_path(patient))
+			expect(rendered).to have_link(patient.full_name, href: patient_path(patient))
 		end
 		
 		it "must have an Approval boolean" do
@@ -66,7 +66,7 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 		end
 
 		it "must see Username" do
-			expect(rendered).to have_link(patient.fullname, href: patient_path(patient))
+			expect(rendered).to have_link(patient.full_name, href: patient_path(patient))
 		end
 		
 		it "must have an Approval boolean" do
@@ -95,7 +95,7 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 		end
 
 		it "must see Username" do
-			expect(rendered).to have_link(patient.fullname, href: patient_path(patient))
+			expect(rendered).to have_link(patient.full_name, href: patient_path(patient))
 		end
 		
 		it "must have an Approval boolean" do

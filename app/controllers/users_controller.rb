@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
 	load_and_authorize_resource
+	before_action	:who_is_the_current_user, 
+			:admin_is_logged_in, 
+			:senior_staff_member_is_logged_in, 
+			:doctor_or_receptionist_is_logged_in, 
+			:privileged_user_is_logged_in
+
 	def index
 		@users = User.all.order(:id)
 	end
@@ -11,7 +17,6 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
-		@object = @user
 		if @user.save
 		#	@user.send_activation_email
 		#	flash[:notice] = "Please check your email to activate your account"
@@ -31,7 +36,6 @@ class UsersController < ApplicationController
 
 	def update
 		@user = User.find(params[:id])
-		@object = @user
 		if @user.update_attributes(user_params)
 			flash[:success] = "Profile updated"
 			redirect_to @user
@@ -58,13 +62,25 @@ class UsersController < ApplicationController
 		redirect_to(bulk_user_approval_url)
 	end
 
+
 	private
 		def user_params
-			params.require(:user).permit(:title, :first_name, :middle_name, :last_name, :dob, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist, :approved, :locked)
+			params.require(:user).permit(:title, :first_name, 
+						     :middle_name, :last_name, 
+						     :dob, :phone, :username, 
+						     :address, :email, :password, 
+						     :password_confirmation, :admin, 
+						     :doctor, :patient, :receptionist, 
+						     :approved, :locked)
 		end
 
 		def bulk_approval_params(id)
-			params.require(:user).fetch(id).permit(:approved, :locked, :title, :first_name, :middle_name, :last_name, :dob, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
+			params.require(:user).fetch(id).permit(:approved, :locked, 
+							       :title, :first_name, 
+							       :middle_name, :last_name, 
+							       :dob, :phone, :username, 
+							       :address, :email, :password, 
+							       :password_confirmation, :admin, 
+							       :doctor, :patient, :receptionist)
 		end
-		
 end

@@ -82,7 +82,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to doctors button" do
-			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+			expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 		end
 	end
 
@@ -135,7 +135,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to doctors button" do
-			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+			expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 		end
 	end
 	
@@ -189,7 +189,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to doctors button" do
-			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+			expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 		end
 	end
 
@@ -266,7 +266,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to doctors button" do
-			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+			expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 		end
 	end
 
@@ -319,7 +319,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to doctors button" do
-			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+			expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 		end
 		
 	end
@@ -396,7 +396,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to doctors button" do
-			expect(rendered).to have_link("a", href: doctors_path, text: "<< Back to Doctors")
+			expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 		end
 		
 		it "has a destroy button" do

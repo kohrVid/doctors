@@ -72,7 +72,7 @@
 			<%= address.text_field :post_code %>
 		</p>
 	<%end%>
-	<% unless !(@current_user && (@current_user.receptionist? || @current_user.doctor? || @current_user.admin?)) %>
+	<% unless !(@privileged_user_is_logged_in) %>
 		<p>
 			<%= f.label :approved %>
 			<%= f.check_box :approved %>
@@ -83,7 +83,7 @@
 		</p>
 	<%end%>
 	
-	<% unless !(@current_user && @current_user.admin?) %>
+	<% unless !(@admin_is_logged_in) %>
 		<p>
 			<%= f.label :receptionist %>
 			<%= f.check_box :receptionist %>

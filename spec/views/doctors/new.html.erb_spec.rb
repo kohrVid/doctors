@@ -102,6 +102,6 @@ RSpec.describe "doctors/new.html.erb", type: :view do
 	end
 	
 	it "should have a back to users button" do
-		expect(rendered).to have_link("a", text: "<< Back to Doctors", href: doctors_path)
+		expect(rendered).to have_link("<< Back to Doctors", href: doctors_path)
 	end
 end

@@ -5,11 +5,11 @@
 	</div>
 	<div class="medium-6 large-5 columns">
 		<h3>Quick Links</h3>
-		<% if @current_user && (@current_user.doctor? || @current_user.receptionist?) %>
+		<% if @doctor_or_receptionist_is_logged_in %>
 			<strong>Users Awaiting Approval</strong>
 			<%= select("unapproved", "patients", Patient.where(approved: false).collect {|p| [ p.full_name, "/patients/#{p.id}" ] })%>
 			<%= link_to "Bulk Approval", bulk_patient_approval_path %>
-		<% elsif @current_user && @current_user.admin? %>
+		<% elsif @admin_is_logged_in %>
 			<strong>Users Awaiting Approval</strong>
 			<%= select("unapproved", "users", User.where(approved: false).collect {|u| [ u.full_name, "/users/#{u.id}" ] })%>
 			<%= link_to "Bulk Approval", bulk_user_approval_path %>

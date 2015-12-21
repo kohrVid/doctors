@@ -3,10 +3,10 @@
 	<h4>Edit Doctor</h4>
 	<%= render "form" %>
 	<p>
-		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)) %>
+		<% unless !(@senior_staff_member_is_logged_in) %>
 			<%= link_to "<< Back to Doctors", doctors_path %> | 
 		<%end%>
-		<% unless !(@current_user && @current_user.admin?) %>
+		<% unless !(@admin_is_logged_in) %>
 			<%= link_to "Destroy", @doctor, method: :delete, data: { confirm: "Are you sure?" } %> | 
 		<%end%>
 		<%= link_to (@doctor.title + " " + @doctor.first_name_last_name), doctor_path(@doctor) %>

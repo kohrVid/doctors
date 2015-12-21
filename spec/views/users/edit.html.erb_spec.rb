@@ -81,7 +81,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		end
 		
 		it "should have a link to the user's show page" do
-			expect(rendered).to have_link("a", text: (user.full_name), href: user_path(user))
+			expect(rendered).to have_link(user.full_name, href: user_path(user))
 		end
 
 	end

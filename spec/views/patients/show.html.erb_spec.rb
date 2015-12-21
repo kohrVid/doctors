@@ -86,7 +86,7 @@ RSpec.describe "patients/show.html.erb", type: :view do
 		end
 
 		it "shouldn't have a back to patients button" do
-			expect(rendered).to_not have_link("a", href: patients_path, text: "<< Back to Patients")
+			expect(rendered).to_not have_link("<< Back to Patients", href: patients_path)
 		end
 		it "shows edit button" do
 			expect(rendered).to have_link("Edit", href: edit_patient_path(@current_user))
@@ -101,7 +101,7 @@ RSpec.describe "patients/show.html.erb", type: :view do
 		end
 
 		it "should have a back to patients button" do
-			expect(rendered).to have_link("a", href: patients_path, text: "<< Back to Patients")
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 		
 		it "shows edit button" do
@@ -117,7 +117,7 @@ RSpec.describe "patients/show.html.erb", type: :view do
 		end
 		
 		it "should have a Back to Patients button" do
-			expect(rendered).to have_link("a", href: patients_path, text: "<< Back to Patients")
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 		
 		it "shows edit button" do
@@ -133,7 +133,7 @@ RSpec.describe "patients/show.html.erb", type: :view do
 		end
 		
 		it "should have a back to patients button" do
-			expect(rendered).to have_link("a", href: patients_path, text: "<< Back to Patients")
+			expect(rendered).to have_link("<< Back to Patients", href: patients_path)
 		end
 		
 		it "shows edit button" do

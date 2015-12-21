@@ -1,9 +1,20 @@
 class PagesController < ApplicationController
 	load_and_authorize_resource
+	before_action	:who_is_the_current_user, 
+			:admin_is_logged_in, 
+			:senior_staff_member_is_logged_in, 
+			:doctor_or_receptionist_is_logged_in, 
+			:privileged_user_is_logged_in
+
 	def index
+#		@pages = PagesIndex.new
+#		@page.index
+		@contact = Contact.new
+=begin
 		@pages = Page.all
 		@contact = Contact.new
 		@users = User.all
+=end
 	end
 
 	def new
@@ -12,7 +23,6 @@ class PagesController < ApplicationController
 
 	def create
 		@page = Page.new(page_params)
-		@object = @page
 		if @page.save
 		#	@page.send_activation_email
 		#	flash[:notice] = "Please check your email to activate your account"
@@ -32,7 +42,6 @@ class PagesController < ApplicationController
 
 	def update
 		@page = Page.find(params[:id])
-		@object = @page
 		if @page.update_attributes(page_params)
 			flash[:success] = "Page updated"
 			redirect_to @page

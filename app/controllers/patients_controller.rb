@@ -1,5 +1,11 @@
 class PatientsController < ApplicationController
 	load_and_authorize_resource
+	before_action	:who_is_the_current_user, 
+			:admin_is_logged_in, 
+			:senior_staff_member_is_logged_in, 
+			:doctor_or_receptionist_is_logged_in, 
+			:privileged_user_is_logged_in
+
 	def index
 		@patients = Patient.where(patient: true).order(:id)
 	end
@@ -11,7 +17,6 @@ class PatientsController < ApplicationController
 
 	def create
 		@patient = Patient.new(patient_params)
-		@object = @patient
 		if @patient.save
 		#	@patient.send_activation_email
 		#	flash[:notice] = "Please check your email to activate your account"
@@ -31,7 +36,6 @@ class PatientsController < ApplicationController
 
 	def update
 		@patient = Patient.where(patient: true).find(params[:id])
-		@object = @patient
 		if @patient.update_attributes(patient_params)
 			flash[:success] = "Profile updated"
 			redirect_to @patient
@@ -61,11 +65,25 @@ class PatientsController < ApplicationController
 
 	private
 		def patient_params
-			params.require(:patient).permit(:title, :first_name, :middle_name, :last_name, :dob, :gender, :nhs_number, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist, :approved, :locked)
+			params.require(:patient).permit(:title, :first_name, 
+							:middle_name, :last_name, 
+							:dob, :gender, :nhs_number, 
+							:phone, :username, :address, 
+							:email, :password, 
+							:password_confirmation, 
+							:admin, :doctor, :patient, 
+							:receptionist, :approved, :locked)
 		end
 		
 		def bulk_approval_params(id)
-			params.require(:patient).fetch(id).permit(:approved, :locked, :title, :first_name, :middle_name, :last_name, :dob, :gender, :nhs_number, :phone, :username, :address, :email, :password, :password_confirmation, :admin, :doctor, :patient, :receptionist)
+			params.require(:patient).fetch(id).permit(:approved, :locked, 
+								  :title, :first_name, 
+								  :middle_name, :last_name, 
+								  :dob, :gender, :nhs_number, 
+								  :phone, :username, :address, 
+								  :email, :password, 
+								  :password_confirmation, 
+								  :admin, :doctor, :patient, 
+								  :receptionist)
 		end
-
 end

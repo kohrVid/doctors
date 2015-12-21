@@ -25,11 +25,15 @@ module Doctors
     config.assets.precompile += %w( vendor/modernizr )
 
 
+
+    config.autoload_paths += %W(#{config.root}/app)
+
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.enabled = true 
     config.assets.initialized_on_precompile = true
     config.action_view.embed_authenticity_token_in_remote_forms = true
     config.middleware.use Rack::Attack
     config.action_controller.perform_caching = true
+    config.action_controller.include_all_helpers = true
   end
 end

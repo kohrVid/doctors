@@ -1,10 +1,8 @@
 <% provide(:title, "Patients") %> 
 <% content_for :main do%>
-	<% unless !@current_user.present? || (@current_user && @current_user.patient?) %>
+	<% unless !(@current_user.present? || (@privileged_user_is_logged)) %>
 		<h4>Patients</h4>
-		<% unless !(@current_user && (@current_user.admin? || @current_user.doctor? ||  @current_user.receptionist?)) %>
-			<%= link_to "Add New Patient", new_patient_path, class: "right" %>
-		<%end%>
+		<%= link_to "Add New Patient", new_patient_path, class: "right" %>
 		<table>
 			<tr>
 				<th></th>
@@ -33,9 +31,7 @@
 					</td>
 					<td><%= link_to "Show", patient_path(patient) %></td>
 					<td><%= link_to "Edit", edit_patient_path(patient) %></td>
-					<% unless !(@current_user && @current_user.admin?) %>
-						<td><%= link_to "Destroy", method: :delete, data: { confirm: "Are you sure?" } %></td>
-					<%end%>
+					<td><%= link_to "Destroy", method: :delete, data: { confirm: "Are you sure?" } unless !(@admin_is_logged_in) %></td>
 				</tr>
 			<%end%>
 		</table>

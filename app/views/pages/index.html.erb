@@ -43,7 +43,7 @@
 								</div>
 							<%end%>
 					</div>
-					<% unless !(@current_user && (@current_user.admin? || @current_user.doctor?)) %>
+					<% unless !(@senior_staff_member_is_logged_in) %>
 						<div class = "right">
 							<%= link_to "Add Testimonial", new_testimonial_path %> | 
 							<%= link_to "Manage Testimonials", testimonials_path %>
