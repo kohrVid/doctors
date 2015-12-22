@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "doctors/show.html.erb", type: :view do
 	let(:doctor) { FactoryGirl.create(:doctor) }
+	include PagesHelper
+
 	context "Non-Users" do
 		before(:each) do
 			@doctor = doctor
@@ -91,6 +93,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			@doctor = doctor
 			assign(:doctor, doctor)
 			@current_user = FactoryGirl.create(:patient)
+			is_the_current_user(@current_user.id)
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
@@ -144,6 +147,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			@doctor = doctor
 			assign(:doctor, doctor)
 			@current_user = FactoryGirl.create(:receptionist)
+			is_the_current_user(@current_user.id)
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
@@ -198,6 +202,8 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			@doctor = doctor
 			@current_user = doctor
 			assign(:doctor, @current_user)
+			is_the_current_user(@doctor.id)
+			@senior_staff_member_is_logged_in = true
 			render :template => "doctors/show", :layout => "layouts/application", :id => @current_user.id
 		end
 		
@@ -275,6 +281,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			@doctor = doctor
 			assign(:doctor, doctor)
 			@current_user = FactoryGirl.create(:doctor, username: "drmrsthemonarch", email: "drmrsthemonarch@thehospital.com")
+			is_the_current_user(@current_user.id)
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
@@ -329,6 +336,8 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 			@doctor = doctor
 			assign(:doctor, doctor)
 			@current_user = FactoryGirl.create(:admin)
+			@senior_staff_member_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "doctors/edit.html.erb", type: :view do
 	let(:doctor) { FactoryGirl.create(:doctor) }
+	include PagesHelper
+
 	context "attributes" do
 		before(:each) do
 			assign(:doctor, doctor)
@@ -94,6 +96,8 @@ RSpec.describe "doctors/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:doctor, doctor)
 			@current_user = doctor
+			is_the_current_user(@current_user.id)
+			@senior_staff_member_is_logged_in = true
 			render :template => "doctors/edit", :layout => "layouts/application"
 		end
 		
@@ -119,6 +123,8 @@ RSpec.describe "doctors/edit.html.erb", type: :view do
 			@doctor = doctor
 			assign(:doctor, doctor)
 			@current_user = FactoryGirl.create(:admin)
+			@senior_staff_member_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "doctors/edit", :layout => "layouts/application"
 		end
 		

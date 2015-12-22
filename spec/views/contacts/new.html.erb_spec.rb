@@ -15,11 +15,11 @@ RSpec.describe "contacts/new.html.erb", type: :view do
 	end
 	
 	it "should have a Message textarea" do
-		expect(rendered).to have_selector("input[name*=message]")
+		expect(rendered).to have_selector("textarea[name*=message]")
 	end
 	
 	it "should not have a Nickname text field" do
-		expect(rendered).to_not have_selector("input[name*=nickname]")
+		expect(rendered).to have_selector("input[name*=nickname]")
 	end
 	
 	it "should display a send button" do

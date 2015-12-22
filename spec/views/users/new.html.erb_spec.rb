@@ -6,6 +6,7 @@ RSpec.describe "users/new.html.erb", type: :view do
 			@user = User.new
 			@address = @user.build_address
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		
@@ -35,6 +36,7 @@ RSpec.describe "users/new.html.erb", type: :view do
 			@user = User.new
 			@address = @user.build_address
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		
@@ -64,6 +66,8 @@ RSpec.describe "users/new.html.erb", type: :view do
 			@user = User.new
 			@address = @user.build_address
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		

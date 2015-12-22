@@ -110,6 +110,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 			@patient = Patient.new
 			@address = @patient.build_address
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
@@ -139,6 +140,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 			@patient = Patient.new
 			@address = @patient.build_address
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
@@ -168,6 +170,8 @@ RSpec.describe "patients/new.html.erb", type: :view do
 			@patient = Patient.new
 			@address = @patient.build_address
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		

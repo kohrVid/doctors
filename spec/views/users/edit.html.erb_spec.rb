@@ -118,7 +118,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		end
 		
 		it "shouldn't have a Back to Users button" do
-			expect(rendered).to_not have_link("a", text: "<< Back to Users", href: users_path)
+			expect(rendered).to_not have_link("<< Back to Users", href: users_path)
 		end
 	end
 	
@@ -126,6 +126,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:user, user)
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "users/edit", :layout => "layouts/application"
 		end
 		
@@ -154,7 +155,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		end
 		
 		it "should have a Back to Users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+			expect(rendered).to have_link("<< Back to Users", href: users_path)
 		end
 	end
 	
@@ -162,6 +163,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:user, user)
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "users/edit", :layout => "layouts/application"
 		end
 		
@@ -170,7 +172,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+			expect(rendered).to have_link("<< Back to Users", href: users_path)
 		end
 		
 		it "should have a Locked boolean" do
@@ -186,6 +188,8 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:user, user)
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "users/edit", :layout => "layouts/application"
 		end
 		
@@ -206,7 +210,7 @@ RSpec.describe "users/edit.html.erb", type: :view do
 		end
 		
 		it "should have a back to users button" do
-			expect(rendered).to have_link("a", text: "<< Back to Users", href: users_path)
+			expect(rendered).to have_link("<< Back to Users", href: users_path)
 		end
 		
 		it "should have a Locked boolean" do

@@ -33,6 +33,7 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 			assign(:patient, patient)
 			@patients = Patient.where(patient:true, approved: false)
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -58,6 +59,7 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 			assign(:patient, patient)
 			@patients = Patient.where(patient:true, approved: false)
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -83,6 +85,8 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 			assign(:patient, patient)
 			@patients = Patient.where(patient:true, approved: false)
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		

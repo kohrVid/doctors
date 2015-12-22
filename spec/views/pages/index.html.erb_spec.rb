@@ -35,6 +35,8 @@ RSpec.describe "pages/index.html.erb", type: :view do
 			assign(:testimonial, testimonial)
 			@contact = Contact.new
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
+			@doctor_or_receptionist_is_logged_in = true
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 	
@@ -52,6 +54,9 @@ RSpec.describe "pages/index.html.erb", type: :view do
 			assign(:testimonial, testimonial)
 			@contact = Contact.new
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
+			@doctor_or_receptionist_is_logged_in = true
+			@senior_staff_member_is_logged_in = true
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 
@@ -77,6 +82,9 @@ RSpec.describe "pages/index.html.erb", type: :view do
 			assign(:testimonial, testimonial)
 			@contact = Contact.new
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@senior_staff_member_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 		

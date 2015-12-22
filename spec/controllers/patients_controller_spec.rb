@@ -101,7 +101,6 @@ RSpec.describe PatientsController, type: :controller do
 			expect(ability).to_not be_able_to(:destroy, Patient.find(patient.id))
 		end
 
-		it "must be able to reset patient passwords"
 	end
 
 	context "Doctor" do

@@ -134,6 +134,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		
@@ -170,6 +171,7 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		
@@ -194,6 +196,8 @@ RSpec.describe "patients/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:patient, patient)
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "patients/edit", :layout => "layouts/application"
 		end
 		

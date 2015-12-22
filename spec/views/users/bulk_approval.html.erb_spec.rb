@@ -33,6 +33,7 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.where(approved: false)
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -58,6 +59,7 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.all
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -83,6 +85,8 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.where(approved: false)
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		

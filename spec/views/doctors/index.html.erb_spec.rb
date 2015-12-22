@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "doctors/index.html.erb", type: :view do
 	let(:doctor) { FactoryGirl.create(:doctor) }
 	let(:doctor2) { FactoryGirl.create(:doctor, username: "drgirlfriend", email: "drgirlfriend@thehospital.com") }
+	include PagesHelper
 
 	context "Patient" do
 		before(:each) do
@@ -59,6 +60,8 @@ RSpec.describe "doctors/index.html.erb", type: :view do
 			assign(:doctor2, doctor2)
 			@doctors = Doctor.all.where(doctor: true)
 			@current_user = doctor
+			is_the_current_user(@current_user)
+			@senior_staff_member_is_logged_in = true
 			render :template => "doctors/index", :layout => "layouts/application"
 		end
 		
@@ -88,6 +91,8 @@ RSpec.describe "doctors/index.html.erb", type: :view do
 			assign(:doctor, doctor)
 			@doctors = Doctor.all.where(doctor: true)
 			@current_user = FactoryGirl.create(:admin)
+			@senior_staff_member_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "doctors/index", :layout => "layouts/application"
 		end
 		

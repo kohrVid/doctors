@@ -9,6 +9,7 @@ RSpec.describe "users/index.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.all
 			@current_user = FactoryGirl.create(:patient)
+			@privileged_user_is_logged_in = false
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		
@@ -42,6 +43,7 @@ RSpec.describe "users/index.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.all
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		
@@ -67,6 +69,7 @@ RSpec.describe "users/index.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.all
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		
@@ -92,6 +95,8 @@ RSpec.describe "users/index.html.erb", type: :view do
 			assign(:user, user)
 			@users = User.all
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		

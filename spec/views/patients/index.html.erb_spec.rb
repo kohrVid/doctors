@@ -3,41 +3,13 @@ require 'rails_helper'
 RSpec.describe "patients/index.html.erb", type: :view do
 	let(:user) { FactoryGirl.create(:user) }
 	let(:patient) { FactoryGirl.create(:patient) }
-
-	context "Patient" do	
-		before(:each) do
-			assign(:patient, patient)
-			@patients = Patient.all
-			@current_user = patient
-			render :template => "patients/index", :layout => "layouts/application"
-		end
-		
-		it "must not see Name" do
-			expect(rendered).to_not have_content(patient.full_name)
-		end
-
-		it "must not see Username" do
-			expect(rendered).to_not have_content(patient.username)
-		end
-		
-		it "must not have a show button" do
-			expect(rendered).to_not have_link("Show", href: patient_path(patient))
-		end
-
-		it "must not have an edit button" do
-			expect(rendered).to_not have_link("Edit", href: edit_patient_path(patient))
-		end
-
-		it "must not have a destroy button" do
-			expect(rendered).to_not have_link("Destroy")
-		end
-	end
 	
 	context "Receptionist" do
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.all.where(patient: true)
+			@patients = Patient.where(patient: true)
 			@current_user = FactoryGirl.create(:receptionist)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
@@ -61,8 +33,9 @@ RSpec.describe "patients/index.html.erb", type: :view do
 	context "Doctor" do
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.all.where(patient: true)
+			@patients = Patient.where(patient: true)
 			@current_user = FactoryGirl.create(:doctor)
+			@privileged_user_is_logged_in = true
 			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
@@ -86,8 +59,10 @@ RSpec.describe "patients/index.html.erb", type: :view do
 	context "Admin" do	
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.all.where(patient: true)
+			@patients = Patient.where(patient: true)
 			@current_user = FactoryGirl.create(:admin)
+			@privileged_user_is_logged_in = true
+			@admin_is_logged_in = true
 			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
