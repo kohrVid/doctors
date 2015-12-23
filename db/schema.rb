@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215190319) do
+ActiveRecord::Schema.define(version: 20151222161033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,9 +43,8 @@ ActiveRecord::Schema.define(version: 20151215190319) do
     t.integer  "doctor_id"
     t.integer  "patient_id"
     t.string   "description"
-    t.date     "date"
-    t.time     "start_time"
-    t.time     "end_time"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -125,7 +124,7 @@ ActiveRecord::Schema.define(version: 20151215190319) do
 
   create_table "testimonials", force: :cascade do |t|
     t.text     "author"
-    t.date     "date",       default: '2015-12-04'
+    t.date     "date",       default: '2015-12-23'
     t.text     "body"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
@@ -163,6 +162,8 @@ ActiveRecord::Schema.define(version: 20151215190319) do
     t.text     "gender"
     t.text     "biography"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "addresses", "users"
 end

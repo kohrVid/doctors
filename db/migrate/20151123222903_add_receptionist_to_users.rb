@@ -1,4 +1,4 @@
-class AddReceptionToUsers < ActiveRecord::Migration
+class AddReceptionistToUsers < ActiveRecord::Migration
   def change
 	  add_column :users, :receptionist, :boolean, default: false
   end

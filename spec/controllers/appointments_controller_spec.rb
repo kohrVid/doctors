@@ -1,33 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe AppointmentsController, type: :controller do
+	let(:patient) { FactoryGirl.create(:patient) }
+	let(:doctor) { FactoryGirl.create(:doctor) }
+	let(:receptionist) { FactoryGirl.create(:receptionist) }
+	let(:admin) { FactoryGirl.create(:admin) }
 
-  describe "GET #index" do
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
-  end
 
-  describe "GET #new" do
-    it "returns http success" do
-      get :new
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #show" do
-    it "returns http success" do
-      get :show
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET #edit" do
-    it "returns http success" do
-      get :edit
-      expect(response).to have_http_status(:success)
-    end
-  end
+	context "Non-Users" do
+		it "should be able to view all doctors" do
+			expect(get :index).to be_success
+		end
+		
+		it "should be able to view individual doctors" do
+			expect(get :show, id: doctor.id).to be_success 
+		end
+		
+		it "should not successfulLy get new" do
+			expect{ get :new }.to raise_error(CanCan::AccessDenied)
+		end
+		
+		it "should be unable to edit doctors" do
+			expect { get :edit, id: doctor.id }.to raise_error(CanCan::AccessDenied)
+		end
+		
+		it "should be unable to delete doctors" do
+			expect { delete :destroy, id: doctor.id }.to raise_error(CanCan::AccessDenied)
+		end
+	end
 
 end
