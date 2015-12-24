@@ -1,4 +1,12 @@
 module PagesHelper
+	def patient_is_logged_in
+		@patient_is_logged_in = @current_user && @current_user.patient?
+	end
+
+	def doctor_is_logged_in
+		@doctor_is_logged_in = @current_user && @current_user.doctor?
+	end
+
 	def privileged_user_is_logged_in
 		@privileged_user_is_logged_in = @current_user && (@current_user.admin? || @current_user.doctor? || @current_user.receptionist?)
 	end
@@ -16,11 +24,6 @@ module PagesHelper
 	end
 	
 	def who_is_the_current_user
-#		if @current_user.present? && (@current_user.id == user_dot_id)
-#			return true
-#		else
-#			return false
-#		end
 		def is_the_current_user(user_dot_id)
 			who = Proc.new {|user_dot_id| @current_user.present? && (@current_user.id == user_dot_id) }
 			who.call(user_dot_id)

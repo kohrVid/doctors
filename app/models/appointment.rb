@@ -6,12 +6,36 @@ class Appointment < ActiveRecord::Base
 	validates :patient, presence: true
 	validates :start_time, presence: true
 	validates :end_time, presence: true
+	
 	validates :start_time, :end_time, overlap: {
 		exclude_edges: ["start_time", "end_time"],
-		scope: "doctor_id"
+		scope: "doctor_id",
+		scope: "cancelled"
 	}
+
 	validates :start_time, :end_time, overlap: {
 		exclude_edges: ["start_time", "end_time"],
-		scope: "patient_id"
+		active: false,
+		scope: "patient_id",
+		scope: "cancelled"
 	}
+
+
+	private
+
+	def cancelled?
+		if self.cancelled == true
+			return true
+		else
+			return false
+		end
+	end
+	def active?
+		if self.cancelled == true
+			return false
+		else
+			return true
+		end
+	end
+
 end

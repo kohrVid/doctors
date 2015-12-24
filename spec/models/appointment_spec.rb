@@ -6,7 +6,8 @@ RSpec.describe Appointment, type: :model do
 			doctor: FactoryGirl.create(:doctor),
 			patient: FactoryGirl.create(:patient),
 			start_time: Time.new(2015, 12, 03, 11, 05, 00),
-			end_time: Time.new(2015, 12, 03, 11, 25, 00)
+			end_time: Time.new(2015, 12, 03, 11, 25, 00),
+			cancelled: false
 		}
 	end
 
@@ -70,97 +71,135 @@ RSpec.describe Appointment, type: :model do
 	end
 
 	context "Event" do
-		it "cannot create appointments with the same start and end times for a doctor" do
-			first_appointment = @valid_appointment
-			expect(lambda{
-				Appointment.create(first_appointment)
-			}).to change(Appointment, :count).by(1)
-			second_appointment = @valid_appointment
-			second_appointment[:patient] = FactoryGirl.build(:user)
-			second_appointment[:doctor].id = first_appointment[:doctor].id
-			second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
-			second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
-			expect(lambda{
-				Appointment.create(second_appointment)
-			}).to_not change(Appointment, :count)
-		end
-		
-		it "cannot create appointments with the same start and end time for a patient" do
-			first_appointment = @valid_appointment
-			expect(lambda{
-				Appointment.create(first_appointment)
-			}).to change(Appointment, :count).by(1)
-			second_appointment = @valid_appointment
-			second_appointment[:patient].id = first_appointment[:patient].id
-			second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
-						       email: "drgirlfriend1@thehospital.com")
-			second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
-			second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 25, 00)
-			expect(lambda{
-				Appointment.create(second_appointment)
-			}).to_not change(Appointment, :count)
+		context "Duplicate Start and End Times" do
+			it "cannot create appointments with the same start and end times for a doctor" do
+				first_appointment = @valid_appointment
+				expect(lambda{
+					Appointment.create(first_appointment)
+				}).to change(Appointment, :count).by(1)
+				second_appointment = @valid_appointment
+				second_appointment[:patient] = FactoryGirl.build(:user)
+				second_appointment[:doctor].id = first_appointment[:doctor].id
+				second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to_not change(Appointment, :count)
+			end
+			
+			it "cannot create appointments with the same start and end time for a patient" do
+				first_appointment = @valid_appointment
+				expect(lambda{
+					Appointment.create(first_appointment)
+				}).to change(Appointment, :count).by(1)
+				second_appointment = @valid_appointment
+				second_appointment[:patient].id = first_appointment[:patient].id
+				second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
+							       email: "drgirlfriend1@thehospital.com")
+				second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 25, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to_not change(Appointment, :count)
+			end
 		end
 
-		it "cannot create overlapping appointments for the same doctor" do
-			first_appointment = @valid_appointment
-			expect(lambda{
-				Appointment.create(first_appointment)
-			}).to change(Appointment, :count).by(1)
-			second_appointment = @valid_appointment
-			second_appointment[:patient] = FactoryGirl.build(:user)
-			second_appointment[:doctor].id = first_appointment[:doctor].id
-			second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
-			second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
-			expect(lambda{
-				Appointment.create(second_appointment)
-			}).to_not change(Appointment, :count)
+		context "Overlap" do
+			it "cannot create overlapping appointments for the same doctor" do
+				first_appointment = @valid_appointment
+				expect(lambda{
+					Appointment.create(first_appointment)
+				}).to change(Appointment, :count).by(1)
+				second_appointment = @valid_appointment
+				second_appointment[:patient] = FactoryGirl.build(:user)
+				second_appointment[:doctor].id = first_appointment[:doctor].id
+				second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to_not change(Appointment, :count)
+			end
+			
+			it "cannot create overlapping appointments for the same patient" do
+				first_appointment = @valid_appointment
+				expect(lambda{
+					Appointment.create(first_appointment)
+				}).to change(Appointment, :count).by(1)
+				second_appointment = @valid_appointment
+				second_appointment[:patient].id = first_appointment[:patient].id
+				second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
+							       email: "drgirlfriend1@thehospital.com")
+				second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 00, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to_not change(Appointment, :count)
+			end
 		end
 		
-		it "cannot create overlapping appointments for the same patient" do
-			first_appointment = @valid_appointment
-			expect(lambda{
-				Appointment.create(first_appointment)
-			}).to change(Appointment, :count).by(1)
-			second_appointment = @valid_appointment
-			second_appointment[:patient].id = first_appointment[:patient].id
-			second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
-						       email: "drgirlfriend1@thehospital.com")
-			second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 00, 00)
-			second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
-			expect(lambda{
-				Appointment.create(second_appointment)
-			}).to_not change(Appointment, :count)
+		context "Non-Overlapping" do 
+			it "can create non-overlapping appointments for the same doctor" do
+				first_appointment = @valid_appointment
+				expect(lambda{
+					Appointment.create(first_appointment)
+				}).to change(Appointment, :count).by(1)
+				second_appointment = @valid_appointment
+				second_appointment[:patient] = FactoryGirl.build(:user)
+				second_appointment[:doctor].id = first_appointment[:doctor].id
+				second_appointment[:start_time] = Time.new(2015, 12, 04, 11, 00, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 04, 11, 20, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to change(Appointment, :count).by(1)
+			end
+			
+			it "can create non-overlapping appointments for the same patient" do
+				first_appointment = @valid_appointment
+				expect(lambda{
+					Appointment.create(first_appointment)
+				}).to change(Appointment, :count).by(1)
+				second_appointment = @valid_appointment
+				second_appointment[:patient].id = first_appointment[:patient].id
+				second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
+							       email: "drgirlfriend1@thehospital.com")
+				second_appointment[:start_time] = Time.new(2015, 12, 04, 11, 00, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 04, 11, 20, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to change(Appointment, :count).by(1)
+			end
 		end
-		
-		it "can create non-overlapping appointments for the same doctor" do
-			first_appointment = @valid_appointment
-			expect(lambda{
-				Appointment.create(first_appointment)
-			}).to change(Appointment, :count).by(1)
-			second_appointment = @valid_appointment
-			second_appointment[:patient] = FactoryGirl.build(:user)
-			second_appointment[:doctor].id = first_appointment[:doctor].id
-			second_appointment[:start_time] = Time.new(2015, 12, 04, 11, 00, 00)
-			second_appointment[:end_time] = Time.new(2015, 12, 04, 11, 20, 00)
-			expect(lambda{
-				Appointment.create(second_appointment)
-			}).to change(Appointment, :count).by(1)
-		end
-		
-		it "can create non-overlapping appointments for the same patient" do
-			first_appointment = @valid_appointment
-			expect(lambda{
-				Appointment.create(first_appointment)
-			}).to change(Appointment, :count).by(1)
-			second_appointment = @valid_appointment
-			second_appointment[:patient].id = first_appointment[:patient].id
-			second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
-						       email: "drgirlfriend1@thehospital.com")
-			second_appointment[:start_time] = Time.new(2015, 12, 04, 11, 00, 00)
-			second_appointment[:end_time] = Time.new(2015, 12, 04, 11, 20, 00)
-			expect(lambda{
-				Appointment.create(second_appointment)
-			}).to change(Appointment, :count).by(1)
+
+		context "Cancellations" do
+			it "can create appointments with the same start and end times for a doctor if a previous appointment has been cancelled" do
+				first_appointment = @valid_appointment
+				cancelled_appointment = Appointment.create(first_appointment)
+				cancelled_appointment.update_attributes(cancelled: true)
+				second_appointment = @valid_appointment
+				second_appointment[:patient] = FactoryGirl.build(:user)
+				second_appointment[:doctor].id = first_appointment[:doctor].id
+				second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 20, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to change(Appointment, :count).by(1)
+			end
+			
+			it "can create appointments with the same start and end time for a patient if a previous appointment has been cancelled" do
+				first_appointment = @valid_appointment
+				cancelled_appointment = Appointment.create(first_appointment)
+				cancelled_appointment.update_attributes(cancelled: true)
+				second_appointment = @valid_appointment
+				second_appointment[:patient].id = first_appointment[:patient].id
+				second_appointment[:doctor] = FactoryGirl.create(:doctor, username: "drgirlfriend1", 
+							       email: "drgirlfriend1@thehospital.com")
+				second_appointment[:start_time] = Time.new(2015, 12, 03, 11, 05, 00)
+				second_appointment[:end_time] = Time.new(2015, 12, 03, 11, 25, 00)
+				expect(lambda{
+					Appointment.create(second_appointment)
+				}).to change(Appointment, :count).by(1)
+			end
+
 		end
 	end
 end

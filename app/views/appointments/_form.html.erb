@@ -1,0 +1,32 @@
+<%= form_for @appointment do |f| %>
+	<p>
+		<%= f.label :patient %><br />
+		<%= select("patient", "patient_id", Patient.where(patient: true).collect { |p| [ p.full_name, p.id ] })%>
+	</p>
+	<p>
+		<%= f.label :doctor %><br />
+		<%= select("doctor", "doctor_id", Doctor.where(doctor: true).collect { |d| [ d.title + " " + d.full_name, d.id ] })%>
+	</p>
+	<p>
+		<div class = "small_input">
+			<%= f.date_select(:start_time, method: :post, start_year: DateTime.now.year, end_year: (DateTime.now.year + 2)) %>
+		<%= f.label :start_time %><br />
+		<%= f.time_select(:start_time, method: :post) %>
+		</div>
+	</p>
+	<p>
+		<div class = "small_input">
+			<%= f.label :end_time %><br />
+			<%= f.time_select(:end_time, method: :post, class: "small_input") %>
+		</div>
+	</p>
+	<p>
+		<%= f.label :description %><br />
+		<%= f.text_area :description, rows: 4 %>
+	</p>
+	<p>
+		<%= f.label :cancelled %>
+		<%= f.check_box :cancelled %>
+	</p>
+	<%= f.submit "Submit", class: "button" %>
+<%end%>

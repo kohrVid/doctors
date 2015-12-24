@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'cancan/matchers'
+#require 'cancan/matchers'
 
 RSpec.describe PatientsController, type: :controller do
 	let(:patient) { FactoryGirl.create(:patient) }

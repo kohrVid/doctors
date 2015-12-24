@@ -61,7 +61,7 @@
 		<%end%>
 		<%= link_to "Edit", edit_user_path(@user) %>
 		<% unless !(@admin_is_logged_in)%>
-			 | <%= link_to "Destroy", @user, method: :delete %>
+			| <%= link_to "Destroy", @user, method: :delete, data: { confirm: "Are you sure?" } %>
 		<%end%>
 	</p>
 <%end%>

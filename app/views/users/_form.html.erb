@@ -16,8 +16,10 @@
 		<%= f.text_field :last_name %>
 	</p>
 	<p>
-		<%= f.label :dob, "Date of Birth" %><br />
-		<%= f.date_select(:dob, method: :post, start_year: 1899, end_year: DateTime.now.year) %>
+		<div class = "small_input">
+			<%= f.label :dob, "Date of Birth" %><br />
+			<%= f.date_select(:dob, method: :post, start_year: 1899, end_year: DateTime.now.year) %>
+		</div>
 	</p>
 	<p>
 		<%= f.label :username %><br />
@@ -89,9 +91,6 @@
 		<p>
 			<%= f.label :admin %>
 			<%= f.check_box :admin %>
-		</p>
-		<p>
-		<%= link_to "Destroy", @user, method: :delete, data: { confirm: "Are you sure?" } %>
 		</p>
 	<%end%>
 	<p>
