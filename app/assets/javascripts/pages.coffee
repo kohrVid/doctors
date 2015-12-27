@@ -1,5 +1,5 @@
 $(document).ready ->
-  $(".hidden").hide()
+#  $(".hidden").hide()
   $("#wysihtml5-textarea").each = (i, elem) ->
     $(elem).wysihtml5()
 

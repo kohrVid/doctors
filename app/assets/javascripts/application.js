@@ -67,4 +67,3 @@ var wysihtml5ParserRules = {
    	}
    });
 
-

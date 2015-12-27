@@ -16,7 +16,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "should show Doctor's name" do
-			expect(rendered).to have_content(doctor.title + " " + doctor.first_name_last_name)
+			expect(rendered).to have_content(doctor.dr_first_name_last_name)
 		end
 
 		it "should show the Doctor's biography" do
@@ -44,7 +44,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "shouldn't show Age" do
-			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year))
+			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year).to_s)
 		end
 
 		it "shouldn't shows Username" do
@@ -102,7 +102,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "shouldn't show Age" do
-			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year))
+			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year).to_s)
 		end
 
 		it "shouldn't show Email Address" do
@@ -156,7 +156,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "shouldn't show Age" do
-			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year))
+			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year).to_s)
 		end
 
 		it "shouldn't show Email Address" do
@@ -227,7 +227,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "should show Age" do
-			expect(rendered).to have_content("Age: " + (DateTime.now.year - @current_user.dob.year))
+			expect(rendered).to have_content("Age: " + (DateTime.now.year - @current_user.dob.year).to_s)
 		end
 
 		it "should show Username" do
@@ -290,7 +290,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "shouldn't show Age" do
-			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year))
+			expect(rendered).to_not have_content("Age: " + (DateTime.now.year - doctor.dob.year).to_s)
 		end
 
 		it "shouldn't show Email Address" do
@@ -361,7 +361,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		end
 
 		it "should show Age" do
-			expect(rendered).to have_content("Age: " + (DateTime.now.year - doctor.dob.year))
+			expect(rendered).to have_content("Age: " + (DateTime.now.year - doctor.dob.year).to_s)
 		end
 
 		it "should show Username" do

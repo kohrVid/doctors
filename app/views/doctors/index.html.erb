@@ -13,7 +13,7 @@
 		<% @doctors.each do |doctor| %>
 			<tr>
 				<td><%= doctor.id %></td>
-				<td><%= doctor.title %> <%= doctor.full_name %></td>
+				<td><%= doctor.dr_full_name %></td>
 				<td><%= doctor.username %></td>
 				<td>
 					<% if doctor.admin? %>

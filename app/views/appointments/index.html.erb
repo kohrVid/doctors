@@ -1,4 +1,73 @@
-<% provide(:title, "Appointment") %>
+<% provide(:title, "Appointments") %>
 <% content_for :main do%>
+	<% if @patient_is_logged_in %>
+		<h4>Appointments</h4>
+		<%= month_calendar events: @appointments.where(patient_id: @current_user.id, cancelled: false) do |date, appointments| %>
+			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
+			<% appointments.each do |appointment| %>
+				<%=link_to  patient_appointment_path(appointment.patient_id, appointment.id)  do %>
+					<i class = "fi-calendar"></i>
+				<%end%>
+			<%end%>
+		<%end%>
 
+		<%= calendar number_of_days: 1, events: @appointments.where(patient_id: @current_user.id) do |date, appointments| %>
+			<% appointments.each do |appointment| %>
+				<div class = <%= appointment.cancelled? ? "crossed_out" : "" %>>
+					<%= link_to (Patient.find(appointment.patient_id).full_name + " - " + appointment.start_time.strftime("%H:%M") + "-" + appointment.end_time.strftime("%H:%M")), patient_appointment_path(appointment.patient_id, appointment.id) %>
+				</div>
+			<%end%>
+		<%end%>
+	<% elsif @doctor_is_logged_in %>
+		<h4>Appointments</h4>
+		<%= month_calendar events: @appointments.where(doctor_id: @current_user.id, cancelled: false) do |date, appointments| %>
+			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
+			<% appointments.each do |appointment| %>
+				<%=link_to  doctor_appointment_path(appointment.doctor_id, appointment.id)  do %>
+					<i class = "fi-calendar"></i>
+				<%end%>
+			<%end%>
+		<%end%>
+
+		<%= calendar number_of_days: 1, events: @appointments.where(doctor_id: @current_user.id) do |date, appointments| %>
+			<% appointments.each do |appointment| %>
+				<div class = <%= appointment.cancelled? ? "crossed_out" : "" %>>
+					<%= link_to (Patient.find(appointment.patient_id).full_name + " - " + appointment.start_time.strftime("%H:%M") + "-" + appointment.end_time.strftime("%H:%M")), doctor_appointment_path(appointment.doctor_id, appointment.id) %>
+				</div>
+			<%end%>
+		<%end%>
+	<% elsif !@current_user.present? %>
+
+	<%else%>
+		<h4>Patients</h4>
+		<ul>
+			<% Patient.where(patient: true).each do |patient| %>
+				<li class = "no-bullet"><%= link_to patient.full_name, "/patients/#{patient.id}/calendar" %></li>
+			<%end%>
+		</ul>
+		
+		<h4>Doctors</h4>
+		<ul>
+			<% Doctor.where(doctor: true).each do |doctor| %>
+				<li class = "no-bullet"><%= link_to doctor.dr_first_name_last_name, "/doctors/#{doctor.id}/calendar" %></li>
+			<%end%>
+		</ul>
+		
+		<%= month_calendar events: @appointments.where(cancelled: false) do |date, appointments| %>
+			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
+			<% appointments.each do |appointment| %>
+				<%=link_to  patient_appointment_path(appointment.patient_id, appointment.id)  do %>
+					<i class = "fi-calendar alert"></i>
+				<%end%>
+			<%end%>
+		<%end%>
+
+		<%= calendar number_of_days: 1, events: @appointments do |date, appointments| %>
+			<% appointments.each do |appointment| %>
+				<div class = <%= appointment.cancelled? ? "crossed_out" : "" %>>
+					<%= link_to (Patient.find(appointment.patient_id).full_name + " - " + appointment.start_time.strftime("%H:%M") + "-" + appointment.end_time.strftime("%H:%M")), patient_appointment_path(appointment.patient_id, appointment.id) %>
+				</div>
+			<%end%>
+		<%end%>
+	<%end%>
 <%end%>

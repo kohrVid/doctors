@@ -26,3 +26,10 @@
 	width: 130px;
 	display: inline !important;
 }
+
+.crossed_out {
+	text-decoration: line-through;
+	a {
+		color: red !important;
+	}
+}

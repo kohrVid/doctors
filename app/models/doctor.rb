@@ -5,4 +5,12 @@ class Doctor < User
 	def self.doctor
 		User.doctor
 	end
+
+	def dr_full_name
+		self.title + " " + self.full_name
+	end
+
+	def dr_first_name_last_name
+		self.title + " " + self.first_name_last_name
+	end
 end

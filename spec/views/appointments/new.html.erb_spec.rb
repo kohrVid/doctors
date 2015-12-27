@@ -52,7 +52,7 @@ RSpec.describe "appointments/new.html.erb", type: :view do
 			@doctor_is_logged_in = false
 			@senior_staff_member_is_logged_in = false
 			assign(:appointment, appointment)
-			render :template => "appointments/edit", :layout => "layouts/application"
+			render :template => "appointments/new", :layout => "layouts/application"
 		end
 		
 		it "should have a Back to Appointments button" do
@@ -67,7 +67,7 @@ RSpec.describe "appointments/new.html.erb", type: :view do
 			@patient_is_logged_in = false
 			@doctor_is_logged_in = false
 			@senior_staff_member_is_logged_in = false
-			render :template => "appointments/edit", :layout => "layouts/application"
+			render :template => "appointments/new", :layout => "layouts/application"
 		end
 		
 		it "should have a Back to Appointments button" do
@@ -83,7 +83,7 @@ RSpec.describe "appointments/new.html.erb", type: :view do
 			@patient_is_logged_in = false
 			@doctor_is_logged_in = true
 			@senior_staff_member_is_logged_in = true
-			render :template => "appointments/edit", :layout => "layouts/application"
+			render :template => "appointments/new", :layout => "layouts/application"
 		end
 		
 		it "should have a Back to Appointments button" do
@@ -99,7 +99,7 @@ RSpec.describe "appointments/new.html.erb", type: :view do
 			@doctor_is_logged_in = false
 			@senior_staff_member_is_logged_in = true
 			@admin_is_logged_in = true
-			render :template => "appointments/edit", :layout => "layouts/application"
+			render :template => "appointments/new", :layout => "layouts/application"
 		end
 		
 		it "should have a Back to Appointments button" do

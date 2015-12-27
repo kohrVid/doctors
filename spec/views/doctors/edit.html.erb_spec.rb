@@ -87,7 +87,7 @@ RSpec.describe "doctors/edit.html.erb", type: :view do
 		end
 		
 		it "should have a link to the doctor's show page" do
-			expect(rendered).to have_link((doctor.title + " " + doctor.first_name_last_name), href: doctor_path(doctor))
+			expect(rendered).to have_link((doctor.dr_first_name_last_name), href: doctor_path(doctor))
 		end
 
 	end

@@ -3,9 +3,9 @@
 	<h4>New Appointment</h4>
 	<%= render "form" %>
 	<p>
-		<% if @current_user && @current_user.patient? %>
+		<% if @patient_is_logged_in %>
 			<%= link_to "<< Back to Appointments", patient_appointments_path(@appointment.patient_id) %>
-		<% elsif @current_user && @current_user.doctor? %>
+		<% elsif @doctor_is_logged_in %>
 			<%= link_to "<< Back to Appointments", doctor_appointments_path(@appointment.doctor_id) %>
 		<% else %>
 			<%= link_to "<< Back to Appointments", appointments_path %>

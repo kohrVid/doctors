@@ -10,6 +10,7 @@ class AppointmentsController < ApplicationController
 
 	def index
 		@appointments = Appointment.all
+	#	format.js
 	end
 
 	def new
@@ -19,9 +20,10 @@ class AppointmentsController < ApplicationController
 	def create
 		@appointment = Appointment.new(appointment_params)
 		if @appointment.save
-			flash[:notice] = "Appointment has been successfully created"
+			flash.now[:notice] = "Appointment has been successfully created"
 			render :index
 		else
+			flash.now[:error] = "Unable to create appointment"
 			render :new
 		end
 	end
@@ -38,7 +40,7 @@ class AppointmentsController < ApplicationController
 	def update
 		@appointment = Appointment.find(params[:id])
 		if @appointment.update_attributes(appointment_params)
-			flash[:success] = "Appointment has been successfully updated"
+			flash.now[:success] = "Appointment has been successfully updated"
 			redirect_to @appointment
 		else
 			flash.now[:error] = "Unable to update appointment"
@@ -49,7 +51,7 @@ class AppointmentsController < ApplicationController
 	def destroy
 		@appointment = Appointment.find(params[:id])
 		@appointment.destroy
-		flash[:success] = "Appointment deleted"
+		flash.now[:success] = "Appointment deleted"
 		redirect_to appointments_url
 	end
 

@@ -1,4 +1,41 @@
-<% provide(:title, @page.title) %>
+<% provide(:title, "Appointment Details") %>
 <% content_for :main do%>
+	<h4>Appointment Details</h4>
+	<p>
+		<strong>Patient:</strong> <%= Patient.find(@appointment.patient_id).full_name%>
+	</p>
+	<p>
+		<strong>Doctor:</strong> <%= Doctor.find(@appointment.doctor_id).dr_full_name%>
+	</p>
+	<p>
+		<strong>Date:</strong> <%= @appointment.start_time.strftime("%d %B %Y") %>
+	</p>
+	<p>
+		<strong>Start Time:</strong> <%= @appointment.start_time.strftime("%H:%M:%S") %>
+	</p>
+	<p>
+		<strong>End Time:</strong> <%= @appointment.end_time.strftime("%H:%M:%S") %>
+	</p>
+	<p>
+		<strong>Description:</strong> <%= @appointment.description %>
+	</p>
+	<p><strong>Status:</strong> <%= (@appointment.cancelled == true) ? "Cancelled" : "Active" %>
+	</p>
 
+	
+	<p>
+		<% if @patient_is_logged_in %>
+			<%= link_to "<< Back to Appointments", patient_appointments_path(@appointment.patient_id) %> | 
+			<%= link_to "Edit", edit_patient_appointment_path(@appointment.patient_id, @appointment.id) %> | 
+		<% elsif @doctor_is_logged_in %>
+			<%= link_to "<< Back to Appointments", doctor_appointments_path(@appointment.doctor_id) %> | 
+			<%= link_to "Edit", edit_doctor_appointment_path(@appointment.doctor_id, @appointment.id) %> | 
+		<% else %>
+			<%= link_to "<< Back to Appointments", appointments_path %> | 
+			<%= link_to "Edit", edit_appointment_path(@appointment.id) %> | 
+		<%end%>
+		<% unless !(@senior_staff_member_is_logged_in) %>
+			<%= link_to "Destroy", @appointment, method: :delete, data: { confirm: "Are you sure?" } %>
+		<%end%>
+	</p>
 <%end%>

@@ -51,6 +51,11 @@ class DoctorsController < ApplicationController
 		redirect_to doctors_url
 	end
 
+	def calendar
+		@doctor = Doctor.where(doctor: true).find(params[:id])
+		@appointments = Appointment.where(doctor_id: @doctor.id)
+	end
+
 
 	private
 		def doctor_params

@@ -23,6 +23,10 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 			expect(rendered).to have_link("Log In", href: login_path)
 		end
 
+		it "has a Book an Appointment button" do
+			expect(rendered).to have_link("Book an appointment", href: new_appointment_path)
+		end
+
 	end
 
 	context "Patient" do

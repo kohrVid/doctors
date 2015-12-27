@@ -1,6 +1,6 @@
-<% provide(:title, @doctor.title + " " + @doctor.first_name_last_name) %> 
+<% provide(:title, @doctor.dr_first_name_last_name) %> 
 <% content_for :main do%>
-	<h4><%= @doctor.title %>  <%= @doctor.first_name_last_name %></h4>
+	<h4><%= @doctor.dr_first_name_last_name %></h4>
 	<p>
 		<%= @doctor.biography%>
 	</p>

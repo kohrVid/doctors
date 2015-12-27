@@ -62,6 +62,11 @@ class PatientsController < ApplicationController
 		redirect_to(bulk_patient_approval_url)
 	end
 
+	def calendar
+		@patient = Patient.where(patient: true).find(params[:id])
+		@appointments = Appointment.where(patient_id: @patient.id)
+	end
+
 
 	private
 		def patient_params

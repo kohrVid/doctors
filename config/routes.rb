@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 	resources :patients do
 		resources :appointments
 	end
+	get "/patients/:id/calendar"	=> "patients#calendar"
+	get "/doctors/:id/calendar"	=> "doctors#calendar"
 	get    "login"  		=> "user_sessions#new"
 	post   "login"  		=> "user_sessions#create"
         delete "logout"  		=> "user_sessions#destroy"

@@ -1,11 +1,11 @@
 <%= form_for @appointment do |f| %>
 	<p>
 		<%= f.label :patient %><br />
-		<%= select("patient", "patient_id", Patient.where(patient: true).collect { |p| [ p.full_name, p.id ] })%>
+		<%= f.select(:patient_id, options_for_select(Patient.where(patient: true).collect { |p| [ p.full_name, p.id ] }))%>
 	</p>
 	<p>
 		<%= f.label :doctor %><br />
-		<%= select("doctor", "doctor_id", Doctor.where(doctor: true).collect { |d| [ d.title + " " + d.full_name, d.id ] })%>
+		<%= f.select(:doctor_id, options_for_select(Doctor.where(doctor: true).collect { |d| [ d.dr_full_name, d.id ] }))%>
 	</p>
 	<p>
 		<div class = "small_input">
@@ -17,7 +17,7 @@
 	<p>
 		<div class = "small_input">
 			<%= f.label :end_time %><br />
-			<%= f.time_select(:end_time, method: :post, class: "small_input") %>
+			<%= f.time_select(:end_time, method: :post) %>
 		</div>
 	</p>
 	<p>
