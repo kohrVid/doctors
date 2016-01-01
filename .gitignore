@@ -6,8 +6,8 @@
 
 # Ignore bundler config.
 /.bundle
-/config/secrets.yml
-/config/database.yml
+#/config/secrets.yml
+#/config/database.yml
 /config/initializers/secret_token.rb
 /db/seeds.rb
 /db/development.sqlite3     

@@ -24,7 +24,8 @@ gem "mail_form", "~> 1.5.1"
 gem "simple_calendar", "~> 2.0"
 gem "owlcarousel-rails"
 gem 'wysihtml-rails', :git => 'https://github.com/Voog/wysihtml-rails.git'
-gem "elasticsearch", git: "https://github.com/elasticsearch/elasticsearch-ruby.git"
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 gem "railties"
 gem 'carrierwave', '0.10.0'
 gem 'remotipart'

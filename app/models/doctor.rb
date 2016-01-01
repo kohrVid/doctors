@@ -1,4 +1,7 @@
-class Doctor < User
+require 'elasticsearch/model'
+class Doctor < User	
+	include Elasticsearch::Model
+	include Elasticsearch::Model::Callbacks
 	belongs_to :patients, class_name: "User"
 	validates :biography, presence: true, length: {minimum: 10, maximum: 750}
 
