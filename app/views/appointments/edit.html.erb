@@ -4,18 +4,18 @@
 	<%= render "form" %>
 	
 	<p>
-		<% if @patient_is_logged_in %>
+		<% if patient_is_logged_in %>
 			<%= link_to "<< Back to Appointments", patient_appointments_path(@appointment.patient_id) %> | 
-		<% elsif @doctor_is_logged_in %>
+		<% elsif doctor_is_logged_in %>
 			<%= link_to "<< Back to Appointments", doctor_appointments_path(@appointment.doctor_id) %> | 
 		<% else %>
 			<%= link_to "<< Back to Appointments", appointments_path %> | 
 		<%end%>
-		<% unless !(@senior_staff_member_is_logged_in) %>
+		<% unless !senior_staff_member_is_logged_in %>
 			<%= link_to "Destroy", @appointment, method: :delete, data: { confirm: "Are you sure?" } %> | 
 		<%end%>
-		<%= link_to "Appointment Details", patient_appointment_path(@appointment.patient_id, @appointment) unless !(@patient_is_logged_in) %>
-		<%= link_to "Appointment Details", doctor_appointment_path(@appointment.doctor_id, @appointment) unless !(@doctor_is_logged_in) %>
-		<%= link_to "Appointment Details", appointment_path(@appointment) unless (@doctor_is_logged_in || @patient_is_logged_in)%>
+		<%= link_to "Appointment Details", patient_appointment_path(@appointment.patient_id, @appointment) unless !patient_is_logged_in %>
+		<%= link_to "Appointment Details", doctor_appointment_path(@appointment.doctor_id, @appointment) unless !doctor_is_logged_in %>
+		<%= link_to "Appointment Details", appointment_path(@appointment) unless (doctor_is_logged_in || patient_is_logged_in)%>
 	</p>
 <%end%>

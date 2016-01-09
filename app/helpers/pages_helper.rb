@@ -23,11 +23,9 @@ module PagesHelper
 		@admin_is_logged_in = @current_user && @current_user.admin?
 	end
 	
-	def who_is_the_current_user
-		def is_the_current_user(user_dot_id)
-			who = Proc.new {|user_dot_id| @current_user.present? && (@current_user.id == user_dot_id) }
-			who.call(user_dot_id)
-		end
+	def is_the_current_user(user_dot_id)
+		who = Proc.new {|user_dot_id| @current_user.present? && (@current_user.id == user_dot_id) }
+		who.call(user_dot_id)
 	end
 
 end

@@ -3,7 +3,7 @@
 	<h4>Register</h4>
 	<%= render "form" %>
 	<p>
-			<%= link_to "<< Back to Patients", patients_path unless !(@privileged_user_is_logged_in)%>  
+			<%= link_to "<< Back to Patients", patients_path unless !privileged_user_is_logged_in%>  
 	</p>
 
 <%end%>

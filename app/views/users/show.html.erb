@@ -56,11 +56,11 @@
 	</p>
 
 	<p>
-		<% unless !(@privileged_user_is_logged_in) %>
+		<% unless !privileged_user_is_logged_in %>
 			<%= link_to "<< Back to Users", users_path %> | 
 		<%end%>
 		<%= link_to "Edit", edit_user_path(@user) %>
-		<% unless !(@admin_is_logged_in)%>
+		<% unless !admin_is_logged_in %>
 			| <%= link_to "Destroy", @user, method: :delete, data: { confirm: "Are you sure?" } %>
 		<%end%>
 	</p>

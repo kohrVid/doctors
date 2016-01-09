@@ -1,6 +1,6 @@
 <% provide(:title, "Appointments") %>
 <% content_for :main do%>
-	<% if @patient_is_logged_in %>
+	<% if patient_is_logged_in %>
 		<h4>Appointments</h4>
 		<%= month_calendar events: @appointments.where(patient_id: @current_user.id, cancelled: false) do |date, appointments| %>
 			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
@@ -18,12 +18,12 @@
 				</div>
 			<%end%>
 		<%end%>
-	<% elsif @doctor_is_logged_in %>
+	<% elsif doctor_is_logged_in %>
 		<h4>Appointments</h4>
 		<%= month_calendar events: @appointments.where(doctor_id: @current_user.id, cancelled: false) do |date, appointments| %>
 			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
 			<% appointments.each do |appointment| %>
-				<%=link_to  doctor_appointment_path(appointment.doctor_id, appointment.id)  do %>
+				<%=link_to doctor_appointment_path(appointment.doctor_id, appointment.id)  do %>
 					<i class = "fi-calendar"></i>
 				<%end%>
 			<%end%>

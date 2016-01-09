@@ -68,7 +68,7 @@
 		<%= f.text_field :phone %>
 	</p>
 	
-	<% unless !(@privileged_user_is_logged_in) %>
+	<% unless !privileged_user_is_logged_in %>
 		<p>
 			<%= f.label :approved %>
 			<%= f.check_box :approved %>
@@ -79,7 +79,7 @@
 		</p>
 	<%end%>
 	
-	<% unless !(@admin_is_logged_in) %>
+	<% unless !admin_is_logged_in %>
 		<p>
 			<%= f.label :receptionist %>
 			<%= f.check_box :receptionist %>

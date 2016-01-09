@@ -1,5 +1,5 @@
 <% provide(:title, "Bulk Patient Approval") %> 
 <% content_for :main do%>
-	<%= render "bulk_patient_approval" unless !(@privileged_user_is_logged_in) %>
+	<%= render "bulk_patient_approval" unless !(privileged_user_is_logged_in) %>
 
 <%end%>

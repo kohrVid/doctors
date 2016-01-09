@@ -62,11 +62,11 @@
 	</p>
 
 	<p>
-		<% unless !(@privileged_user_is_logged_in) %>
+		<% unless !privileged_user_is_logged_in %>
 			<%= link_to "<< Back to Patients", patients_path %> | 
 		<%end%>
 		<%= link_to "Edit", edit_patient_path(@patient) %>
-		<% unless !(@admin_is_logged_in)%>
+		<% unless !admin_is_logged_in %>
 			 | <%= link_to "Destroy", @patient, method: :delete %>
 		<%end%>
 	</p>
