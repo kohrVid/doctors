@@ -1,0 +1,29 @@
+<% provide(:title, "Search Results") %> 
+<% content_for :main do%>
+	<%=form_for search_path, method: :get do |f| %>
+		<div class="row">
+			<%= f.label "", class: "visuallyhidden" %>
+			<div class="left">
+				<%= text_field_tag :q, params[:q], placeholder: "Find Stuff", class: "active search", width: "5%" %>
+			</div>
+			<div class="left">
+				<button name ="" class = "button active tiny search_button", height="0.3rem">
+					<i class = "fi-magnifying-glass"></i>
+				</button>
+			</div>
+		</div>
+	<%end%>
+
+	<ul>	
+		<% @results.each do |result| %>
+			<li>
+				<h4><%= link_to result.try(:highlight).try(:title) ? result.highlight.title[0].html_safe : result.title, controller: "pages", action: "show", id: result.id %></h4>
+				<%if result.try(:highlight).try(:description) %>
+					<% result.highlight.description.each do |snippet| %>
+						<p><%= snippet.html_safe %></p>
+					<%end%>
+				<%end%>
+			</li>
+		<%end%>
+	</ul>
+<%end%>

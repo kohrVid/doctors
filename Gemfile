@@ -34,6 +34,7 @@ gem "fog", "~> 1.34.0"
 gem "google-translate", "~> 1.1.2"
 gem "friendly_id", "~> 5.1", :require => "friendly_id"
 gem "validates_overlap"
+gem "waiable"
 
 gem "rack-attack", "~> 4.3"
 gem "rubocop", "~> 0.35.1" #run "rubocop --rails" to use

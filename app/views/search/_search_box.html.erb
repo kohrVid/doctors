@@ -1,0 +1,8 @@
+<%=form_for search_path, method: :get do |f| %>
+	<li><%= f.label "Search the site", class: "visuallyhidden" %></li>
+	<li><%= text_field_tag :q, params[:q], placeholder: "Search the site", class: "active" %></li>
+	<li><button name ="" class = "button active">
+		<i class = "fi-magnifying-glass"></i>
+	</button>
+	</li>
+<%end%>

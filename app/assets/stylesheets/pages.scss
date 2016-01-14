@@ -48,3 +48,19 @@
 	    margin-right: 20px !important;
 	    margin-left: 20px !important;
     }
+/* Search */
+ .right {
+	    left: 60% !important;
+    }
+.visuallyhidden{
+//	border: 0 !important;
+//	clip: rect(0 0 0 0) !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	text-indent: -999em !important;
+//	font-size: 1px !important;
+}

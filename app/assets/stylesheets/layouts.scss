@@ -33,3 +33,23 @@
 		color: red !important;
 	}
 }
+
+.nav-right{
+	right: -2rem;
+	position: absolute;
+	float: right;
+	width: 33rem !important;
+}
+.has-dropdown{
+	width: 11rem !important;
+}
+
+.search {
+	width: 169% !important;
+	left: 1rem !important;
+	position: relative;
+}
+.search_button{
+	position: relative;
+	left: 9rem;
+}
