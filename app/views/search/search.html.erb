@@ -13,8 +13,11 @@
 			</div>
 		</div>
 	<%end%>
+	<div>
+		<%= pluralize(@results.count, "result")%> found.
+	</div>
 
-	<ul>	
+	<ol>	
 		<% @results.each do |result| %>
 			<li>
 				<h4><%= link_to result.try(:highlight).try(:title) ? result.highlight.title[0].html_safe : result.title, controller: "pages", action: "show", id: result.id %></h4>
@@ -25,5 +28,5 @@
 				<%end%>
 			</li>
 		<%end%>
-	</ul>
+	</ol>
 <%end%>

@@ -12,6 +12,13 @@ class Page < ActiveRecord::Base
 		[:title]
 	end
 
+	settings index: { number_of_shards: 1 } do
+		mappings dynamic: "false" do
+			indexes :title, analyzer: "english", index_options: "offsets"
+			indexes :description, analyzer: "english"
+		end
+	end
+	
 	def self.search(query)
 		__elasticsearch__.search(
 			{
@@ -32,5 +39,6 @@ class Page < ActiveRecord::Base
 			}
 		)
 	end
+
 end
 Page.import(force: true)

@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20151223144632) do
 
   create_table "testimonials", force: :cascade do |t|
     t.text     "author"
-    t.date     "date",       default: '2015-12-23'
+    t.date     "date",       default: '2016-01-14'
     t.text     "body"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
