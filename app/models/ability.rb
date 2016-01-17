@@ -7,28 +7,28 @@ class Ability
 			can :manage, Testimonial
 			cannot :destroy, User, id: user.id
 		elsif user.doctor?
-			[:create, :read, :update].each do |action|
-				can action, Patient
-			end
 			[:read, :update].each do |action|
 				can action, Doctor, id: user.id
 				can action, User, id: user.id
 			end
 			can :read, User
 			can :manage, Page
+			can :manage, Patient
 			can :manage, Testimonial
 			can :manage, Appointment
 			cannot :create, Doctor
 			cannot :destroy, User
 		elsif user.receptionist?
 			[:read, :update].each do |action|
-				can action, Patient
 				can action, User, id: user.id
 			end
 			[:create, :read, :update].each do |action|
 				can action, Appointment
 			end
-			can :create, Patient
+			[:bulk_patient_approval, :bulk_patient_approved].each do |action|
+				can action, Patient
+			end
+			can :manage, Patient
 			can :read, User
 			can :read, Page
 			can :read, Testimonial
@@ -37,9 +37,7 @@ class Ability
 				cannot action, Page
 				cannot action, Testimonial
 			end
-			[:index, :update, :destroy].each do |action|
-				cannot action, Testimonial
-			end
+			cannot :index, Testimonial
 			cannot :destroy, User
 		elsif user.patient?
 			[:update, :read].each do |action|

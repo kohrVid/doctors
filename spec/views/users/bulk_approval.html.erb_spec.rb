@@ -37,10 +37,6 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
-		it "must not see Name" do
-			expect(rendered).to_not have_content(user.full_name)
-		end
-
 		it "must not see Username" do
 			expect(rendered).to_not have_link(user.full_name, href: user_path(user))
 		end
@@ -63,10 +59,6 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
-		it "must not see Name" do
-			expect(rendered).to_not have_content(user.full_name)
-		end
-
 		it "must not see Username" do
 			expect(rendered).to_not have_link(user.full_name, href: user_path(user))
 		end

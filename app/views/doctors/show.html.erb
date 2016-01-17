@@ -55,6 +55,12 @@
 				<td><%= @doctor.address.post_code %></td>
 			</tr>
 		</table>
+		<p>
+			<strong>Approved?:</strong> <%= @doctor.approved?.humanize %>
+		</p>
+		<p>
+			<strong>Locked?:</strong> <%= @doctor.locked?.humanize %>
+		</p>
 	<%end%>
 	
 	<p>

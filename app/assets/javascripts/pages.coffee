@@ -3,6 +3,8 @@ $(document).ready ->
   $("#wysihtml5-textarea").each = (i, elem) ->
     $(elem).wysihtml5()
 
-  $("#unapproved_users").change ->
+  $("#Users_unapproved").change ->
+    window.location = $(this).val()
+  $("#Patients_unapproved").change ->
     window.location = $(this).val()
 

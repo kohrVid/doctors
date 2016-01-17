@@ -34,12 +34,13 @@ gem "fog", "~> 1.34.0"
 gem "google-translate", "~> 1.1.2"
 gem "friendly_id", "~> 5.1", :require => "friendly_id"
 gem "validates_overlap"
-gem "waiable"
+#gem "waiable"
+gem "humanize_boolean"
 
 gem "rack-attack", "~> 4.3"
 gem "rubocop", "~> 0.35.1" #run "rubocop --rails" to use
 gem "brakeman", "~> 3.1", ">= 3.1.2" #run "brakeman" to use
-gem "secure_headers", "~> 2.4", ">= 2.4.3"
+gem "secure_headers", "2.4.4"#, ">= 2.4.3"
 gem "dawnscanner"#, "~> 1.4", ">= 1.4.2" #run "dawn -r ./" to use
 gem "figaro"
 gem "activerecord-session_store"

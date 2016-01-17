@@ -27,6 +27,20 @@
 	<p>
 		<strong>Phone:</strong> <%= number_to_phone(@user.phone, area_code: true) %>
 	</p>
+	<p>
+		<strong>Role: </strong> 
+		<% if @user.admin? %>
+			Admin
+		<% elsif @user.doctor? %>
+			Doctor
+		<% elsif @user.receptionist? %>
+			Receptionist
+		<% elsif @user.patient? %>
+			Patient
+		<%else%>
+			Pending
+		<%end%>
+	</p>
 	<h5>Address:</h5>
 	<table>
 		<tr>
@@ -50,6 +64,12 @@
 			<td><%= @user.address.post_code %></td>
 		</tr>
 	</table>
+	<p>
+		<strong>Approved?:</strong> <%= @user.approved?.humanize %>
+	</p>
+	<p>
+		<strong>Locked?:</strong> <%= @user.locked?.humanize %>
+	</p>
 	<p>
 		<strong>Date Created:</strong> <%= @user.created_at.strftime("%d %B %Y %H:%M:%S") %><br />
 		<strong>Date Last Modified:</strong> <%= @user.updated_at.strftime("%d %B %Y %H:%M:%S") %>

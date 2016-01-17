@@ -22,7 +22,7 @@ RSpec.describe "pages/index.html.erb", type: :view do
 		end
 		
 		it "should not show a list of patients awaiting approval" do
-			expect(rendered).to_not have_selector("select[name='unapproved[patients]']")
+			expect(rendered).to_not have_selector("select[name='Patients[unapproved]']")
 		end
 
 		it "should not show link to bulk_approval page" do
@@ -41,7 +41,7 @@ RSpec.describe "pages/index.html.erb", type: :view do
 		end
 	
 		it "should show a list of patients awaiting approval" do
-			expect(rendered).to have_selector("select[name='unapproved[patients]']")
+			expect(rendered).to have_selector("select[name='Patients[unapproved]']")
 		end
 
 		it "should show link to bulk_approval page" do
@@ -69,7 +69,7 @@ RSpec.describe "pages/index.html.erb", type: :view do
 		end
 		
 		it "should show a list of patients awaiting approval" do
-			expect(rendered).to have_selector("select[name='unapproved[patients]']")
+			expect(rendered).to have_selector("select[name='Patients[unapproved]']")
 		end
 
 		it "should show link to bulk_approval page" do
@@ -97,7 +97,7 @@ RSpec.describe "pages/index.html.erb", type: :view do
 		end
 		
 		it "should show a list of users awaiting approval" do
-			expect(rendered).to have_selector("select[name='unapproved[users]']")
+			expect(rendered).to have_selector("select[name='Users[unapproved]']")
 		end
 
 		it "should show link to bulk_approval page" do

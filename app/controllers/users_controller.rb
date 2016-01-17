@@ -13,10 +13,10 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-		#	@user.send_activation_email
-		#	flash[:notice] = "Please check your email to activate your account"
+			flash[:success] = "User has been successfully created"
 			redirect_to root_url 
 		else
+			flash.now[:danger] = "Unable to create user"
 			render :new
 		end
 	end
@@ -63,10 +63,12 @@ class UsersController < ApplicationController
 			params.require(:user).permit(:title, :first_name, 
 						     :middle_name, :last_name, 
 						     :dob, :phone, :username, 
-						     :address, :email, :password, 
+						     :email, :password, 
 						     :password_confirmation, :admin, 
 						     :doctor, :patient, :receptionist, 
-						     :approved, :locked)
+						     :approved, :locked, address_attributes:
+						     [:street, :address_line2,
+	    					     :city, :county, :post_code])
 		end
 
 		def bulk_approval_params(id)

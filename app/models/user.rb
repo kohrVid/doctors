@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	has_many :appointments
 	has_one :address, dependent: :destroy
 	accepts_nested_attributes_for :address
-
+	
 	acts_as_authentic do |c|
 		c.login_field = :username
 		c.validate_email_field = false
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 			return false
 		end
 	end
-
+	
 	def approved?
 		if self.approved == true
 			return true

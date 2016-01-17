@@ -13,10 +13,10 @@ class DoctorsController < ApplicationController
 	def create
 		@doctor = Doctor.new(doctor_params)
 		if @doctor.save
-		#	@doctor.send_activation_email
-		#	flash[:notice] = "Please check your email to activate your account"
+			flash[:success] = "Doctor has been successfully created"
 			redirect_to root_url 
 		else
+			flash.now[:danger] = "Unable to create doctor"
 			render :new
 		end
 	end
@@ -57,9 +57,11 @@ class DoctorsController < ApplicationController
 			params.require(:doctor).permit(:title, :first_name, 
 						       :middle_name, :last_name, 
 						       :dob, :biography, :phone, 
-						       :username, :address, :email, 
-						       :password, :password_confirmation, 
-						       :admin, :doctor, :doctor, 
-						       :receptionist, :approved, :locked)
+						       :username, :email, :password,
+						       :password_confirmation, :admin,
+						       :doctor, :receptionist, :approved,
+						       :locked, address_attributes:
+						       [:street, :address_line2, :city,
+	      						:county, :post_code])
 		end
 end

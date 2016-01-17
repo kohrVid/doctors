@@ -5,13 +5,13 @@
 	</div>
 	<div class="medium-6 large-5 columns">
 		<h3>Quick Links</h3>
-		<% if @doctor_or_receptionist_is_logged_in %>
+		<% if doctor_or_receptionist_is_logged_in %>
 			<strong>Users Awaiting Approval</strong>
-			<%= select("unapproved", "patients", Patient.where(approved: false).collect {|p| [ p.full_name, "/patients/#{p.id}" ] })%>
+			<%= select("Patients", "unapproved", Patient.where(approved: false, patient: true).collect {|p| [ p.full_name, "/patients/#{p.id}" ] }, :include_blank => "Select unapproved users...")%>
 			<%= link_to "Bulk Approval", bulk_patient_approval_path %>
-		<% elsif @admin_is_logged_in %>
+		<% elsif admin_is_logged_in %>
 			<strong>Users Awaiting Approval</strong>
-			<%= select("unapproved", "users", User.where(approved: false).collect {|u| [ u.full_name, "/users/#{u.id}" ] })%>
+			<%= select("Users", "unapproved", User.where(approved: false).collect {|u| [ u.full_name, "/users/#{u.id}" ] }, {:include_blank => "Select unapproved users..."})%>
 			<%= link_to "Bulk Approval", bulk_user_approval_path %>
 		<%end%>
 		<h3>Have Your Say</h3>

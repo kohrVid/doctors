@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
 	load_and_authorize_resource
+	before_action :admin_is_logged_in, :senior_staff_member_is_logged_in
 
 	def index
 #		@pages = PagesIndex.new

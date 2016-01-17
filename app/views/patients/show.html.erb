@@ -57,6 +57,12 @@
 		</tr>
 	</table>
 	<p>
+		<strong>Approved?:</strong> <%= @patient.approved?.humanize %>
+	</p>
+	<p>
+		<strong>Locked?:</strong> <%= @patient.locked?.humanize %>
+	</p>
+	<p>
 		<strong>Date Created:</strong> <%= @patient.created_at.strftime("%d %B %Y %H:%M:%S") %><br />
 		<strong>Date Last Modified:</strong> <%= @patient.updated_at.strftime("%d %B %Y %H:%M:%S") %>
 	</p>

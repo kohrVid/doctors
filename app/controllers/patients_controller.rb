@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
 	load_and_authorize_resource
+	skip_authorize_resource :only => [:bulk_patient_approval, :bulk_patient_approved]
 
 	def index
 		@patients = Patient.where(patient: true).order(:id)
@@ -17,6 +18,7 @@ class PatientsController < ApplicationController
 		#	flash[:notice] = "Please check your email to activate your account"
 			redirect_to root_url 
 		else
+			flash.now[:danger] = "Unable to create patient"
 			render :new
 		end
 	end
@@ -42,8 +44,8 @@ class PatientsController < ApplicationController
 
 	def destroy
 		Patient.where(patient: true).find(params[:id]).destroy
-		flash[:success] = "Patient deleted"
-		redirect_to patients_url
+		flash.now[:success] = "Patient deleted"
+		render :index
 	end
 
 	def bulk_patient_approval
@@ -68,11 +70,13 @@ class PatientsController < ApplicationController
 			params.require(:patient).permit(:title, :first_name, 
 							:middle_name, :last_name, 
 							:dob, :gender, :nhs_number, 
-							:phone, :username, :address, 
-							:email, :password, 
-							:password_confirmation, 
+							:phone, :username, :email,
+							:password, :password_confirmation, 
 							:admin, :doctor, :patient, 
-							:receptionist, :approved, :locked)
+							:receptionist, :approved, :locked,
+							address_attributes: [:street,
+			    				:address_line2, :city,
+							:county, :post_code])
 		end
 		
 		def bulk_approval_params(id)

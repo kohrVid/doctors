@@ -43,7 +43,7 @@
 								</div>
 							<%end%>
 					</div>
-					<% unless !senior_staff_member_is_logged_in %>
+					<% unless !@senior_staff_member_is_logged_in %>
 						<div class = "right">
 							<%= link_to "Add Testimonial", new_testimonial_path %> | 
 							<%= link_to "Manage Testimonials", testimonials_path %>
