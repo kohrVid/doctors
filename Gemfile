@@ -44,10 +44,10 @@ gem "secure_headers", "2.4.4"#, ">= 2.4.3"
 #gem "dawnscanner"#, "~> 1.4", ">= 1.4.2" #run "dawn -r ./" to use
 gem "figaro"
 gem "activerecord-session_store"
+gem "factory_girl_rails", "~> 4.5.0"
 
 group :development, :test do
   gem "byebug"
-  gem "factory_girl_rails", "~> 4.5.0"
   gem "rspec-html-matchers", "0.7.0"
   gem "nokogiri", "~> 1.6.6.4"
   gem "simplecov", :require => false, :group => :test
