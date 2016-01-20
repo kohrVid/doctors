@@ -60,4 +60,6 @@ Rails.application.configure do
 	    user_name: ENV["GMAIL_USERNAME"],
 	    password: ENV["GMAIL_PASSWORD"]
     }
+
+    Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_SSL_URL']
 end

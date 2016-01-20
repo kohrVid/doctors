@@ -1,6 +1,6 @@
 config = {
         host: "http://localhost:3000/",
-        transpport_options: {
+        transport_options: {
                 request: { timeout: 5 }
         },
 }
