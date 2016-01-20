@@ -41,7 +41,7 @@ gem "rack-attack", "~> 4.3"
 gem "rubocop", "~> 0.35.1" #run "rubocop --rails" to use
 gem "brakeman", "~> 3.1", ">= 3.1.2" #run "brakeman" to use
 gem "secure_headers", "2.4.4"#, ">= 2.4.3"
-gem "dawnscanner"#, "~> 1.4", ">= 1.4.2" #run "dawn -r ./" to use
+#gem "dawnscanner"#, "~> 1.4", ">= 1.4.2" #run "dawn -r ./" to use
 gem "figaro"
 gem "activerecord-session_store"
 
