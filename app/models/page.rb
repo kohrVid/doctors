@@ -3,13 +3,16 @@ class Page < ActiveRecord::Base
 	include Elasticsearch::Model
 	include Elasticsearch::Model::Callbacks
 	extend FriendlyId
-	friendly_id :slug_candidates, use: :slugged
+	friendly_id :slug_candidates, use: [:slugged]
 	validates :title, presence: true, length: { minimum: 3 }
 	validates :description, presence: true, length: { minimum: 10 }
 	
 
 	def slug_candidates
-		[:title]
+		[
+			:title,
+			[:title, :id]
+		]
 	end
 
 	settings index: { number_of_shards: 1 } do
@@ -25,7 +28,7 @@ class Page < ActiveRecord::Base
 				query: {
 					multi_match: {
 						query: query,
-						fields: ["title^10", "text"]
+						fields: ["title^10", "description"]
 					}
 				},
 				highlight: {

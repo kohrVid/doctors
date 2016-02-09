@@ -18,16 +18,11 @@ RSpec.describe PagesController, type: :controller do
 			expect(response).to render_template("index")
 		end
 	end
-	
 	describe "'GET' show" do
-		it "should be successful" do
-			get "show"
-			expect(response).to be_success
-		end
-
-		it "should render the show template" do
-			get :show 
-			expect(response).to render_template("show")
+		it "should allow non-users to read pages" do
+			allow(controller).to receive(:current_user).and_return(nil)
+			ability = Ability.new(nil)
+			expect(ability).to be_able_to(:read, Page.friendly.find(page.slug))
 		end
 	end
 

@@ -3,6 +3,10 @@ module PagesHelper
 		@patient_is_logged_in = @current_user && @current_user.patient?
 	end
 
+	def receptionist_is_logged_in
+		@receptionist_is_logged_in = @current_user && @current_user.receptionist?
+	end
+
 	def doctor_is_logged_in
 		@doctor_is_logged_in = @current_user && @current_user.doctor?
 	end

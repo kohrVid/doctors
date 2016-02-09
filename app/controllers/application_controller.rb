@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 	ensure_security_headers
 	include CanCan::ControllerAdditions
 	include PagesHelper
-	helper_method :current_user_session, :current_user
+	helper_method :current_user_session, :current_user, :logged_in?
 	# self.responder = ApplicationResponder
 	
 	
@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
 
 		def current_user
 			@current_user ||= current_user_session && current_user_session.user
+		end
+
+		def logged_in?
+			return current_user != nil
 		end
 
 end

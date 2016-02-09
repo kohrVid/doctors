@@ -4,9 +4,9 @@
 	<%= render "form" %>
 	<p>
 		<% if patient_is_logged_in %>
-			<%= link_to "<< Back to Appointments", patient_appointments_path(@appointment.patient_id) %>
+			<%= link_to "<< Back to Appointments", patient_appointments_path(@current_user.id) %>
 		<% elsif doctor_is_logged_in %>
-			<%= link_to "<< Back to Appointments", doctor_appointments_path(@appointment.doctor_id) %>
+			<%= link_to "<< Back to Appointments", doctor_appointments_path(@current_user.id) %>
 		<% else %>
 			<%= link_to "<< Back to Appointments", appointments_path %>
 		<%end%>

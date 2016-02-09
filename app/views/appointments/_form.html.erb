@@ -10,8 +10,8 @@
 	<p>
 		<div class = "small_input">
 			<%= f.date_select(:start_time, method: :post, start_year: DateTime.now.year, end_year: (DateTime.now.year + 2)) %>
-		<%= f.label :start_time %><br />
-		<%= f.time_select(:start_time, method: :post) %>
+			<%= f.label :start_time %><br />
+			<%= f.time_select(:start_time, method: :post) %>
 		</div>
 	</p>
 	<p>

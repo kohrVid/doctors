@@ -2,9 +2,11 @@ require 'rails_helper'
 
 RSpec.describe "appointments/show.html.erb", type: :view do
 	let(:appointment) { FactoryGirl.create(:appointment) }
+	let(:user) { FactoryGirl.create(:user) }
 	context "attributes" do
 		before(:each) do
 			assign(:appointment, appointment)
+			assign(:current_user, user)
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
 		
@@ -43,10 +45,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 		
 	context "Patient" do
 		before(:each) do
-			@current_user = User.find(appointment.patient_id)
-			@patient_is_logged_in = true
-			@doctor_is_logged_in = false
-			@senior_staff_member_is_logged_in = false
+			assign(:current_user, User.find(appointment.patient_id))
+			assign(:patient_is_logged_in, true)
+			assign(:doctor_is_logged_in, false)
+			assign(:senior_staff_member_is_logged_in, false)
 			assign(:appointment, appointment)
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
@@ -67,10 +69,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 	context "Receptionist" do
 		before(:each) do
 			assign(:appointment, appointment)
-			@current_user = FactoryGirl.create(:receptionist)
-			@patient_is_logged_in = false
-			@doctor_is_logged_in = false
-			@senior_staff_member_is_logged_in = false
+			assign(:current_user, FactoryGirl.create(:receptionist))
+			assign(:patient_is_logged_in, false)
+			assign(:doctor_is_logged_in, false)
+			assign(:senior_staff_member_is_logged_in, false)
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
 		
@@ -90,10 +92,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 	context "Doctor" do
 		before(:each) do
 			assign(:appointment, appointment)
-			@current_user = User.find(appointment.doctor_id)
-			@patient_is_logged_in = false
-			@doctor_is_logged_in = true
-			@senior_staff_member_is_logged_in = true
+			assign(:current_user, User.find(appointment.doctor_id))
+			assign(:patient_is_logged_in, false)
+			assign(:doctor_is_logged_in, true)
+			assign(:senior_staff_member_is_logged_in, true)
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
 		
@@ -113,11 +115,11 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 	context "Admin" do
 		before(:each) do
 			assign(:appointment, appointment)
-			@current_user = FactoryGirl.create(:admin)
-			@patient_is_logged_in = false
-			@doctor_is_logged_in = false
-			@senior_staff_member_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
+			assign(:patient_is_logged_in, false)
+			assign(:doctor_is_logged_in, false)
+			assign(:senior_staff_member_is_logged_in, true)
+			assign(:admin_is_logged_in, true)
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
 		

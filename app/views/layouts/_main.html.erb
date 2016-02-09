@@ -14,6 +14,24 @@
 			<%= select("Users", "unapproved", User.where(approved: false).collect {|u| [ u.full_name, "/users/#{u.id}" ] }, {:include_blank => "Select unapproved users..."})%>
 			<%= link_to "Bulk Approval", bulk_user_approval_path %>
 		<%end%>
+
+		<% if doctor_is_logged_in %>
+			<p>
+			<strong>Today's Appointments</strong>
+			<%= select("Appointments", "today", Appointment.where(doctor_id: @current_user.id).where('start_time BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).collect {|a| [ Patient.find(a.patient_id).full_name, "/doctors/#{a.doctor_id}/appointments/#{a.id}" ] }, :include_blank => "View today's appointments...")%>
+			</p>
+		<% elsif patient_is_logged_in %>
+			<p>
+			<strong>Today's Appointments</strong>
+			<%= select("Appointments", "today", Appointment.where(patient_id: @current_user.id).where('start_time BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).collect {|a| [ Doctor.find(a.doctor_id).full_name, "/patients/#{a.patient_id}/appointments/#{a.id}" ] }, :include_blank => "View today's appointments...")%>
+			</p>
+		<% elsif receptionist_is_logged_in %>
+			<p>
+			<strong>Today's Appointments</strong>
+			<%= select("Appointments", "today", Appointment.where('start_time BETWEEN ? AND ?', DateTime.now.beginning_of_day, DateTime.now.end_of_day).collect {|a| [ Patient.find(a.patient_id).full_name, "appointments/#{a.id}" ] }, :include_blank => "View today's appointments...")%>
+			</p>
+		<%end%>
+		
 		<h3>Have Your Say</h3>
 		<li class = "no-bullet"><%= link_to "Get in touch", new_contact_path %></li>
 		<li class = "no-bullet">Surveys, &c.</li>

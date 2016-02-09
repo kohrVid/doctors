@@ -1,4 +1,7 @@
+<% provide(:title, @page.title) %>
 <% content_for :main do%>
+	<h4><%= @page.title %></h4>
+	<p><%= @page.description %></p>
 
 <%end%>
 

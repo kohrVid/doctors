@@ -9,7 +9,7 @@ RSpec.describe AppointmentsController, type: :controller do
 
 	context "Non-Users" do
 		it "should not be able to view all appointments" do
-			expect{ get :index }.to raise_error(CanCan::AccessDenied)
+			expect(get :index).to redirect_to("/login")
 		end
 		
 		it "should be able to view individual appointment" do
@@ -17,7 +17,7 @@ RSpec.describe AppointmentsController, type: :controller do
 		end
 		
 		it "should not successfulLy get new" do
-			expect{ get :new }.to raise_error(CanCan::AccessDenied)
+			expect(get :new).to redirect_to("/login")
 		end
 		
 		it "should be unable to edit appointment" do

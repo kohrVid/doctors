@@ -31,6 +31,15 @@ class Appointment < ActiveRecord::Base
 		end
 	end
 
+	def today?
+		if self.start_time > DateTime.now.beginning_of_day && self.start_time < DateTime.now.end_of_day
+			return true
+		else
+			return false
+		end
+	end
+			
+
 
 	private
 

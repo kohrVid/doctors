@@ -1,20 +1,14 @@
 class PagesController < ApplicationController
-	load_and_authorize_resource
 	before_action :admin_is_logged_in, :senior_staff_member_is_logged_in
 
 	def index
-#		@pages = PagesIndex.new
-#		@page.index
 		@contact = Contact.new
-=begin
 		@pages = Page.all
-		@contact = Contact.new
-		@users = User.all
-=end
 	end
 
 	def new
 		@page = Page.new
+		authorize! :new, @page
 	end
 
 	def create
@@ -26,18 +20,20 @@ class PagesController < ApplicationController
 		else
 			render :new
 		end
+		authorize! :create, @page
 	end
 
 	def show
-		@page = Page.find(params[:id])
+		@page = Page.friendly.find(params[:id])
+		authorize! :show, @page
 	end
 
 	def edit
-		@page = Page.find(params[:id])
+		@page = Page.friendly.find(params[:id])
 	end
 
 	def update
-		@page = Page.find(params[:id])
+		@page = Page.friendly.find(params[:id])
 		if @page.update_attributes(page_params)
 			flash[:success] = "Page updated"
 			redirect_to @page
@@ -45,12 +41,14 @@ class PagesController < ApplicationController
 			flash.now[:error] = "Unable to update page"
 			render :edit
 		end
+		authorize! :update, @page
 	end
 
 	def destroy
-		Page.find(params[:id]).destroy
+		Page.friendly.find(params[:id]).destroy
 		flash[:success] = "Page deleted"
 		redirect_to pages_url
+		authorize! :destroy, @page
 	end
 
 

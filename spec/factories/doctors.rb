@@ -18,7 +18,7 @@ FactoryGirl.define do
 	doctor true
 	admin false
   end
-  
+=begin  
   factory :doctor2 do
 	title "Dr"
 	first_name "Mrs"
@@ -38,5 +38,5 @@ FactoryGirl.define do
 	doctor true
 	admin false
   end
-
+=end
 end
