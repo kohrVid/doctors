@@ -47,7 +47,7 @@ RSpec.describe TestimonialsController, type: :controller do
 		
 		it "must be unable to update testimonials" do
 			ability = Ability.new(patient)
-			expect(ability).to_not be_able_to(:update, Testimonial.new)
+			expect(ability).to_not be_able_to(:update, Testimonial.find(testimonial.id))
 		end
 		
 		it "must be unable to delete testimonials" do 		
@@ -78,7 +78,7 @@ RSpec.describe TestimonialsController, type: :controller do
 		
 		it "must be unable to update testimonials" do
 			ability = Ability.new(receptionist)
-			expect(ability).to_not be_able_to(:update, Testimonial.new)
+			expect(ability).to_not be_able_to(:update, Testimonial.find(testimonial.id))
 		end
 		
 		it "must be unable to delete testimonials" do
@@ -104,7 +104,7 @@ RSpec.describe TestimonialsController, type: :controller do
 		
 		it "must be able to update testimonials" do
 			ability = Ability.new(doctor)
-			expect(ability).to be_able_to(:update, Testimonial.new)
+			expect(ability).to be_able_to(:update, Testimonial.find(testimonial.id))
 		end
 		
 		it "must be able to delete testimonials" do
@@ -129,8 +129,8 @@ RSpec.describe TestimonialsController, type: :controller do
 		end
 		
 		it "must be able to update testimonials" do
-			ability = Ability.new(receptionist)
-			expect(ability).to be_able_to(:update, Testimonial.new)
+			ability = Ability.new(admin)
+			expect(ability).to be_able_to(:update, Testimonial.find(testimonial.id))
 		end
 		
 		it "must be able to delete testimonial accounts" do

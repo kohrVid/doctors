@@ -1,9 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "layouts/header.html.erb", type: :view do
+	let(:patient) { FactoryGirl.create(:patient) }
+	let(:receptionist) { FactoryGirl.create(:receptionist) }
+	let(:doctor) { FactoryGirl.create(:doctor) }
+	let(:admin) { FactoryGirl.create(:admin) }
+
 	context "Non-User" do
 		before(:each) do
-			@contact = Contact.new
+			assign(:contact, Contact.new)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 		
@@ -31,13 +36,13 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 
 	context "Patient" do
 		before(:each) do
-			@contact = Contact.new
-			@current_user = FactoryGirl.create(:patient)
+			assign(:contact, Contact.new)
+			assign(:current_user, patient)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 
 		it "should show a Account Settings button" do
-			expect(rendered).to have_link("Account Settings", href: patient_path(@current_user))
+			expect(rendered).to have_link("Account Settings", href: patient_path(patient))
 		end
 
 		it "should show a Log Out button" do
@@ -47,12 +52,12 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			@contact = Contact.new
-			@current_user = FactoryGirl.create(:receptionist)
+			assign(:contact, Contact.new)
+			assign(:current_user, receptionist)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 		it "should show a Account Settings button" do
-			expect(rendered).to have_link("Account Settings", href: user_path(@current_user))
+			expect(rendered).to have_link("Account Settings", href: user_path(receptionist))
 		end
 		
 		it "should show a Log Out button" do
@@ -62,13 +67,13 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			@contact = Contact.new
-			@current_user = FactoryGirl.create(:doctor)
+			assign(:contact, Contact.new)
+			assign(:current_user, doctor)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 		
 		it "should show a Account Settings button" do
-			expect(rendered).to have_link("Account Settings", href: doctor_path(@current_user))
+			expect(rendered).to have_link("Account Settings", href: doctor_path(doctor))
 		end
 		
 		it "should show a Log Out button" do
@@ -78,13 +83,13 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 	
 	context "Admin" do
 		before(:each) do
-			@contact = Contact.new
-			@current_user = FactoryGirl.create(:admin)
+			assign(:contact, Contact.new)
+			assign(:current_user, admin)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 		
 		it "should show a Account Settings button" do
-			expect(rendered).to have_link("Account Settings", href: user_path(@current_user))
+			expect(rendered).to have_link("Account Settings", href: user_path(admin))
 		end
 		
 		it "should show a Log Out button" do

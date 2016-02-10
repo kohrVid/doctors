@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "contacts/new.html.erb", type: :view do
 	before(:each) do
-		@contact = Contact.new
+		assign(:contact, Contact.new)
 		render :template => "contacts/new", :layout => "layouts/application"
 	end
 	

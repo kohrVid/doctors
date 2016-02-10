@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "user_sessions/new.html.erb", type: :view do
+	let (:user) { FactoryGirl.create(:user) }
+
 	before(:each) do
-		u = FactoryGirl.create(:user)
-		assign(:user, u)
+		assign(:user, user)
 		render :template => "user_sessions/new", :layout => "layouts/application"
 	end
 	

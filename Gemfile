@@ -45,7 +45,6 @@ gem "secure_headers", "2.4.4"#, ">= 2.4.3"
 gem "figaro"
 gem "activerecord-session_store"
 gem "factory_girl_rails", "~> 4.5.0"
-gem "timecop"
 
 group :development, :test do
   gem "byebug"

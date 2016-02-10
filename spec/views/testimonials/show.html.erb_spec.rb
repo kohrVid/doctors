@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "testimonials/show.html.erb", type: :view do
 	let(:testimonial) { FactoryGirl.create(:testimonial) }
 	before(:each) do
-		@current_user = FactoryGirl.create(:admin)
+		assign(:current_user, FactoryGirl.create(:admin))
 		assign(:testimonial, testimonial)
 		render :template => "testimonials/show", :layout => "layouts/application", :id => testimonial.id
 	end

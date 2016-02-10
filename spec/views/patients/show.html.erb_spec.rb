@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe "patients/show.html.erb", type: :view do
 	let(:patient) { FactoryGirl.create(:patient) }
+	
+	before(:each) do
+		assign(:patient, patient)
+	end
+
 	context "attributes" do
 		before(:each) do
-		      assign(:patient, patient)
 		      render :template => "patients/show", :layout => "layouts/application", :id => patient.id
 		end
 		
@@ -80,24 +84,21 @@ RSpec.describe "patients/show.html.erb", type: :view do
 
 	context "Patient" do
 		before(:each) do
-			@current_user = patient
-			assign(:patient, @current_user)
-			render :template => "patients/show", :layout => "layouts/application", :id => @current_user.id
+			assign(:current_user, patient)
+			render :template => "patients/show", :layout => "layouts/application", :id => patient.id
 		end
 
 		it "shouldn't have a back to patients button" do
 			expect(rendered).to_not have_link("<< Back to Patients", href: patients_path)
 		end
 		it "shows edit button" do
-			expect(rendered).to have_link("Edit", href: edit_patient_path(@current_user))
+			expect(rendered).to have_link("Edit", href: edit_patient_path(patient))
 		end
 	end
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:patient, patient)
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "patients/show", :layout => "layouts/application", :id => patient.id
 		end
 
@@ -112,9 +113,7 @@ RSpec.describe "patients/show.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			assign(:patient, patient)
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "patients/show", :layout => "layouts/application", :id => patient.id
 		end
 		
@@ -129,10 +128,7 @@ RSpec.describe "patients/show.html.erb", type: :view do
 	
 	context "Admin" do
 		before(:each) do
-			assign(:patient, patient)
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "patients/show", :layout => "layouts/application", :id => patient.id
 		end
 		

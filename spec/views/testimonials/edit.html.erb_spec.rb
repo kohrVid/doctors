@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe "testimonials/edit.html.erb", type: :view do
 	let(:testimonial) { FactoryGirl.create(:testimonial) }
+
 	before(:each) do
 		assign(:testimonial, testimonial)
-		@current_user = FactoryGirl.create(:admin)
+		assign(:current_user, FactoryGirl.create(:admin))
 		render :template => "testimonials/edit", :layout => "layouts/application"
 	end
 	

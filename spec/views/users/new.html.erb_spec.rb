@@ -1,12 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "users/new.html.erb", type: :view do
+	let(:user) { User.new }
+
+	before(:each) do
+		assign(:user, user)
+		assign(:address, user.build_address)
+	end
+
 	context "Receptionist" do
 		before(:each) do
-			@user = User.new
-			@address = @user.build_address
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		
@@ -33,10 +37,7 @@ RSpec.describe "users/new.html.erb", type: :view do
 	
 	context "Doctor" do
 		before(:each) do
-			@user = User.new
-			@address = @user.build_address
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		
@@ -63,11 +64,7 @@ RSpec.describe "users/new.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
-			@user = User.new
-			@address = @user.build_address
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "users/new", :layout => "layouts/application"
 		end
 		

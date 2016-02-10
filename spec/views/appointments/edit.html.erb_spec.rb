@@ -50,9 +50,6 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 	context "Patient" do
 		before(:each) do
 			assign(:current_user, User.find(appointment.patient_id))
-			assign(:patient_is_logged_in, true)
-			assign(:doctor_is_logged_in, false)
-			assign(:senior_staff_member_is_logged_in, false)
 			assign(:appointment, appointment)
 			render :template => "appointments/edit", :layout => "layouts/application"
 		end
@@ -74,9 +71,6 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:appointment, appointment)
 			assign(:current_user, FactoryGirl.create(:receptionist))
-			assign(:patient_is_logged_in, false)
-			assign(:doctor_is_logged_in, false)
-			assign(:senior_staff_member_is_logged_in, false)
 			render :template => "appointments/edit", :layout => "layouts/application"
 		end
 		
@@ -97,9 +91,6 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:appointment, appointment)
 			assign(:current_user, User.find(appointment.doctor_id))
-			assign(:patient_is_logged_in, false)
-			assign(:doctor_is_logged_in, true)
-			assign(:senior_staff_member_is_logged_in, true)
 			render :template => "appointments/edit", :layout => "layouts/application"
 		end
 		
@@ -120,10 +111,6 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 		before(:each) do
 			assign(:appointment, appointment)
 			assign(:current_user, FactoryGirl.create(:admin))
-			assign(:patient_is_logged_in, false)
-			assign(:doctor_is_logged_in, false)
-			assign(:senior_staff_member_is_logged_in, true)
-			assign(:admin_is_logged_in, true)
 			render :template => "appointments/edit", :layout => "layouts/application"
 		end
 		

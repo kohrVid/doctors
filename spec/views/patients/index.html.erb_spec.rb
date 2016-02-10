@@ -7,9 +7,8 @@ RSpec.describe "patients/index.html.erb", type: :view do
 	context "Receptionist" do
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient: true)
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:patients, Patient.where(patient: true))
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
@@ -33,9 +32,8 @@ RSpec.describe "patients/index.html.erb", type: :view do
 	context "Doctor" do
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient: true)
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:patients, Patient.where(patient: true))
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "patients/index", :layout => "layouts/application"
 		end
 		
@@ -59,10 +57,8 @@ RSpec.describe "patients/index.html.erb", type: :view do
 	context "Admin" do	
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient: true)
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:patients, Patient.where(patient: true))
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "patients/index", :layout => "layouts/application"
 		end
 		

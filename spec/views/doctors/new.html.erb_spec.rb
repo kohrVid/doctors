@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe "doctors/new.html.erb", type: :view do
-	let(:doctor) { FactoryGirl.create(:doctor) }
-	include PagesHelper
+	let(:doctor) { Doctor.new }
+	
 	before(:each) do
-		@doctor = Doctor.new
-		@address = @doctor.build_address
-		@current_user = FactoryGirl.create(:admin)
-		@admin_is_logged_in = true
+		assign(:doctor, doctor)
+		assign(:address, doctor.build_address)
+		assign(:current_user, FactoryGirl.create(:admin))
 		render :template => "doctors/new", :layout => "layouts/application"
 	end
 	

@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "testimonials/index.html.erb", type: :view do
 	let(:testimonial) { FactoryGirl.create(:testimonial) }
+
 	context "attributes" do	
 		before(:each) do
 			assign(:testimonial, testimonial)
-			@testimonials = Testimonial.all
-			@current_user = FactoryGirl.create(:admin)
+			assign(:testimonials, Testimonial.all)
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "testimonials/index", :layout => "layouts/application"
 		end
 		

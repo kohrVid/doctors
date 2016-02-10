@@ -67,12 +67,10 @@ RSpec.describe "pages/index.html.erb", type: :view do
 		before(:each) do
 			assign(:testimonial, testimonial)
 			assign(:contact, Contact.new)
-			@current_user = FactoryGirl.create(:doctor)
+			assign(:current_user, FactoryGirl.create(:doctor))
 			assign(:privileged_user_is_logged_in, true)
 			assign(:doctor_or_receptionist_is_logged_in, true)
 			assign(:senior_staff_member_is_logged_in, true)
-			Timecop.freeze(Time.local(2015, 12, 03, 10, 05, 00))
-			assign(:appointment, FactoryGirl.create(:appointment, doctor_id: @current_user.id, patient_id: patient.id))
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 

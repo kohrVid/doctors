@@ -2,11 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "doctors/show.html.erb", type: :view do
 	let(:doctor) { FactoryGirl.create(:doctor) }
-	include PagesHelper
 
 	context "Non-Users" do
 		before(:each) do
-			@doctor = doctor
 			assign(:doctor, doctor)
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
@@ -90,10 +88,8 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 
 	context "Patient" do
 		before(:each) do
-			@doctor = doctor
 			assign(:doctor, doctor)
-			@current_user = FactoryGirl.create(:patient)
-			is_the_current_user(@current_user.id)
+			assign(:current_user, FactoryGirl.create(:patient))
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
@@ -144,10 +140,8 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			@doctor = doctor
 			assign(:doctor, doctor)
-			@current_user = FactoryGirl.create(:receptionist)
-			is_the_current_user(@current_user.id)
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
@@ -199,59 +193,56 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			@doctor = doctor
-			@current_user = doctor
-			assign(:doctor, @current_user)
-			is_the_current_user(@doctor.id)
-			@senior_staff_member_is_logged_in = true
-			render :template => "doctors/show", :layout => "layouts/application", :id => @current_user.id
+			assign(:current_user, doctor)
+			assign(:doctor, doctor)
+			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
 		it "shows Title" do
-			expect(rendered).to have_content(@current_user.title)
+			expect(rendered).to have_content(doctor.title)
 		end
 
 		it "shows First Name" do
-			expect(rendered).to have_content(@current_user.first_name)
+			expect(rendered).to have_content(doctor.first_name)
 		end
 		
 		it "shows Middle Name" do
-			expect(rendered).to have_content(@current_user.middle_name)
+			expect(rendered).to have_content(doctor.middle_name)
 		end
 
 		it "shows Last Name" do
-			expect(rendered).to have_content(@current_user.last_name)
+			expect(rendered).to have_content(doctor.last_name)
 		end
 		it "should show Date of Birth" do
-			expect(rendered).to have_content(@current_user.dob.strftime("%d %B %Y"))
+			expect(rendered).to have_content(doctor.dob.strftime("%d %B %Y"))
 		end
 
 		it "should show Age" do
-			expect(rendered).to have_content("Age: " + (DateTime.now.year - @current_user.dob.year).to_s)
+			expect(rendered).to have_content("Age: " + (DateTime.now.year - doctor.dob.year).to_s)
 		end
 
 		it "should show Username" do
-			expect(rendered).to have_content(@current_user.username)
+			expect(rendered).to have_content(doctor.username)
 		end
 		
 		it "should show Email Address" do
-			expect(rendered).to have_content(@current_user.email)
+			expect(rendered).to have_content(doctor.email)
 		end
 		
 		it "should show input for Street" do
-			expect(rendered).to have_content(@current_user.address.street)
+			expect(rendered).to have_content(doctor.address.street)
 		end
 		
 		it "should show City" do
-			expect(rendered).to have_content(@current_user.address.city)
+			expect(rendered).to have_content(doctor.address.city)
 		end
 		
 		it "should show County" do
-			expect(rendered).to have_content(@current_user.address.county)
+			expect(rendered).to have_content(doctor.address.county)
 		end
 		
 		it "should show Post Code" do
-			expect(rendered).to have_content(@current_user.address.post_code)
+			expect(rendered).to have_content(doctor.address.post_code)
 		end
 		
 		it "should show Phone number" do
@@ -268,7 +259,7 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 
 
 		it "should show edit button" do
-			expect(rendered).to have_link("Edit", href: edit_doctor_path(@current_user))
+			expect(rendered).to have_link("Edit", href: edit_doctor_path(doctor))
 		end
 		
 		it "should have a back to doctors button" do
@@ -278,10 +269,8 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 
 	context "Other Doctors" do
 		before(:each) do
-			@doctor = doctor
 			assign(:doctor, doctor)
-			@current_user = FactoryGirl.create(:doctor, username: "drmrsthemonarch", email: "drmrsthemonarch@thehospital.com")
-			is_the_current_user(@current_user.id)
+			assign(:current_user, FactoryGirl.create(:doctor, username: "drmrsthemonarch", email: "drmrsthemonarch@thehospital.com"))
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		
@@ -333,11 +322,8 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 	
 	context "Admin" do
 		before(:each) do
-			@doctor = doctor
 			assign(:doctor, doctor)
-			@current_user = FactoryGirl.create(:admin)
-			@senior_staff_member_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "doctors/show", :layout => "layouts/application", :id => doctor.id
 		end
 		

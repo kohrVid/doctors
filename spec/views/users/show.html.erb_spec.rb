@@ -2,12 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "users/show.html.erb", type: :view do
 	let(:user)  { FactoryGirl.create(:user) }
+	
+	before(:each) do
+			assign(:user, user)
+	end
+
 	context "attributes" do
 		before(:each) do
-		      assign(:user, user)
-		      render :template => "users/show", :layout => "layouts/application", :id => user.id
+			render :template => "users/show", :layout => "layouts/application", :id => user.id
 		end
-		
+
 		it "must display the full title of page" do
 			expect(rendered).to have_title("The Doctor's | Tobey Torres")
 		end
@@ -79,24 +83,21 @@ RSpec.describe "users/show.html.erb", type: :view do
 
 	context "Patient" do
 		before(:each) do
-			assign(:user, user)
-			@current_user = user
-			render :template => "users/show", :layout => "layouts/application", :id => @current_user.id
+			assign(:current_user, user)
+			render :template => "users/show", :layout => "layouts/application", :id => user.id
 		end
 
 		it "shouldn't have a back to users button" do
 			expect(rendered).to_not have_link("<< Back to Users", href: users_path)
 		end
 		it "shows edit button" do
-			expect(rendered).to have_link("Edit", href: edit_user_path(@current_user))
+			expect(rendered).to have_link("Edit", href: edit_user_path(user))
 		end
 	end
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:user, user)
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "users/show", :layout => "layouts/application", :id => user.id
 		end
 
@@ -111,9 +112,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			assign(:user, user)
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "users/show", :layout => "layouts/application", :id => user.id
 		end
 		
@@ -128,10 +127,7 @@ RSpec.describe "users/show.html.erb", type: :view do
 	
 	context "Admin" do
 		before(:each) do
-			assign(:user, user)
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "users/show", :layout => "layouts/application", :id => user.id
 		end
 		

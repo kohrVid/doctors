@@ -25,6 +25,8 @@ RSpec.configure do |config|
 	config.include Capybara::DSL
 	config.include PagesHelper, type: :controller
 	config.use_transactional_fixtures = true
+	config.include(MailerMacros)
+	config.before(:each) { reset_email }
 
 	config.infer_spec_type_from_file_location!
 

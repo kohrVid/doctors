@@ -3,13 +3,15 @@ require 'rails_helper'
 RSpec.describe "users/index.html.erb", type: :view do
 	let(:user) { FactoryGirl.create(:user) }
 	let(:patient) { FactoryGirl.create(:patient) }
+
+	before(:each) do
+		assign(:user, user)
+		assign(:users, User.all)
+	end
 	
 	context "Patient" do	
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
-			@current_user = FactoryGirl.create(:patient)
-			@privileged_user_is_logged_in = false
+			assign(:current_user, FactoryGirl.create(:patient))
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		
@@ -40,10 +42,7 @@ RSpec.describe "users/index.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		
@@ -66,10 +65,7 @@ RSpec.describe "users/index.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		
@@ -92,11 +88,7 @@ RSpec.describe "users/index.html.erb", type: :view do
 
 	context "Admin" do	
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "users/index", :layout => "layouts/application"
 		end
 		

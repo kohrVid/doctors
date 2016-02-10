@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "patients/new.html.erb", type: :view do
+	let(:patient) { Patient.new }
+	before(:each) do
+		assign(:patient, patient)
+		assign(:address, patient.build_address)
+	end
 	context "Non-Users" do
 		before(:each) do
-			@patient = Patient.new
-			@address = @patient.build_address
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
@@ -107,10 +110,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 
 	context "Receptionist" do
 		before(:each) do
-			@patient = Patient.new
-			@address = @patient.build_address
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
@@ -137,10 +137,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 	
 	context "Doctor" do
 		before(:each) do
-			@patient = Patient.new
-			@address = @patient.build_address
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		
@@ -167,11 +164,7 @@ RSpec.describe "patients/new.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
-			@patient = Patient.new
-			@address = @patient.build_address
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "patients/new", :layout => "layouts/application"
 		end
 		

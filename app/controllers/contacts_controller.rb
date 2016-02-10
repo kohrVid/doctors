@@ -6,6 +6,7 @@ class ContactsController < ApplicationController
 
 	def create
 		@contact = Contact.new(contact_params)
+		@contact.deliver if @contact.valid?
 		@contact.request = request
 		@object = @contact
 

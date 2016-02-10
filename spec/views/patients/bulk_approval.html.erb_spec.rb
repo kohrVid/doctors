@@ -6,8 +6,8 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 	context "Patient" do	
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient:true, approved: false)
-			@current_user = FactoryGirl.create(:user)
+			assign(:patients, Patient.where(patient:true, approved: false))
+			assign(:current_user, FactoryGirl.create(:user))
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -31,9 +31,8 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 	context "Receptionist" do
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient:true, approved: false)
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:patients, Patient.where(patient:true, approved: false))
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -57,9 +56,8 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 	context "Doctor" do
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient:true, approved: false)
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:patients, Patient.where(patient:true, approved: false))
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -83,10 +81,8 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 	context "Admin" do	
 		before(:each) do
 			assign(:patient, patient)
-			@patients = Patient.where(patient:true, approved: false)
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:patients, Patient.where(patient:true, approved: false))
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "patients/bulk_approval", :layout => "layouts/application"
 		end
 		

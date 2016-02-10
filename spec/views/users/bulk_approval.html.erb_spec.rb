@@ -2,12 +2,15 @@ require 'rails_helper'
 
 RSpec.describe "users/bulk_approval.html.erb", type: :view do
 	let(:user) { FactoryGirl.create(:user, approved: false) }
+
+	before(:each) do
+		assign(:user, user)
+		assign(:users, User.where(approved: false))
+	end
 	
 	context "Patient" do	
 		before(:each) do
-			assign(:user, user)
-			@users = User.where(approved: false)
-			@current_user = FactoryGirl.create(:patient)
+			assign(:current_user, FactoryGirl.create(:patient))
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -30,10 +33,7 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:user, user)
-			@users = User.where(approved: false)
-			@current_user = FactoryGirl.create(:receptionist)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -52,10 +52,7 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 
 	context "Doctor" do
 		before(:each) do
-			assign(:user, user)
-			@users = User.all
-			@current_user = FactoryGirl.create(:doctor)
-			@privileged_user_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:doctor))
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		
@@ -74,11 +71,7 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 
 	context "Admin" do	
 		before(:each) do
-			assign(:user, user)
-			@users = User.where(approved: false)
-			@current_user = FactoryGirl.create(:admin)
-			@privileged_user_is_logged_in = true
-			@admin_is_logged_in = true
+			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "users/bulk_approval", :layout => "layouts/application"
 		end
 		

@@ -42,7 +42,7 @@ Rails.application.configure do
 
   config.active_record.dump_schema_after_migration = false
     config.action_mailer.default_url_options = { 
-	    :host => 'kohrvid-env.elasticbeanstalk.com', 
+	    :host => 'obscure-cliffs-1401.herokuapp.com', 
 	    :from => 'notifications@thedoctors.com'
     }
     #add Heroku url
