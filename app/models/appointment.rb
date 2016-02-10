@@ -23,6 +23,7 @@ class Appointment < ActiveRecord::Base
 		scope: "cancelled"
 	}
 
+
 	def cancelled?
 		if self.cancelled == true
 			return true

@@ -9,15 +9,16 @@
 	</p>
 	<p>
 		<div class = "small_input">
-			<%= f.date_select(:start_time, method: :post, start_year: DateTime.now.year, end_year: (DateTime.now.year + 2)) %>
-			<%= f.label :start_time %><br />
-			<%= f.time_select(:start_time, method: :post) %>
+			<%= f.date_select(:start_time, start_year: DateTime.now.year, end_year: (DateTime.now.year + 2)) %>
+			<%= f.label :start_time%><br />
+			<%= f.time_select(:start_time, :ignore_date => true) %>
 		</div>
 	</p>
 	<p>
 		<div class = "small_input">
 			<%= f.label :end_time %><br />
-			<%= f.time_select(:end_time, method: :post) %>
+			<span class = "hide"><%= f.date_select(:end_time) %></span>
+			<%= f.time_select(:end_time, :ignore_date => true) %>
 		</div>
 	</p>
 	<p>

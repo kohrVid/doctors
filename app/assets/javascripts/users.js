@@ -1,17 +1,6 @@
 $(document).ready(function() {
 	$("#approve_all").show();
 	$("#lock_all").show();
-	/*
-	$("#unapproved_users").change(function() {
-		if (this.selectedIndex!==0) {
-			window.location.href = this.value;
-		}        
-	});
-	$("#unapproved_patients").change(function() {
-		if (this.selectedIndex!==0) {
-			window.location.href = this.value;
-		}        
-	});*/
 });
 
 
