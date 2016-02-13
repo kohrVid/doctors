@@ -10,6 +10,10 @@ RSpec.describe "doctors/new.html.erb", type: :view do
 		render :template => "doctors/new", :layout => "layouts/application"
 	end
 	
+	it "must display the correct breadcrumb" do
+		expect(rendered).to have_content("You are here: HomeDoctorsNew Doctor")
+	end
+		
 	it "must display the full title of page" do
 		expect(rendered).to have_title("The Doctor's | New Doctor")
 	end

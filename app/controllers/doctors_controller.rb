@@ -49,6 +49,9 @@ class DoctorsController < ApplicationController
 	def calendar
 		@doctor = Doctor.where(doctor: true).find(params[:id])
 		@appointments = Appointment.where(doctor_id: @doctor.id)
+		respond_with do |format|
+			format.html { render 'calendar' }
+		end
 	end
 
 

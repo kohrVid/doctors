@@ -1,5 +1,12 @@
 <% provide(:title, "Appointment Details") %>
 <% content_for :main do%>
+	<% if patient_is_logged_in %>
+		<% breadcrumb :patient_appointment, @current_user, @appointment %>
+	<% elsif doctor_is_logged_in %>
+		<% breadcrumb :doctor_appointment, @current_user, @appointment %>
+	<%else%>
+		<% breadcrumb :appointment, @appointment %>
+	<%end%>
 	<h4>Appointment Details</h4>
 	<p>
 		<strong>Patient:</strong> <%= Patient.find(@appointment.patient_id).full_name%>

@@ -1,6 +1,8 @@
 <% provide(:title, "New Page") %> 
 <% content_for :main do%>
+	<% breadcrumb :new_page, @page %>
 	<h4>New Page</h4>
 	<%= render "form" %>
+	<%= link_to "<< Back to Pages", pages_path %>
 <%end%>
 

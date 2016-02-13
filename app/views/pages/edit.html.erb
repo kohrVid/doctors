@@ -1,5 +1,14 @@
 <% provide(:title, "Edit Page") %>
 <% content_for :main do%>
-	<h4>New Page</h4>
+	<% breadcrumb :edit_page, @page %>
+	<h4>Edit Page</h4>
 	<%= render "form" %>
+	<p>
+		<%= link_to "<< Back to Pages", pages_path %> | 
+		<%= link_to "Show #{@page.title}", page_path(@page) %>
+		<% unless !admin_is_logged_in %>
+			| <%= link_to "Destroy", @page, method: :delete, data: { confirm: "Are you sure? Deleted Pages cannot be recovered." } %>
+		<%end%>
+	</p>
+
 <%end%>

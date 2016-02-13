@@ -1,6 +1,7 @@
 <% provide(:title, "Appointments") %>
 <% content_for :main do%>
 	<% if patient_is_logged_in %>
+		<% breadcrumb :patient_appointments, @current_user %>
 		<h4>Appointments</h4>
 		<%= month_calendar events: @appointments.where(patient_id: @current_user.id, cancelled: false) do |date, appointments| %>
 			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
@@ -19,6 +20,7 @@
 			<%end%>
 		<%end%>
 	<% elsif doctor_is_logged_in %>
+		<% breadcrumb :doctor_appointments, @current_user %>
 		<h4>Appointments</h4>
 		<%= month_calendar events: @appointments.where(doctor_id: @current_user.id, cancelled: false) do |date, appointments| %>
 			<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
@@ -39,6 +41,7 @@
 	<% elsif !@current_user.present? %>
 
 	<%else%>
+		<% breadcrumb :appointments, @appointments %>
 		<h4>Patients</h4>
 		<ul>
 			<% Patient.where(patient: true).each do |patient| %>

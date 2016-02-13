@@ -1,9 +1,10 @@
 class PagesController < ApplicationController
-	before_action :admin_is_logged_in, :senior_staff_member_is_logged_in
+#	before_action :admin_is_logged_in, :senior_staff_member_is_logged_in
 
 	def index
 		@contact = Contact.new
 		@pages = Page.all
+		authorize! :index, Page
 	end
 
 	def new
@@ -30,6 +31,7 @@ class PagesController < ApplicationController
 
 	def edit
 		@page = Page.friendly.find(params[:id])
+		authorize! :edit, @page
 	end
 
 	def update

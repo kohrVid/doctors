@@ -6,6 +6,10 @@ RSpec.describe "contacts/new.html.erb", type: :view do
 		render :template => "contacts/new", :layout => "layouts/application"
 	end
 	
+	it "must display the correct breadcrumb" do
+		expect(rendered).to have_content("You are here: HomeGet In Touch")
+	end
+	
 	it "should have a Name text field" do
 		expect(rendered).to have_selector("input[name*=name]")
 	end

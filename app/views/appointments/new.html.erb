@@ -1,5 +1,12 @@
 <% provide(:title, "New Appointment") %>
 <% content_for :main do%>
+	<% if patient_is_logged_in %>
+		<% breadcrumb :new_patient_appointment, @current_user %>
+	<% elsif doctor_is_logged_in %>
+		<% breadcrumb :new_doctor_appointment, @current_user %>
+	<%else%>
+		<% breadcrumb :new_appointment %>
+	<%end%>
 	<h4>New Appointment</h4>
 	<%= render "form" %>
 	<p>

@@ -1,5 +1,6 @@
 <% provide(:title, "Your Doctors") %> 
 <% content_for :main do%>
+	<% breadcrumb :doctors %>
 	<h4>Your Doctors</h4>
 	<%= link_to "Add New Doctor", new_doctor_path, class: "right" unless !admin_is_logged_in %>
 	<table>

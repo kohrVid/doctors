@@ -1,5 +1,6 @@
 <% provide(:title, "") %> 
 <% content_for :main do%>
+	<% breadcrumb :root %>
 	<a class="th" href = "#"><img src="https://placehold.it/650x350"></a>
 	<div class="row small-up-4">
 		<div class="column">
@@ -43,7 +44,7 @@
 								</div>
 							<%end%>
 					</div>
-					<% unless !@senior_staff_member_is_logged_in %>
+					<% unless !senior_staff_member_is_logged_in %>
 						<div class = "right">
 							<%= link_to "Add Testimonial", new_testimonial_path %> | 
 							<%= link_to "Manage Testimonials", testimonials_path %>

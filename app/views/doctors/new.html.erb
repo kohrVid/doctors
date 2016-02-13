@@ -1,5 +1,6 @@
 <% provide(:title, "New Doctor") %> 
 <% content_for :main do%>
+	<% breadcrumb :new_doctor, @doctor %>
 	<h4>New Doctor</h4>
 	<%= render "form" %>
 	<p>

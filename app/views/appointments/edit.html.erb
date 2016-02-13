@@ -1,5 +1,13 @@
 <% provide(:title, "Edit Appointment") %>
 <% content_for :main do%>
+	<% if patient_is_logged_in %>
+		<% breadcrumb :edit_patient_appointment, @appointment.patient_id, @appointment %>
+	<% elsif doctor_is_logged_in %>
+		<% breadcrumb :edit_doctor_appointment, @appointment.doctor_id, @appointment %>
+	<% else %>
+		  <% breadcrumb :edit_appointment, @appointment %>
+	<%end%>
+	
 	<h4>Edit Appointment</h4>
 	<%= render "form" %>
 	

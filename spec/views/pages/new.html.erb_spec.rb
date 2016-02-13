@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "pages/new.html.erb", type: :view do
 	before(:each) do
-		@page = Page.new
-		@current_user = FactoryGirl.create(:doctor)
-		assign(:doctor, @current_user)
+		assign(:page, Page.new)
+		assign(:current_user, FactoryGirl.create(:doctor))
 		render :template => "pages/new", :layout => "layouts/application"
 	end
 	
@@ -12,6 +11,10 @@ RSpec.describe "pages/new.html.erb", type: :view do
 		expect(rendered).to have_title("The Doctor's | New Page")
 	end
 	
+	it "must display the correct breadcrumb" do
+		expect(rendered).to have_content("HomeNew Page")
+	end
+
 	it "has a form posting to /pages" do
 		expect(rendered).to have_selector("form")
 	end
@@ -26,5 +29,9 @@ RSpec.describe "pages/new.html.erb", type: :view do
 
 	it "should display a submit button" do
 		expect(rendered).to have_selector("input[name*=commit]")
+	end
+	
+	it "should have a back to Pages button" do
+		expect(rendered).to have_link("<< Back to Pages", href: pages_path)
 	end
 end

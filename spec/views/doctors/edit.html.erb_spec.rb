@@ -2,11 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "doctors/edit.html.erb", type: :view do
 	let(:doctor) { FactoryGirl.create(:doctor) }
+	
+	before(:each) do
+		assign(:doctor, doctor)
+	end
 
 	context "attributes" do
 		before(:each) do
-			assign(:doctor, doctor)
 			render :template => "doctors/edit", :layout => "layouts/application"
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeDoctorsDr Eric HammerEdit Doctor")
 		end
 		
 		it "must display the full title of page" do

@@ -3,9 +3,13 @@ require 'rails_helper'
 RSpec.describe "appointments/edit.html.erb", type: :view do
 	let(:appointment) { FactoryGirl.create(:appointment) }
 	let(:user) { FactoryGirl.create(:user) }
+
+	before(:each) do
+		assign(:appointment, appointment)
+	end
+
 	context "attributes" do
 		before(:each) do
-			assign(:appointment, appointment)
 			assign(:current_user, user)
 			render :template => "appointments/edit", :layout => "layouts/application"
 		end
@@ -49,9 +53,12 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 		
 	context "Patient" do
 		before(:each) do
-			assign(:current_user, User.find(appointment.patient_id))
-			assign(:appointment, appointment)
+			assign(:current_user, Patient.find(appointment.patient_id))
 			render :template => "appointments/edit", :layout => "layouts/application"
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsDr Eric Hammer - 03/12/2015 11:05Edit Appointment")
 		end
 		
 		it "should not have a Destroy button" do
@@ -69,9 +76,12 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:appointment, appointment)
 			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "appointments/edit", :layout => "layouts/application"
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsJason Slater - 03/12/2015 11:05Edit Appointment")
 		end
 		
 		it "should not have a Destroy button" do
@@ -89,11 +99,14 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 	
 	context "Doctor" do
 		before(:each) do
-			assign(:appointment, appointment)
-			assign(:current_user, User.find(appointment.doctor_id))
+			assign(:current_user, Doctor.find(appointment.doctor_id))
 			render :template => "appointments/edit", :layout => "layouts/application"
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsJason Slater - 03/12/2015 11:05Edit Appointment")
+		end
+
 		it "should have a Destroy button" do
 			expect(rendered).to have_link("Destroy")
 		end
@@ -109,9 +122,12 @@ RSpec.describe "appointments/edit.html.erb", type: :view do
 
 	context "Admin" do
 		before(:each) do
-			assign(:appointment, appointment)
 			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "appointments/edit", :layout => "layouts/application"
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsJason Slater - 03/12/2015 11:05Edit Appointment")
 		end
 		
 		it "should have a Destroy button" do

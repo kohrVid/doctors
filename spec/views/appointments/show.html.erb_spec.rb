@@ -50,6 +50,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsDr Eric Hammer - 03/12/2015 11:05")
+		end
+		
 		it "should not have a Destroy button" do
 			expect(rendered).to_not have_link("Destroy")
 		end
@@ -68,6 +72,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 			assign(:appointment, appointment)
 			assign(:current_user, FactoryGirl.create(:receptionist))
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsJason Slater - 03/12/2015 11:05")
 		end
 		
 		it "should not have a Destroy button" do
@@ -90,6 +98,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsJason Slater - 03/12/2015 11:05")
+		end
+		
 		it "should have a Destroy button" do
 			expect(rendered).to have_link("Destroy")
 		end
@@ -108,6 +120,10 @@ RSpec.describe "appointments/show.html.erb", type: :view do
 			assign(:appointment, appointment)
 			assign(:current_user, FactoryGirl.create(:admin))
 			render :template => "appointments/show", :layout => "layouts/application", :id => appointment.id
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeAppointmentsJason Slater - 03/12/2015 11:05")
 		end
 		
 		it "should have a Destroy button" do

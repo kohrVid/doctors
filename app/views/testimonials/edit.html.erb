@@ -5,8 +5,6 @@
 	<p>
 		<%= link_to "<< Back to Testimonials", testimonials_path %> | 
 		<%= link_to "Show Testimonial", testimonial_path(@testimonial) %> | 
-	</p>
-	<p>
 		<%= link_to "Destroy", @testimonial, method: :delete, data: { confirm: "Are you sure? Deleted testimonials cannot be recovered." } %>
 	</p>
 <%end%>

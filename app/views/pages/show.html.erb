@@ -1,7 +1,17 @@
 <% provide(:title, @page.title) %>
 <% content_for :main do%>
+	<% breadcrumb :page, @page %>
 	<h4><%= @page.title %></h4>
 	<p><%= @page.description %></p>
 
+	<p>
+		<%= link_to "<< Back to Pages", pages_path %> 
+		<% unless !senior_staff_member_is_logged_in %>
+			| <%= link_to "Edit", edit_page_path(@page) %>
+		<%end%>
+		<% unless !admin_is_logged_in %>
+			| <%= link_to "Destroy", @page, method: :delete, data: { confirm: "Are you sure?" } %>
+		<%end%>
+	</p>
 <%end%>
 

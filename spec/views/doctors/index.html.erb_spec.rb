@@ -12,6 +12,10 @@ RSpec.describe "doctors/index.html.erb", type: :view do
 			render :template => "doctors/index", :layout => "layouts/application"
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeDoctors")
+		end
+		
 		it "has a show button" do
 			expect(rendered).to have_link("Show", href: doctor_path(doctor))
 		end
@@ -37,6 +41,10 @@ RSpec.describe "doctors/index.html.erb", type: :view do
 			render :template => "doctors/index", :layout => "layouts/application"
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeDoctors")
+		end
+		
 		it "has a show button" do
 			expect(rendered).to have_link("Show", href: doctor_path(doctor))
 		end
@@ -60,6 +68,10 @@ RSpec.describe "doctors/index.html.erb", type: :view do
 			assign(:doctors, Doctor.all.where(doctor: true))
 			assign(:current_user, doctor)
 			render :template => "doctors/index", :layout => "layouts/application"
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeDoctors")
 		end
 		
 		it "has a show button" do
@@ -93,6 +105,10 @@ RSpec.describe "doctors/index.html.erb", type: :view do
 		
 		it "must display the full title of page" do
 			expect(rendered).to have_title("The Doctor's | Your Doctors")
+		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeDoctors")
 		end
 		
 		it "has a Name" do

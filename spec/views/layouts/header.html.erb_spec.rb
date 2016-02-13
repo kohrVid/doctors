@@ -5,10 +5,15 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 	let(:receptionist) { FactoryGirl.create(:receptionist) }
 	let(:doctor) { FactoryGirl.create(:doctor) }
 	let(:admin) { FactoryGirl.create(:admin) }
+	let(:page) { FactoryGirl.create(:page) }
+
+	before(:each) do
+		assign(:contact, Contact.new)
+		assign(:pages, Page.all)
+	end
 
 	context "Non-User" do
 		before(:each) do
-			assign(:contact, Contact.new)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
 		
@@ -28,15 +33,17 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 			expect(rendered).to have_link("Log In", href: login_path)
 		end
 
+		it "shows a link to the medical info pages" do
+			expect(rendered).to have_link(page.title, href: page_path(page.slug))
+		end
+
 		it "has a Book an Appointment button" do
 			expect(rendered).to have_link("Book an appointment", href: new_appointment_path)
 		end
-
 	end
 
 	context "Patient" do
 		before(:each) do
-			assign(:contact, Contact.new)
 			assign(:current_user, patient)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
@@ -48,11 +55,14 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 		it "should show a Log Out button" do
 			expect(rendered).to have_link("Log Out")
 		end
+		
+		it "shows a link to the medical info pages" do
+			expect(rendered).to have_link(page.title, href: page_path(page.slug))
+		end
 	end
 	
 	context "Receptionist" do
 		before(:each) do
-			assign(:contact, Contact.new)
 			assign(:current_user, receptionist)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
@@ -63,11 +73,14 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 		it "should show a Log Out button" do
 			expect(rendered).to have_link("Log Out")
 		end
+		
+		it "shows a link to the medical info pages" do
+			expect(rendered).to have_link(page.title, href: page_path(page.slug))
+		end
 	end
 
 	context "Doctor" do
 		before(:each) do
-			assign(:contact, Contact.new)
 			assign(:current_user, doctor)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
@@ -79,11 +92,14 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 		it "should show a Log Out button" do
 			expect(rendered).to have_link("Log Out")
 		end
+		
+		it "shows a link to the medical info pages" do
+			expect(rendered).to have_link(page.title, href: page_path(page.slug))
+		end
 	end
 	
 	context "Admin" do
 		before(:each) do
-			assign(:contact, Contact.new)
 			assign(:current_user, admin)
 			render :template => "pages/index", :layout => "layouts/application"
 		end
@@ -94,6 +110,10 @@ RSpec.describe "layouts/header.html.erb", type: :view do
 		
 		it "should show a Log Out button" do
 			expect(rendered).to have_link("Log Out")
+		end
+		
+		it "shows a link to the medical info pages" do
+			expect(rendered).to have_link(page.title, href: page_path(page.slug))
 		end
 	end
 end

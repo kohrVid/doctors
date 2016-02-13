@@ -1,5 +1,7 @@
 <% provide(:title, "Appointment") %>
 <% content_for :main do%>
+	<% breadcrumb :doctors_calendar, @doctor %>
+	<h4><%= @doctor.dr_first_name_last_name %>'s Calendar</h4>
 	<%= month_calendar events: @appointments.where(cancelled: false) do |date, appointments| %>
 		<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
 		<% appointments.each do |appointment| %>

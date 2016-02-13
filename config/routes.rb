@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 	get    "search" 		=> "search#search"
 	get    "login"  		=> "user_sessions#new"
 	post   "login"  		=> "user_sessions#create"
-        delete "logout"  		=> "user_sessions#destroy"
+	delete "logout"  		=> "user_sessions#destroy"
 	get    "register"  		=> "patients#new"
 	get    "bulk_user_approval"	=> "users#bulk_approval"
 	get    "bulk_patient_approval"	=> "patients#bulk_approval"

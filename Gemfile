@@ -36,6 +36,7 @@ gem "friendly_id", "~> 5.1", :require => "friendly_id"
 gem "validates_overlap"
 #gem "waiable"
 gem "humanize_boolean"
+gem "gretel"
 
 gem "rack-attack", "~> 4.3"
 gem "rubocop", "~> 0.35.1" #run "rubocop --rails" to use

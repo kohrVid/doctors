@@ -23,26 +23,26 @@
 				<ul class = "nav-right">
 					<%= render "search/search_box" %>
 					<li class="has-dropdown">
-						<% if @current_user.present?%>
-							<% if @current_user.patient? %>
-								<%= link_to "Account Settings", patient_path(@current_user) %>
-							<% elsif @current_user.doctor? %>
-								<%= link_to "Account Settings", doctor_path(@current_user) %>
-							<%else%>
-								<%= link_to "Account Settings", user_path(@current_user) %>
-							<%end%>
-						<%else%>
-							<%= link_to "Register", register_path %>
-						<%end%>
+						<%= link_to "Menu", "#" %>
 						<ul class="dropdown">
-							<li>
-								<% if @current_user.present? %>
-									<%= link_to "Log Out", logout_path, method: :delete %>
-								<%else%>
-									<%= link_to "Log In", login_path%>
-								<%end%>
-							</li>
-							<li class="active"><a href="#">Active link in dropdown</a></li>
+							<%	if @current_user %>
+								<li>
+									<% if patient_is_logged_in %>
+										<%= link_to "Account Settings", patient_path(@current_user) %>
+									<% elsif doctor_is_logged_in %>
+										<%= link_to "Account Settings", doctor_path(@current_user) %>
+									<%else%>
+										<%= link_to "Account Settings", user_path(@current_user) %>
+									<%end%>
+								</li>
+								<li><%= link_to "Log Out", logout_path, method: :delete %></li>
+							<%else%>
+								<li><%= link_to "Log In", login_path %></li>
+								<li><%= link_to "Register", register_path %></li>
+							<%end%>
+							<% Page.all.each do |page| %>
+								<li class="active"><%= link_to page.title, page_path(page) %></li>
+							<%end%>
 						</ul>
 					</li>
 				</ul>
@@ -51,17 +51,9 @@
 		</nav>
 	</div>
 	<br>
-	 
 	<div class="row">
 		<nav aria-label="You are here:" role="navigation">
-			<ul class="breadcrumbs">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Features</a></li>
-				<li class="disabled">Gene Splicing</li>
-				<li>
-					<span class="show-for-sr">Current: </span> Cloning
-				</li>
-			</ul>
+			<%= breadcrumbs display_single_fragment: true, pretext: "You are here: ", style: :foundation5 %> 
 		</nav>
 	</div>
 </header>
