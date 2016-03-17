@@ -1,22 +1,25 @@
-<% provide(:title, "Appointment") %>
+<% provide(:title, raw("Doctor's Calendar")) %>
 <% content_for :main do%>
-	<% breadcrumb :doctors_calendar, @doctor %>
+	<% breadcrumb :doctor_calendar, @doctor %>
 	<h4><%= @doctor.dr_first_name_last_name %>'s Calendar</h4>
 	<%= month_calendar events: @appointments.where(cancelled: false) do |date, appointments| %>
 		<%= link_to date.strftime("%d"), "?start_date=#{date.strftime("%Y-%m-%d")}" %>
 		<% appointments.each do |appointment| %>
-			<%=link_to  doctor_appointment_path(@doctor.id, appointment.id)  do %>
-				<i class = "fi-calendar"></i>
+			<% unless !(privileged_user_is_logged_in) %>
+				<%=link_to  doctor_appointment_path(@doctor.id, appointment.id)  do %>
+					<i class = "fi-calendar"></i>
+				<%end%>
 			<%end%>
 		<%end%>
 	
 	<%end%>
-
-	<%= calendar number_of_days: 1, events: @appointments do |date, appointments| %>
-		<% appointments.each do |appointment| %>
-			<div class = <%= appointment.cancelled? ? "crossed_out" : "" %>>
-				<%= link_to (Patient.find(appointment.patient_id).full_name + " - " + appointment.description.to_s + appointment.start_time.strftime("%H:%M") + "-" + appointment.end_time.strftime("%H:%M")), doctor_appointment_path(appointment.doctor_id, appointment.id) %>
-			</div>
+	<% unless !(privileged_user_is_logged_in) %>
+		<%= calendar number_of_days: 1, events: @appointments do |date, appointments| %>
+			<% appointments.each do |appointment| %>
+				<div class = <%= appointment.cancelled? ? "crossed_out" : "" %>>
+					<%= link_to (Patient.find(appointment.patient_id).full_name + " - " + appointment.description.to_s + appointment.start_time.strftime("%H:%M") + "-" + appointment.end_time.strftime("%H:%M")), doctor_appointment_path(appointment.doctor_id, appointment.id) %>
+				</div>
+			<%end%>
 		<%end%>
 	<%end%>
 <%end%>

@@ -1,6 +1,7 @@
 class PatientsController < ApplicationController
 	load_and_authorize_resource
 	skip_authorize_resource :only => [:bulk_patient_approval, :bulk_patient_approved]
+	respond_to :html
 
 	def index
 		@patients = Patient.where(patient: true).order(:id)
@@ -62,6 +63,9 @@ class PatientsController < ApplicationController
 	def calendar
 		@patient = Patient.where(patient: true).find(params[:id])
 		@appointments = Appointment.where(patient_id: @patient.id)
+		respond_with do |format|
+			format.html { render 'calendar' }
+		end
 	end
 
 

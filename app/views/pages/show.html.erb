@@ -2,7 +2,7 @@
 <% content_for :main do%>
 	<% breadcrumb :page, @page %>
 	<h4><%= @page.title %></h4>
-	<p><%= @page.description %></p>
+	<p><%= @page.description.html_safe %></p>
 
 	<p>
 		<%= link_to "<< Back to Pages", pages_path %> 

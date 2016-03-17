@@ -1,5 +1,6 @@
 <% provide(:title, "Bulk Patient Approval") %> 
 <% content_for :main do%>
+	<% breadcrumb :bulk_patient_approval %>
 	<%= render "bulk_patient_approval" unless !(privileged_user_is_logged_in) %>
 
 <%end%>

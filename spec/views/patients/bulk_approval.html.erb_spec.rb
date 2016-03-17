@@ -90,6 +90,10 @@ RSpec.describe "patients/bulk_approval.html.erb", type: :view do
 			expect(response).to have_title("The Doctor's | Bulk Patient Approval")
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomePatientsBulk Patient Approval")
+		end
+		
 		it "must see Name" do
 			expect(rendered).to have_content(patient.full_name)
 		end

@@ -1,5 +1,6 @@
 class DoctorsController < ApplicationController
 	load_and_authorize_resource
+	respond_to :html
 
 	def index
 		@doctors = Doctor.all.where(doctor: true)

@@ -11,12 +11,18 @@ Rails.application.routes.draw do
 	resources :doctors do
 		resources :patients
 		resources :appointments
+		collection do 
+			get :calendar
+		end
 	end
 	resources :patients do
 		resources :appointments
+		collection do 
+			get :calendar
+		end
 	end
-	get "/patients/:id/calendar"	=> "patients#calendar"
-	get "/doctors/:id/calendar"	=> "doctors#calendar"
+	get    "patients/:id/calendar" 		=> "patients#calendar"
+	get    "doctors/:id/calendar" 		=> "doctors#calendar"
 	get    "search" 		=> "search#search"
 	get    "login"  		=> "user_sessions#new"
 	post   "login"  		=> "user_sessions#create"

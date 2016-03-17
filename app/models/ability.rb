@@ -4,10 +4,11 @@ class Ability
 		user ||= User.new # guest user (not logged in)
 		if user.admin?
 			can :manage, :all
+			can :calendar, Patient
 			can :manage, Testimonial
 			cannot :destroy, User, id: user.id
 		elsif user.doctor?
-			[:read, :update].each do |action|
+			[:read, :update, :calendar].each do |action|
 				can action, Doctor, id: user.id
 				can action, User, id: user.id
 			end
@@ -19,13 +20,13 @@ class Ability
 			cannot :create, Doctor
 			cannot :destroy, User
 		elsif user.receptionist?
-			[:read, :update].each do |action|
+			[:read, :update, :calendar].each do |action|
 				can action, User, id: user.id
 			end
 			[:create, :read, :update].each do |action|
 				can action, Appointment
 			end
-			[:bulk_patient_approval, :bulk_patient_approved].each do |action|
+			[:bulk_patient_approval, :bulk_patient_approved, :calendar].each do |action|
 				can action, Patient
 			end
 			can :manage, Patient
@@ -40,7 +41,7 @@ class Ability
 			cannot :index, Testimonial
 			cannot :destroy, User
 		elsif user.patient?
-			[:update, :read].each do |action|
+			[:update, :read, :calendar].each do |action|
 				can action, Patient, id: user.id
 				can action, User, id: user.id
 				can action, Appointment, patient_id: user.id
@@ -52,7 +53,7 @@ class Ability
 			can :read, Page
 			can :read, Doctor
 			can :read, Testimonial
-			[:create, :update, :destroy].each do |action|
+			[:create, :update, :destroy, :calendar].each do |action|
 				cannot action, Doctor
 			end
 			[:index, :destroy].each do |action|
@@ -76,7 +77,7 @@ class Ability
 			[:index, :read, :destroy].each do |action|
 				cannot action, Patient
 			end
-			[:create, :update, :destroy].each do |action|
+			[:create, :update, :destroy, :calendar].each do |action|
 				cannot action, Doctor
 			end
 			[:index, :update, :destroy].each do |action|

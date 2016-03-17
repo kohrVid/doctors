@@ -76,8 +76,8 @@ crumb :doctors do
 	link "Doctors", doctors_path
 end
 
-crumb :doctors_calendar do |doctor|
-	link "#{Doctor.find(doctor.id).dr_first_name_last_name}'s Calendar", "/doctors/#{doctor.id}/calendar" #path_for(controller: :doctors, action: :calendar, id: doctor.id)
+crumb :doctor_calendar do |doctor|
+	link "#{Doctor.find(doctor.id).dr_first_name_last_name}'s Calendar", "/doctors/#{doctor.id}/calendar"
 	parent :doctors, doctor
 end
 
@@ -95,8 +95,8 @@ crumb :new_doctor do |doctor|
 	link "New Doctor", new_doctor_path(doctor)
 	parent :doctors, doctor
 end
-
 #######
+
 ##Pages resources##
 crumb :page do |page|
 	link "#{page.title}", page
@@ -113,25 +113,92 @@ crumb :new_page do |page|
 	parent :root
 end
 #######
-=begin
+
+##Patients##
 crumb :patients do
 	link "Patients", patients_path
 end
 
-crumb :searh do
-	link "Search", search_path
+crumb :patient_calendar do |patient|
+	link "#{Patient.find(patient.id).first_name_last_name}'s Calendar", "/patients/#{patient.id}/calendar"
+	parent :patients, patient
 end
 
+crumb :patient do |patient|
+	link "#{patient.first_name_last_name}", patient_path(patient)
+	parent :patients, patient
+end
+
+crumb :edit_patient do |patient|
+	link "Edit Patient", edit_patient_path(patient)
+	parent :patient, patient
+end
+
+crumb :new_patient do |patient|
+	link "New Patient", new_patient_path(patient)
+	parent :patients, patient
+end
+
+crumb :bulk_patient_approval do
+	link "Bulk Patient Approval", bulk_patient_approval_path
+	parent :patients
+end
+#######
+
+##Testimonials##
 crumb :testimonials do
 	link "Testimonials", testimonials_path
 end
 
-crumb :user_sessions do
-	link "User Sessions", user_sessions_path
+crumb :testimonial do |testimonial|
+	link "#{testimonial.id}", testimonial_path(testimonial)
+	parent :testimonials, testimonial
 end
 
+crumb :edit_testimonial do |testimonial|
+	link "Edit Testimonial", edit_testimonial_path(testimonial)
+	parent :testimonial, testimonial
+end
+
+crumb :new_testimonial do |testimonial|
+	link "New Testimonial", new_testimonial_path(testimonial)
+	parent :testimonials, testimonial
+end
+#######
+
+##Users##
 crumb :users do
 	link "Users", users_path
+end
+
+crumb :user do |user|
+	link "#{user.first_name_last_name}", user_path(user)
+	parent :users, user
+end
+
+crumb :edit_user do |user|
+	link "Edit User", edit_user_path(user)
+	parent :user, user
+end
+
+crumb :new_user do |user|
+	link "New User", new_user_path(user)
+	parent :users, user
+end
+
+crumb :bulk_user_approval do
+	link "Bulk User Approval", bulk_user_approval_path
+	parent :users
+end
+#######
+
+=begin
+crumb :searh do
+	link "Search", search_path
+end
+
+crumb :user_sessions do
+	link "User Sessions", user_sessions_path
 end
 =end
 

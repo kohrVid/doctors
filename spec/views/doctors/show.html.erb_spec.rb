@@ -12,6 +12,10 @@ RSpec.describe "doctors/show.html.erb", type: :view do
 		it "must display the full title of page" do
 			expect(rendered).to have_title("The Doctor's | Dr Eric Hammer")
 		end
+		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeDoctorsDr Eric Hammer")
+		end
 
 		it "should show Doctor's name" do
 			expect(rendered).to have_content(doctor.dr_first_name_last_name)
