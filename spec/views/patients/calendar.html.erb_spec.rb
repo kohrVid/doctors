@@ -16,7 +16,6 @@ RSpec.describe "patients/calendar.html.erb", type: :view do
 			expect(response).to have_title("The Doctor's | Patient Calendar")
 		end
 		
-
 		it "must display the correct breadcrumb" do
 			expect(rendered).to have_content("You are here: HomePatientsJason Slater's Calendar")
 		end

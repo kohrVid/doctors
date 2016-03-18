@@ -1,5 +1,6 @@
 <% provide(:title, "New Testimonial") %> 
 <% content_for :main do%>
+	<% breadcrumb :new_testimonial, @testimonial %>
 	<h4>New Testimonial</h4>
 	<%= render "form" %>
 	<%= link_to "<< Back to Testimonials", testimonials_path %>

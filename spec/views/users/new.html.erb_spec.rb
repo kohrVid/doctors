@@ -72,6 +72,10 @@ RSpec.describe "users/new.html.erb", type: :view do
 			expect(rendered).to have_title("The Doctor's | New User")
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeUsersNew User")
+		end
+		
 		it "has a form posting to /users" do
 			expect(rendered).to have_selector("form")
 		end

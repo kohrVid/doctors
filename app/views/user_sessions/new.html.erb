@@ -1,6 +1,7 @@
 <% provide(:title, "Log In") %> 
 <% content_for :main do%>
-	<h4>Login</h4>
+	<% breadcrumb :log_in %>
+	<h4>Log In</h4>
 	<%= form_for(:user_session, url: login_path) do |f| %>
 		<p>
 			<%= f.label :username %><br />

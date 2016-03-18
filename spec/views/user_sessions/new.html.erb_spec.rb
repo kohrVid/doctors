@@ -12,6 +12,10 @@ RSpec.describe "user_sessions/new.html.erb", type: :view do
 		expect(rendered).to have_title("The Doctor's | Log In")
 	end
 	
+	it "must display the correct breadcrumb" do
+		expect(rendered).to have_content("You are here: HomeLog In")
+	end
+	
 	it "has a form posting to /user_sessions" do
 		expect(rendered).to have_selector("form")
 	end

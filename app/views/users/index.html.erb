@@ -1,5 +1,6 @@
 <% provide(:title, "Users") %> 
 <% content_for :main do%>
+	<% breadcrumb :users %>
 	<% unless !privileged_user_is_logged_in %>
 		<h4>Users</h4>
 		<%= link_to "Add New User", new_user_path, class: "right" unless !admin_is_logged_in %>

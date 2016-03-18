@@ -1,5 +1,6 @@
 <% provide(:title, "Show Testimonial") %> 
 <% content_for :main do%>
+	<% breadcrumb :testimonial, @testimonial %>
 	<h4><%= Testimonial %></h4>
 	<p>
 		<strong>Body:</strong> <%= @testimonial.body %>
@@ -17,7 +18,8 @@
 
 	<p>
 		<%= link_to "<< Back to Testimonials", testimonials_path %> | 
-		<%= link_to "Edit", edit_testimonial_path(@testimonial) %>
+		<%= link_to "Edit", edit_testimonial_path(@testimonial) %> | 
+		<%= link_to "Destroy", @testimonial, method: :delete, data: { confirm: "Are you sure? Deleted testimonials cannot be recovered." } %>
 	</p>
 
 <%end%>

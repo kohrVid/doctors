@@ -1,5 +1,6 @@
 <% provide(:title, "Edit Testimonial") %>
 <% content_for :main do%>
+	<% breadcrumb :edit_testimonial, @testimonial %>
 	<h4>New Testimonial</h4>
 	<%= render "form" %>
 	<p>

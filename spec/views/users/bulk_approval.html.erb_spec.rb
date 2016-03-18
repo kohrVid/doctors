@@ -79,6 +79,10 @@ RSpec.describe "users/bulk_approval.html.erb", type: :view do
 			expect(response).to have_title("The Doctor's | Bulk User Approval")
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeUsersBulk User Approval")
+		end
+		
 		it "must see Name" do
 			expect(rendered).to have_content(user.full_name)
 		end

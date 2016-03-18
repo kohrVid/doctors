@@ -1,5 +1,6 @@
 <% provide(:title, @user.first_name_last_name) %> 
 <% content_for :main do%>
+	<% breadcrumb :user, @user %>
 	<h4><%= @user.title %> <%= @user.first_name_last_name %></h4>
 	<p>
 		<strong>Title:</strong> <%= @user.title %>

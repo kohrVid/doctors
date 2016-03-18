@@ -15,6 +15,10 @@ RSpec.describe "testimonials/index.html.erb", type: :view do
 			expect(rendered).to have_title("The Doctor's | Testimonials")
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeTestimonials")
+		end
+	
 		it "has a Date" do
 			expect(rendered).to have_content(testimonial.date.strftime("%v"))
 		end

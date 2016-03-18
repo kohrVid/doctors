@@ -11,6 +11,10 @@ RSpec.describe "testimonials/new.html.erb", type: :view do
 		expect(rendered).to have_title("The Doctor's | New Testimonial")
 	end
 	
+	it "must display the correct breadcrumb" do
+		expect(rendered).to have_content("You are here: HomeTestimonialsNew Testimonial")
+	end
+	
 	it "has a form posting to /testimonials" do
 		expect(rendered).to have_selector("form")
 	end

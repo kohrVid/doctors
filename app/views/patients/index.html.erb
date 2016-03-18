@@ -1,5 +1,6 @@
 <% provide(:title, "Patients") %> 
 <% content_for :main do%>
+	<% breadcrumb :patients %>
 	<% unless !(@current_user.present? || privileged_user_is_logged) %>
 		<h4>Patients</h4>
 		<%= link_to "Add New Patient", new_patient_path, class: "right" %>

@@ -135,7 +135,7 @@ crumb :edit_patient do |patient|
 end
 
 crumb :new_patient do |patient|
-	link "New Patient", new_patient_path(patient)
+	link "Register", new_patient_path(patient)
 	parent :patients, patient
 end
 
@@ -192,33 +192,10 @@ crumb :bulk_user_approval do
 end
 #######
 
-=begin
-crumb :searh do
-	link "Search", search_path
+crumb :search do
+	link "Search Results", search_path
 end
 
-crumb :user_sessions do
-	link "User Sessions", user_sessions_path
+crumb :log_in do
+	link "Log In", user_sessions_path
 end
-=end
-
-# crumb :project do |project|
-#   link project.name, project_path(project)
-#   parent :projects
-# end
-
-# crumb :project_issues do |project|
-#   link "Issues", project_issues_path(project)
-#   parent :project, project
-# end
-
-# crumb :issue do |issue|
-#   link issue.title, issue_path(issue)
-#   parent :project_issues, issue.project
-# end
-
-# If you want to split your breadcrumbs configuration over multiple files, you
-# can create a folder named `config/breadcrumbs` and put your configuration
-# files there. All *.rb files (e.g. `frontend.rb` or `products.rb`) in that
-# folder are loaded and reloaded automatically when you change them, just like
-# this file (`config/breadcrumbs.rb`).

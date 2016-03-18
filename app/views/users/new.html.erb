@@ -1,5 +1,6 @@
 <% provide(:title, "New User") %> 
 <% content_for :main do%>
+	<% breadcrumb :new_user, @user %>
 	<h4>Register</h4>
 	<%= render "form" %>
 	<p>

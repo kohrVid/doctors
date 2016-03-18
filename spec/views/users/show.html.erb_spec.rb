@@ -16,6 +16,10 @@ RSpec.describe "users/show.html.erb", type: :view do
 			expect(rendered).to have_title("The Doctor's | Tobey Torres")
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeUsersTobey Torres")
+		end
+		
 		it "shows Title" do
 			expect(rendered).to have_content(user.title)
 		end

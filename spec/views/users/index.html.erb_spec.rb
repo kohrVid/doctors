@@ -96,6 +96,10 @@ RSpec.describe "users/index.html.erb", type: :view do
 			expect(rendered).to have_title("The Doctor's | Users")
 		end
 		
+		it "must display the correct breadcrumb" do
+			expect(rendered).to have_content("You are here: HomeUsers")
+		end
+		
 		it "has a Name" do
 			expect(rendered).to have_content(user.full_name)
 		end

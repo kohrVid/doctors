@@ -1,5 +1,6 @@
 <% provide(:title, @patient.full_name) %> 
 <% content_for :main do%>
+	<% breadcrumb :patient, @patient %>
 	<h4><%= @patient.title %> <%= @patient.first_name_last_name %></h4>
 	<p>
 		<strong>Title:</strong> <%= @patient.title %>
