@@ -14,7 +14,7 @@
 				<input id="lock_all" type="checkbox" class = "hide">
 			</th>
 		</tr>
-		<% Patient.where(patient: true, approved: false).order(:id).each do |patient| %>
+		<% Patient.where(["patient = true AND (approved = false OR locked = true)"]).order(:id).each do |patient| %>
 			<tr>
 				<td><%= patient.id %></td>
 				<td><%= link_to patient.full_name, patient_path(patient) %></td>

@@ -10,10 +10,10 @@ class Doctor < User
 	end
 
 	def dr_full_name
-		self.title + " " + self.full_name
+		title + " " + full_name
 	end
 
 	def dr_first_name_last_name
-		self.title + " " + self.first_name_last_name
+		title + " " + first_name_last_name
 	end
 end

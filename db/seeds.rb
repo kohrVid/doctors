@@ -10,7 +10,7 @@ if ENV["deseed"]
 	["jpublick", "drhammer", "ghenchman", "jslater", "drgirlfriend"].each do |login|
 		User.where(username: login).destroy_all
 	end
-	Page.where(slug: FactoryGirl.build(:page).attributes["slug"]).destroy_all
+	Page.where(slug: "medical-info").destroy_all
 	Testimonial.where(body: FactoryGirl.build(:testimonial).attributes["body"]).destroy_all
 	Testimonial.where(body: "Dr. girlfriend diagnosed my son's hydrocephalus early on and was able to treat it right away.", author: "Rose Whalen").destroy_all
 else

@@ -25,32 +25,17 @@ class User < ActiveRecord::Base
 	validates :password, length: { minimum: 6 }, on: :create
 	validates :phone, presence: true
 	validates :address, presence: true
-
-	def active?
-		if self.locked == false
-			return true
-		else
-			return false
-		end
-	end
 	
-	def approved?
-		if self.approved == true
-			return true
-		else
-			return false
-		end
-	end
-
 	def full_name
-		self.first_name + " " + (self.middle_name.present? ? self.middle_name + " " : "") + self.last_name
+		first_name + " " + (middle_name.present? ? middle_name + " " : "") + last_name
 	end
 
 	def first_name_last_name
-		self.first_name + " " + self.last_name
+		first_name + " " + last_name
 	end
 
 	private
+		##Removing "self" from the following break the test
 		def downcase_username
 			self.username = self.username.downcase if self.username.present?
 		end

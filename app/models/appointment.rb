@@ -24,19 +24,9 @@ class Appointment < ActiveRecord::Base
 	}
 
 
-	def cancelled?
-		if self.cancelled == true
-			return true
-		else
-			return false
-		end
-	end
-
 	def today?
-		if self.start_time > DateTime.now.beginning_of_day && self.start_time < DateTime.now.end_of_day
+		if start_time > DateTime.now.beginning_of_day && start_time < DateTime.now.end_of_day
 			return true
-		else
-			return false
 		end
 	end
 			
@@ -45,7 +35,7 @@ class Appointment < ActiveRecord::Base
 	private
 
 		def active?
-			if self.cancelled == true
+			if cancelled == true
 				return false
 			else
 				return true

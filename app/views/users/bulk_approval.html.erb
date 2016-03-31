@@ -19,7 +19,7 @@
 						<input id="lock_all" type="checkbox" class = "hide">
 					</th>
 				</tr>
-				<% User.where(approved: false).order(:id).each do |user| %>
+				<% User.where(["approved = false OR locked = true"]).order(:id).each do |user| %>
 					<tr>
 						<td><%= user.id %></td>
 						<td><%= link_to user.full_name, user_path(user) %></td>

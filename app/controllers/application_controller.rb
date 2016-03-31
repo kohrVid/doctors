@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 	include CanCan::ControllerAdditions
 	include PagesHelper
 	helper_method :current_user_session, :current_user, :logged_in?
-	# self.responder = ApplicationResponder
 	
 	
 	private
