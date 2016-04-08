@@ -3,25 +3,13 @@
 			<div data-alert class="alert-box radius <%= (key.to_s == "notice") || (key.to_s == "success") ? "success" : "alert" %> white-font">
 				<h4><%= value %></h4>
 				<a href = "#" class = "close">&times;</a>
-				<% if @user.present? %>
-					<% object = @user %>
-				<% elsif @patient.present? %>
-					<% object = @patient %>
-				<% elsif @doctor.present? %>
-					<% object = @doctor %>
-				<% elsif @user_session.present? %>
-					<% object = @user_session %>
-				<% elsif @page.present? %>
-					<% object = @page %>
-				<% elsif @contact.present? %>
-					<% object = @contact %>
-				<% elsif @appointment.present? %>
-					<% object = @appointment %>
+				<% [@user, @patient, @doctor, @user_session, @page, @contact, @appointment, @testimonial, @appointment, @address].each do |model| %>
+					<% @object = model unless !model.present? %>
 				<%end%>
-			       <% if object.present? && object.errors.any? %>
-					<h5>The form contains <%= pluralize(object.errors.count, "error")%>.</h5>
+			       <% if @object.present? && @object.errors.any? %>
+					<h5>The form contains <%= pluralize(@object.errors.count, "error")%>.</h5>
 					<ul>
-						<% object.errors.full_messages.each do |msg|%>
+						<% @object.errors.full_messages.each do |msg|%>
 							<li><%=msg%></li>
 						<%end%>
 					</ul>

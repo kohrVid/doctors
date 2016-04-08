@@ -15,10 +15,10 @@ class PagesController < ApplicationController
 	def create
 		@page = Page.new(page_params)
 		if @page.save
-		#	@page.send_activation_email
-		#	flash[:notice] = "Please check your email to activate your account"
+			flash[:notice] = "The page has been successfully created."
 			redirect_to root_url 
 		else
+			flach[:error] = "An error has preveneted this page from being created."
 			render :new
 		end
 		authorize! :create, @page

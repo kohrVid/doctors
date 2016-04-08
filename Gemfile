@@ -24,7 +24,7 @@ gem "mail_form", "~> 1.5.1"
 gem "simple_calendar", "~> 2.0"
 gem 'responders', '~> 2.0'
 gem "owlcarousel-rails"
-gem "wysihtml-rails", :git => "https://github.com/Voog/wysihtml-rails.git"
+gem "wysihtml-rails"#, git: "git://github.com/Voog/wysihtml-rails.git"
 gem "elasticsearch-model", git: "git://github.com/elasticsearch/elasticsearch-rails.git"
 gem "elasticsearch-rails", git: "git://github.com/elasticsearch/elasticsearch-rails.git"
 gem "railties"
