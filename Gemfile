@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-
-gem "rails", "4.2.5.rc2"
-gem "pg"
+ruby '>= 2.4.0'
+gem "rails", "4.2.7"
+gem 'pg', '~> 0.18'
 gem "sass-rails", "~> 5.0"
 gem "uglifier", ">= 1.3.0"
 gem "coffee-rails", "~> 4.1.0"
@@ -25,8 +25,9 @@ gem "simple_calendar", "~> 2.0"
 gem 'responders', '~> 2.0'
 gem "owlcarousel-rails"
 gem "wysihtml-rails"#, git: "git://github.com/Voog/wysihtml-rails.git"
-gem "elasticsearch-model", git: "git://github.com/elasticsearch/elasticsearch-rails.git"
-gem "elasticsearch-rails", git: "git://github.com/elasticsearch/elasticsearch-rails.git"
+gem 'elasticsearch-model', '0.1.9'
+gem 'elasticsearch-rails', '0.1.9'
+gem 'elasticsearch', '2.0'
 gem "railties"
 gem "carrierwave", "0.10.0"
 gem "remotipart"
@@ -40,7 +41,7 @@ gem "humanize_boolean"
 gem "gretel"
 
 gem "rack-attack", "~> 4.3"
-gem "rubocop", "~> 0.35.1" #run "rubocop --rails" to use
+gem "rubocop", ">= 0.49.0" #run "rubocop --rails" to use
 gem "brakeman", "~> 3.1", ">= 3.1.2" #run "brakeman" to use
 gem "secure_headers", "2.4.4"#, ">= 2.4.3"
 #gem "dawnscanner"#, ">= 1.4.2" #Have had to remove due to compatibility issues in Heroku
