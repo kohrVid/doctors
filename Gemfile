@@ -52,7 +52,7 @@ gem "factory_girl_rails", "~> 4.5.0"
 group :development, :test do
   gem "byebug"
   gem "rspec-html-matchers", "0.7.0"
-  gem "nokogiri", "~> 1.6.6.4"
+  gem "nokogiri", "~> 1.10.8"
   gem "simplecov", :require => false, :group => :test
 
   gem "capybara"
