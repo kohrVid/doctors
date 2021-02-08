@@ -29,7 +29,7 @@ gem 'elasticsearch-model', '0.1.9'
 gem 'elasticsearch-rails', '0.1.9'
 gem 'elasticsearch', '2.0'
 gem "railties"
-gem "carrierwave", "0.10.0"
+gem "carrierwave", "1.3.2"
 gem "remotipart"
 gem "mini_magick", ">= 4.9.4"
 gem "fog", "~> 1.34.0"
